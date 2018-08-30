@@ -1,6 +1,6 @@
 $("#start_button").click(function(e) {
     e.preventDefault();
-    window.location='..'+_ctx+'start_process';
+    window.location='../start_process';
 /*    $.ajax({
         type: "GET",
         url: "/start_process",
