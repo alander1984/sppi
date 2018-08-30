@@ -12,3 +12,20 @@ $(document).ready(function () {
         }
     });
 })
+
+$(".answerBtn").on("click",function() {
+    console.log($(this).data("tag"));
+    $.ajax({
+        type: "POST",
+        url: '../getnext/'+questionid,
+        contentType: "application/json; charset=utf-8",
+        data: $(this).data("tag"),
+        success: function (response) {
+            window.location = "../showquestion/"+response.id;
+            //$("#question").text(response.content);
+        },
+        error: function (error) {
+            showAlert("Не найдено продолжение опроса...")
+        }
+    });
+})
