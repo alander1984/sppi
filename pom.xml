@@ -6,7 +6,7 @@
 	<groupId>com.egartech</groupId>
 	<artifactId>sppi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 
 	<name>sppi</name>
 	<description>SPPI drools test</description>
