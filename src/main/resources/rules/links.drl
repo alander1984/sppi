@@ -1,0 +1,7 @@
+package com.egartech
+ 
+rule "Hello World"
+end
+
+rule "GoodBye"
+end
