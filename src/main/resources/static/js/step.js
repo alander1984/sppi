@@ -1,10 +1,11 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: '..' + _ctx + '/task/' + id +'/run',
+        url: '../question/'+questionid,
         contentType: "application/json; charset=utf-8",
         success: function (response) {
-            showAlert("Задача запущена")
+            showAlert("Задача запущена");
+            $("#question").text(response.content);
         },
         error: function (error) {
             showAlert("Задача не запущена: " + error)

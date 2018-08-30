@@ -22,6 +22,7 @@ public class StepController {
     public ModelAndView showStep(@PathVariable(value="id") Long id) {
         ModelAndView modelAndView = new ModelAndView("step");
         modelAndView.setStatus(HttpStatus.OK);
+        modelAndView.addObject("questionid", id);
         return modelAndView;
     }
     
