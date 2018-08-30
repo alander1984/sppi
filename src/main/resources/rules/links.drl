@@ -1,7 +1,8 @@
-package com.egartech
+package com.egartech.rules
  
-rule "Hello World"
+rule "yes_for_first_question"
 end
 
-rule "GoodBye"
+rule "no_for_first_question"
 end
+
