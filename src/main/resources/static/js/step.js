@@ -10,4 +10,4 @@ $(document).ready(function () {
             showAlert("Задача не запущена: " + error)
         }
     });
-}
+})
