@@ -1,9 +1,11 @@
 package com.egartech.sppi.web;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -15,6 +17,14 @@ public class StepController {
         ModelAndView model = new ModelAndView("step");
         model.addObject("questionid",id);
         return model;
+    }       
+
+        
+    @RequestMapping(value="step_page", method=RequestMethod.GET)
+    public ModelAndView getStepPage() {
+        ModelAndView modelAndView = new ModelAndView("step");
+        modelAndView.setStatus(HttpStatus.OK);
+        return modelAndView;
     }
     
 }
