@@ -1,4 +1,4 @@
-package com.egartech.sppi.com.egartech.sppi.web;
+package com.egartech.sppi.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
