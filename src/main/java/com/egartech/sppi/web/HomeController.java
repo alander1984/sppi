@@ -1,5 +1,6 @@
 package com.egartech.sppi.web;
 
+import com.egartech.sppi.model.Process;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,8 +17,10 @@ public class HomeController {
     }
 
     @RequestMapping(value="/start_process", method = RequestMethod.GET)
-    public HttpStatus startProcess() {
+    public ModelAndView /*String*/ startProcess() {
+        Process process = new Process();
 
-        return HttpStatus.OK;
+        ModelAndView modelAndView =  new ModelAndView("redirect:/step_page");
+        return modelAndView;
     }
 }

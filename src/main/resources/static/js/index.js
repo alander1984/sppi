@@ -1,4 +1,3 @@
-alert("FFFFFFFFFFFFFFFFFFFFFf");
 $("#start_button").click(function(e) {
     e.preventDefault();
     $.ajax({

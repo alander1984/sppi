@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet id="003" author="afedorenko">
+        <insert tableName="question">
+            <column name="id" valueSequenceNext="question_sequence"/>
+            <column name="code" value="FIRST"/>
+            <column name="content" value="Хотите взять кредит на 5 лет?"/>
+        </insert>
+        <insert tableName="question">
+            <column name="id" valueSequenceNext="question_sequence"/>
+            <column name="code" value="SECOND"/>
+            <column name="content" value="С процентной ставкой 10%?"/>
+        </insert>
+        <insert tableName="question">
+            <column name="id" valueSequenceNext="question_sequence"/>
+            <column name="code" value="THIRD"/>
+            <column name="content" value="Выберите размер кредита"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
