@@ -2,24 +2,20 @@ package com.egartech.sppi.web;
 
 import com.egartech.sppi.configuration.StepUtils;
 import com.egartech.sppi.model.Process;
-
+import com.egartech.sppi.model.Question;
+import com.egartech.sppi.repo.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.stereotype.Controller;
-import static com.egartech.sppi.specification.QuestionSpecification.byCode;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Map;
-import java.util.Optional;
-import com.egartech.sppi.model.*;
-import com.egartech.sppi.repo.QuestionRepository;
 
 @Controller
 public class HomeController {
