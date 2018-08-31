@@ -21,6 +21,7 @@ $(".answerBtn").on("click",function() {
         contentType: "application/json; charset=utf-8",
         data: $(this).data("tag"),
         success: function (response) {
+            console.log(response);
             window.location = "../showquestion/"+response.id;
             //$("#question").text(response.content);
         },

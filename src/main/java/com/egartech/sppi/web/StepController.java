@@ -42,7 +42,9 @@ public class StepController {
     @RequestMapping(value="getnext/{id}", method=RequestMethod.POST)
     public ResponseEntity<Question> getNextQuestion(@PathVariable(value="id") Long id,@RequestBody String answer) {
          Question result;
+         System.out.println("%%%%%%%%%"+id);
          Question q1 = stepUtils.getNextQuestion(questionRepository.findById(id).get(),answer);
+         System.out.println("code="+q1.getCode());
          return new ResponseEntity<Question>(questionRepository.findOne(byCode(q1.getCode())).get() ,HttpStatus.OK);
     }
     
