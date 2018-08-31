@@ -1,8 +1,17 @@
-package com.egartech.rules
- 
-rule "yes_for_first_question"
+import com.egartech.sppi.model.Step;
+
+rule "Yes to first question"
+    when
+        step:Step(current.code=="FIRST"&&answer=="yes");
+    then
+        step.setNextQ("SECOND");
+        update(step);
 end
 
-rule "no_for_first_question"
+rule "No to first question"
+    when
+        step:Step(current.code=="FIRST"&&answer=="no");
+    then
+        step.setNextQ("THIRD");
+        update(step);
 end
-
