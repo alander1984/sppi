@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * Created by alander on 31.08.18.
  */
 @Configuration
-@ComponentScan("com.egartech.sppi.utils")
+@ComponentScan("com.egartech.sppi.configuration")
 public class StepRuleConfiguration {
     private static final String drlFile = "rules/links.drl";
 

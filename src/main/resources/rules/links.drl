@@ -1,10 +1,8 @@
-package com.egartech.rules
-
 import com.egartech.sppi.model.Step;
 
 rule "Hello World"
     when
-        s:Step(answer=="yes")
+        step:Step(current.code=="FIRST"&&answer=="yes");
     then
         System.out.println( "OHHHH" );
 end

@@ -5,6 +5,7 @@ public class Step {
     private Question current;
     private Question next=null;
     private String answer;
+    private int i;
 
     public Step(Question current, String answer){
         this.current = current;
@@ -35,4 +36,11 @@ public class Step {
         this.answer = answer;
     }
 
+    public int getI() {
+        return i;
+    }
+
+    public void setI(int i) {
+        this.i = i;
+    }
 }

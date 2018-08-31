@@ -1,4 +1,4 @@
-package com.egartech.sppi.utils;
+package com.egartech.sppi.configuration;
 
 import com.egartech.sppi.model.*;
 import org.kie.api.runtime.KieContainer;
@@ -14,10 +14,10 @@ public class StepUtils {
 
     public Question getNextQuestion(Question q, String answer) {
         Step step = new Step(q,answer);
-        System.out.println("#########################");
         KieSession kieSession = kieContainer.newKieSession();
         kieSession.insert(step);
-        kieSession.fireAllRules();
+        int rulesFired = kieSession.fireAllRules();
+        System.out.println("###"+step.getAnswer()+"######################"+rulesFired);
         return null;
     }
 }
