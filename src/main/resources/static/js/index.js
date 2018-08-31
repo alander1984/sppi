@@ -1,14 +1,18 @@
-$("#start_button").click(function(e) {
+$("#start_button").click(function (e) {
     e.preventDefault();
-    window.location='../start_process';
-/*    $.ajax({
-        type: "GET",
+    var quizType = {
+        code: $("#quiz-type option:selected").val()
+    };
+    $.ajax({
+        type: "POST",
         url: "/start_process",
-        success: function(result) {
-            alert('ok');
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(quizType),
+        success: function (response) {
+            window.location = "../showquestion/" + response.id;
         },
-        error: function(result) {
-            alert('error');
+        error: function (error) {
+            alert("Не найден первый вопрос...")
         }
-    });*/
+    });
 });

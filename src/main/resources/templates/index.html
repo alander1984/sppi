@@ -8,6 +8,15 @@
     <script th:src="@{/js/common.js}"></script>
 
 <h1>Стартовая страница</h1>
+    <div class="row">
+    <h2>Выберите тип опроса:</h2>
+        <select id="quiz-type">
+            <option value="first">Кредит</option>
+            <option value="second">Лизинг</option>
+            <option value="third">Торговая сделка</option>
+            <option value="work">Аудит</option>
+        </select>
+    </div>
 
 <h3>Запуск теста</h3>
 <button id="start_button">Старт</button>
