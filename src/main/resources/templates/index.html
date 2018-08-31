@@ -4,22 +4,18 @@
     <title>SPPI-test</title>
 </head>
 <body>
-    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
-    <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/common.js}"></script>
 
-<h1>Стартовая страница</h1>
-    <div class="row">
-    <h2>Выберите тип опроса:</h2>
-        <select id="quiz-type">
-            <option value="first">Кредит</option>
-            <option value="second">Лизинг</option>
-            <option value="third">Торговая сделка</option>
-            <option value="work">Аудит</option>
-        </select>
-    </div>
+<h2>Выберите продукт:</h2>
+<select id="product_type">
+    <option value="consumer_credit">Потребительский кредит</option>
+    <option value="target_contribution">Целевой вклад</option>
+    <option value="deposit">Депозит</option>
+</select>
 
 <h3>Запуск теста</h3>
 <button id="start_button">Старт</button>
-    <script th:src="@{/js/index.js}"></script>
+<script th:src="@{/js/index.js}"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.egartech.sppi.web;
 
+import com.egartech.sppi.configuration.StepUtils;
 import com.egartech.sppi.model.Process;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class HomeController {
     
     @Autowired
     QuestionRepository questionRepository;
+
+    @Autowired
+    StepUtils stepUtils;
     
     @RequestMapping(value="/", method = RequestMethod.GET)
     public ModelAndView getHomeView() {
@@ -33,9 +37,10 @@ public class HomeController {
     }
 
     @PostMapping(value="/start_process", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<Question> startProcess(@RequestBody Map<String, String> quizType) {
+    public ResponseEntity<Question> startProcess(@RequestBody Map<String, String> product) {
         Process process = new Process();
-        Optional<Question> q = questionRepository.findOne(byCode(quizType.get("code").toUpperCase()));
-        return new ResponseEntity<>(q.get(), HttpStatus.OK);
+
+        Question q1 = stepUtils.getFirstQuestion(product.get("productCode"));
+        return new ResponseEntity<>(q1, HttpStatus.OK);
     }
 }

@@ -6,6 +6,6 @@ import com.egartech.sppi.model.Question_;
 
 public class QuestionSpecification {
     public static Specification<Question> byCode(String query) {
-        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get(Question_.code), "%" + query + "%");
+        return (root, criteriaQuery, criteriaBuilder) -> criteriaBuilder.like(root.get(Question_.code), query);
     }
 }

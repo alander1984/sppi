@@ -1,17 +1,110 @@
 import com.egartech.sppi.model.Step;
+import com.egartech.sppi.model.Product;
 
-rule "Yes to first question"
+rule "define first question of consumer credit test"
     when
-        step:Step(current.code=="FIRST"&&answer=="yes");
+        product:Product(productCode=="consumer_credit");
     then
-        step.setNextQ("SECOND");
+        product.setFirstQuestionCode("CONS_CRED");
+        update(product);
+end
+
+rule "Yes to first question of consumer credit test"
+    when
+        step:Step(current.code=="CONS_CRED"&&answer=="yes");
+    then
+        step.setNextQ("CONS_CRED_CCY");
         update(step);
 end
 
-rule "No to first question"
+rule "No to first question of consumer credit test"
     when
-        step:Step(current.code=="FIRST"&&answer=="no");
+        step:Step(current.code=="CONS_CRED"&&answer=="no");
     then
-        step.setNextQ("THIRD");
+        step.setNextQ(null);
+        update(step);
+end
+
+rule "Yes to second question of consumer credit test"
+    when
+        step:Step(current.code=="CONS_CRED_CCY"&&answer=="yes");
+    then
+        step.setNextQ("CONS_CRED_AMOUNT");
+        update(step);
+end
+
+rule "No to second question of consumer credit test"
+    when
+        step:Step(current.code=="CONS_CRED_CCY"&&answer=="no");
+    then
+        step.setNextQ(null);
+        update(step);
+end
+
+
+
+rule "define first question of target contribution test"
+    when
+        product:Product(productCode=="target_contribution");
+    then
+        product.setFirstQuestionCode("TARG_CONTR");
+        update(product);
+end
+
+rule "Yes to first question of target contribution test"
+    when
+        step:Step(current.code=="TARG_CONTR"&&answer=="yes");
+    then
+        step.setNextQ("TARG_CONTR_CCY");
+        update(step);
+end
+
+rule "No to first question of target contribution test"
+    when
+        step:Step(current.code=="TARG_CONTR"&&answer=="no");
+    then
+        step.setNextQ(null);
+        update(step);
+end
+
+rule "Yes to second question of target contribution test"
+    when
+        step:Step(current.code=="TARG_CONTR_CCY"&&answer=="yes");
+    then
+        step.setNextQ("TARG_CONTR_INS");
+        update(step);
+end
+
+rule "No to second question of target contribution test"
+    when
+        step:Step(current.code=="TARG_CONTR_CCY"&&answer=="no");
+    then
+        step.setNextQ(null);
+        update(step);
+end
+
+
+
+rule "define first question of deposit test"
+    when
+        product:Product(productCode=="deposit");
+    then
+        product.setFirstQuestionCode("DEPO");
+        update(product);
+end
+
+rule "Yes to first question of deposit test"
+    when
+        step:Step(current.code=="DEPO"&&answer=="yes");
+    then
+        step.setNextQ("DEPO_CCY");
+        update(step);
+end
+
+rule "No to first question of deposit test"
+    when
+        step:Step(current.code=="DEPO"&&answer=="no");
+    then
+        step.setNextQ(null);
         update(step);
 end
