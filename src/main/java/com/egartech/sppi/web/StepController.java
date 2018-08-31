@@ -1,5 +1,6 @@
 package com.egartech.sppi.web;
 
+import com.egartech.sppi.utils.StepUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,9 @@ public class StepController {
     
     @Autowired
     QuestionRepository questionRepository;
+
+    @Autowired
+    StepUtils stepUtils;
     
     @RequestMapping(value="process/{id}", method=RequestMethod.GET)
     public ModelAndView getStepPage(@PathVariable(value="id") Long id) {
@@ -39,6 +43,7 @@ public class StepController {
     @RequestMapping(value="getnext/{id}", method=RequestMethod.POST)
     public ResponseEntity<Question> getNextQuestion(@RequestBody String answer) {
          Question result;
+         Question q1 = stepUtils.getNextQuestion(questionRepository.findOne(byCode("FIRST")).get(),"yes");
          if (answer.equalsIgnoreCase("yes")) {
              result = questionRepository.findOne(byCode("SECOND")).get(); 
          }

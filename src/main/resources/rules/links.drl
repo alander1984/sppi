@@ -1,8 +1,10 @@
 package com.egartech.rules
- 
-rule "yes_for_first_question"
-end
 
-rule "no_for_first_question"
-end
+import com.egartech.sppi.model.Step;
 
+rule "Hello World"
+    when
+        s:Step(answer=="yes")
+    then
+        System.out.println( "OHHHH" );
+end
