@@ -1,8 +1,17 @@
 import com.egartech.sppi.model.Step;
 
-rule "Hello World"
+rule "Yes to first question"
     when
         step:Step(current.code=="FIRST"&&answer=="yes");
     then
-        System.out.println( "OHHHH" );
+        step.setNextQ("SECOND");
+        update(step);
+end
+
+rule "No to first question"
+    when
+        step:Step(current.code=="FIRST"&&answer=="no");
+    then
+        step.setNextQ("THIRD");
+        update(step);
 end

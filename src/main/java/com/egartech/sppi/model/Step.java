@@ -5,7 +5,6 @@ public class Step {
     private Question current;
     private Question next=null;
     private String answer;
-    private int i;
 
     public Step(Question current, String answer){
         this.current = current;
@@ -28,19 +27,16 @@ public class Step {
         this.next = next;
     }
 
+    public void setNextQ(String qCode) {
+        this.next = new Question();
+        this.next.setCode(qCode);
+    }
+
     public String getAnswer() {
         return answer;
     }
 
     public void setAnswer(String answer) {
         this.answer = answer;
-    }
-
-    public int getI() {
-        return i;
-    }
-
-    public void setI(int i) {
-        this.i = i;
     }
 }

@@ -40,16 +40,10 @@ public class StepController {
     }
     
     @RequestMapping(value="getnext/{id}", method=RequestMethod.POST)
-    public ResponseEntity<Question> getNextQuestion(@RequestBody String answer) {
+    public ResponseEntity<Question> getNextQuestion(@PathVariable(value="id") Long id,@RequestBody String answer) {
          Question result;
-         Question q1 = stepUtils.getNextQuestion(questionRepository.findOne(byCode("FIRST")).get(),"no");
-         if (answer.equalsIgnoreCase("yes")) {
-             result = questionRepository.findOne(byCode("SECOND")).get(); 
-         }
-         else {
-             result = questionRepository.findOne(byCode("THIRD")).get(); 
-         }
-         return new ResponseEntity<Question>(result,HttpStatus.OK);
+         Question q1 = stepUtils.getNextQuestion(questionRepository.findById(id).get(),answer);
+         return new ResponseEntity<Question>(questionRepository.findOne(byCode(q1.getCode())).get() ,HttpStatus.OK);
     }
     
     

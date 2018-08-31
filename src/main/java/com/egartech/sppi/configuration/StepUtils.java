@@ -16,8 +16,6 @@ public class StepUtils {
         Step step = new Step(q,answer);
         KieSession kieSession = kieContainer.newKieSession();
         kieSession.insert(step);
-        int rulesFired = kieSession.fireAllRules();
-        System.out.println("###"+step.getAnswer()+"######################"+rulesFired);
-        return null;
+        return step.getNext();
     }
 }
