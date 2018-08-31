@@ -11,7 +11,7 @@ $(document).ready(function () {
             showAlert("Задача не запущена: " + error)
         }
     });
-})
+});
 
 $(".answerBtn").on("click",function() {
     console.log($(this).data("tag"));
@@ -23,10 +23,9 @@ $(".answerBtn").on("click",function() {
         success: function (response) {
             console.log(response);
             window.location = "../showquestion/"+response.id;
-            //$("#question").text(response.content);
         },
         error: function (error) {
             showAlert("Не найдено продолжение опроса...")
         }
     });
-})
+});

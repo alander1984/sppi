@@ -12,7 +12,7 @@ $("#start_button").click(function (e) {
             window.location = "../showquestion/" + response.id;
         },
         error: function (error) {
-            alert("Не найден первый вопрос...")
+            alert("Не найден первый вопрос!")
         }
     });
 });
