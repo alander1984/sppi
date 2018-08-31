@@ -13,7 +13,7 @@ rule "Yes to first question of consumer credit test"
     when
         step:Step(current.code=="CONS_CRED"&&answer=="yes");
     then
-        step.setNextQ("CONS_CRED_CCY");
+        step.setNextQ("CONS_CRED_CCY_RUB");
         update(step);
 end
 
@@ -27,7 +27,7 @@ end
 
 rule "Yes to second question of consumer credit test"
     when
-        step:Step(current.code=="CONS_CRED_CCY"&&answer=="yes");
+        step:Step(current.code=="CONS_CRED_CCY_RUB"&&answer=="yes");
     then
         step.setNextQ("CONS_CRED_AMOUNT");
         update(step);
@@ -35,7 +35,39 @@ end
 
 rule "No to second question of consumer credit test"
     when
-        step:Step(current.code=="CONS_CRED_CCY"&&answer=="no");
+        step:Step(current.code=="CONS_CRED_CCY_RUB"&&answer=="no");
+    then
+        step.setNextQ("CONS_CRED_CCY_USD");
+        update(step);
+end
+
+rule "Yes to third question of consumer credit test"
+    when
+        step:Step(current.code=="CONS_CRED_CCY_USD"&&answer=="yes");
+    then
+        step.setNextQ("CONS_CRED_AMOUNT");
+        update(step);
+end
+
+rule "No to third question of consumer credit test"
+    when
+        step:Step(current.code=="CONS_CRED_CCY_USD"&&answer=="no");
+    then
+        step.setNextQ(null);
+        update(step);
+end
+
+rule "Yes to fourth question of consumer credit test"
+    when
+        step:Step(current.code=="CONS_CRED_AMOUNT"&&answer=="yes");
+    then
+        step.setNextQ(null);
+        update(step);
+end
+
+rule "No to fourth question of consumer credit test"
+    when
+        step:Step(current.code=="CONS_CRED_AMOUNT"&&answer=="no");
     then
         step.setNextQ(null);
         update(step);
@@ -55,7 +87,7 @@ rule "Yes to first question of target contribution test"
     when
         step:Step(current.code=="TARG_CONTR"&&answer=="yes");
     then
-        step.setNextQ("TARG_CONTR_CCY");
+        step.setNextQ("TARG_CONTR_CCY_RUB");
         update(step);
 end
 
@@ -69,7 +101,7 @@ end
 
 rule "Yes to second question of target contribution test"
     when
-        step:Step(current.code=="TARG_CONTR_CCY"&&answer=="yes");
+        step:Step(current.code=="TARG_CONTR_CCY_RUB"&&answer=="yes");
     then
         step.setNextQ("TARG_CONTR_INS");
         update(step);
@@ -77,7 +109,23 @@ end
 
 rule "No to second question of target contribution test"
     when
-        step:Step(current.code=="TARG_CONTR_CCY"&&answer=="no");
+        step:Step(current.code=="TARG_CONTR_CCY_RUB"&&answer=="no");
+    then
+        step.setNextQ("TARG_CONTR_CCY_USD");
+        update(step);
+end
+
+rule "Yes to third question of target contribution test"
+    when
+        step:Step(current.code=="TARG_CONTR_CCY_USD"&&answer=="yes");
+    then
+        step.setNextQ("TARG_CONTR_INS");
+        update(step);
+end
+
+rule "No to third question of target contribution test"
+    when
+        step:Step(current.code=="TARG_CONTR_CCY_USD"&&answer=="no");
     then
         step.setNextQ(null);
         update(step);
