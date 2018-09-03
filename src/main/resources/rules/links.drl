@@ -1,158 +1,172 @@
 import com.egartech.sppi.model.Step;
 import com.egartech.sppi.model.Product;
 
-rule "define first question of consumer credit test"
+
+
+rule "define first question of Termination or suspension of obligations test"
     when
-        product:Product(productCode=="consumer_credit");
+        product:Product(productCode=="termination_or_suspension_of_obligations");
     then
-        product.setFirstQuestionCode("CONS_CRED");
+        product.setFirstQuestionCode("STEP_1");
         update(product);
 end
 
-rule "Yes to first question of consumer credit test"
+rule "Yes to 1 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="CONS_CRED"&&answer=="yes");
+        step:Step(current.code=="STEP_1"&&answer=="yes");
     then
-        step.setNextQ("CONS_CRED_CCY_RUB");
+        step.setNextQ("STEP_2");
         update(step);
 end
 
-rule "No to first question of consumer credit test"
+rule "No to 1 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="CONS_CRED"&&answer=="no");
+        step:Step(current.code=="STEP_1"&&answer=="no");
     then
-        step.setNextQ(null);
+        step.setNextQ("FAIL");
         update(step);
 end
 
-rule "Yes to second question of consumer credit test"
+rule "Yes to 2 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="CONS_CRED_CCY_RUB"&&answer=="yes");
+        step:Step(current.code=="STEP_2"&&answer=="yes");
     then
-        step.setNextQ("CONS_CRED_AMOUNT");
+        step.setNextQ("STEP_3.1");
         update(step);
 end
 
-rule "No to second question of consumer credit test"
+rule "No to 2 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="CONS_CRED_CCY_RUB"&&answer=="no");
+        step:Step(current.code=="STEP_2"&&answer=="no");
     then
-        step.setNextQ("CONS_CRED_CCY_USD");
+        step.setNextQ("STEP_4");
         update(step);
 end
 
-rule "Yes to third question of consumer credit test"
+rule "Yes to 3.1 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="CONS_CRED_CCY_USD"&&answer=="yes");
+        step:Step(current.code=="STEP_3.1"&&answer=="yes");
     then
-        step.setNextQ("CONS_CRED_AMOUNT");
+        step.setNextQ("FAIL");
         update(step);
 end
 
-rule "No to third question of consumer credit test"
+rule "No to 3.1 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="CONS_CRED_CCY_USD"&&answer=="no");
+        step:Step(current.code=="STEP_3.1"&&answer=="no");
     then
-        step.setNextQ(null);
+        step.setNextQ("STEP_3.2");
         update(step);
 end
 
-rule "Yes to fourth question of consumer credit test"
+rule "Yes to 3.2 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="CONS_CRED_AMOUNT"&&answer=="yes");
+        step:Step(current.code=="STEP_3.2"&&answer=="yes");
     then
-        step.setNextQ(null);
+        step.setNextQ("STEP_3.3");
         update(step);
 end
 
-rule "No to fourth question of consumer credit test"
+rule "No to 3.2 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="CONS_CRED_AMOUNT"&&answer=="no");
+        step:Step(current.code=="STEP_3.2"&&answer=="no");
     then
-        step.setNextQ(null);
+        step.setNextQ("FAIL");
         update(step);
 end
 
-
-
-rule "define first question of target contribution test"
+rule "Yes to 3.3 question of Termination or suspension of obligations test"
     when
-        product:Product(productCode=="target_contribution");
+        step:Step(current.code=="STEP_3.3"&&answer=="yes");
     then
-        product.setFirstQuestionCode("TARG_CONTR");
-        update(product);
-end
-
-rule "Yes to first question of target contribution test"
-    when
-        step:Step(current.code=="TARG_CONTR"&&answer=="yes");
-    then
-        step.setNextQ("TARG_CONTR_CCY_RUB");
+        step.setNextQ("STEP_3.4");
         update(step);
 end
 
-rule "No to first question of target contribution test"
+rule "No to 3.3 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="TARG_CONTR"&&answer=="no");
+        step:Step(current.code=="STEP_3.3"&&answer=="no");
     then
-        step.setNextQ(null);
+        step.setNextQ("FAIL");
         update(step);
 end
 
-rule "Yes to second question of target contribution test"
+rule "Yes to 3.4 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="TARG_CONTR_CCY_RUB"&&answer=="yes");
+        step:Step(current.code=="STEP_3.4"&&answer=="yes");
     then
-        step.setNextQ("TARG_CONTR_INS");
+        step.setNextQ("FAIL");
         update(step);
 end
 
-rule "No to second question of target contribution test"
+rule "No to 3.4 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="TARG_CONTR_CCY_RUB"&&answer=="no");
+        step:Step(current.code=="STEP_3.4"&&answer=="no");
     then
-        step.setNextQ("TARG_CONTR_CCY_USD");
+        step.setNextQ("STEP_3.5");
         update(step);
 end
 
-rule "Yes to third question of target contribution test"
+rule "Yes to 3.5 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="TARG_CONTR_CCY_USD"&&answer=="yes");
+        step:Step(current.code=="STEP_3.5"&&answer=="yes");
     then
-        step.setNextQ("TARG_CONTR_INS");
+        step.setNextQ("STEP_4");
         update(step);
 end
 
-rule "No to third question of target contribution test"
+rule "No to 3.5 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="TARG_CONTR_CCY_USD"&&answer=="no");
+        step:Step(current.code=="STEP_3.5"&&answer=="no");
     then
-        step.setNextQ(null);
+        step.setNextQ("STEP_3.6");
         update(step);
 end
 
-
-
-rule "define first question of deposit test"
+rule "Yes to 3.6 question of Termination or suspension of obligations test"
     when
-        product:Product(productCode=="deposit");
+        step:Step(current.code=="STEP_3.6"&&answer=="yes");
     then
-        product.setFirstQuestionCode("DEPO");
-        update(product);
-end
-
-rule "Yes to first question of deposit test"
-    when
-        step:Step(current.code=="DEPO"&&answer=="yes");
-    then
-        step.setNextQ("DEPO_CCY");
+        step.setNextQ("STEP_4");
         update(step);
 end
 
-rule "No to first question of deposit test"
+rule "No to 3.6 question of Termination or suspension of obligations test"
     when
-        step:Step(current.code=="DEPO"&&answer=="no");
+        step:Step(current.code=="STEP_3.6"&&answer=="no");
     then
-        step.setNextQ(null);
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "Yes to 4 question of Termination or suspension of obligations test"
+    when
+        step:Step(current.code=="STEP_4"&&answer=="yes");
+    then
+        step.setNextQ("SUCCESS");
+        update(step);
+end
+
+rule "No to 4 question of Termination or suspension of obligations test"
+    when
+        step:Step(current.code=="STEP_4"&&answer=="no");
+    then
+        step.setNextQ("STEP_5");
+        update(step);
+end
+
+rule "Yes to 5 question of Termination or suspension of obligations test"
+    when
+        step:Step(current.code=="STEP_5"&&answer=="yes");
+    then
+        step.setNextQ("SUCCESS");
+        update(step);
+end
+
+rule "No to 5 question of Termination or suspension of obligations test"
+    when
+        step:Step(current.code=="STEP_5"&&answer=="no");
+    then
+        step.setNextQ("FAIL");
         update(step);
 end

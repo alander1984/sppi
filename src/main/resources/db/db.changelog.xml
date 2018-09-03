@@ -6,4 +6,5 @@
         <include file="db/changelog/01_process.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/02_question.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/03_loadquestions.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/04_loadquestions_for_real_test.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -10,7 +10,7 @@
                 <constraints nullable="false"/>
             </column>
             <column name="code" remarks="Код вопроса" type="varchar(20)"/>
-            <column name="content" remarks="Текст вопроса" type="varchar(255)"/>
+            <column name="content" remarks="Текст вопроса" type="varchar(1000)"/>
         </createTable>
         <addPrimaryKey columnNames="id" constraintName="question_pk" tableName="question"/>
         <createSequence sequenceName="question_sequence" startValue="1" incrementBy="1"/>

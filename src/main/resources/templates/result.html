@@ -2,45 +2,38 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Шаг</title>
+    <title>Результат прохождения теста</title>
     <link rel="stylesheet"
           href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
     <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script th:src="@{/js/common.js}"></script>
 </head>
 <body>
 <p/>
 <div class="container">
-    <script th:src="@{/js/common.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
-        var questionid = [[${questionid}]];
+        var result = [[${result}]];
         /*]]>*/
     </script>
     <div class="row">
-        <div class="col-sm-1">
-            <h3>Вопрос:</h3>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <h4>
-                <div id="question">
-
-                </div>
-            </h4>
+        <div th:switch="${result}" class="col-sm-4">
+            <h3 th:case="'success'">SPPI-тест пройден.</h3>
+            <h3 th:case="'fail'">SPPI-тест не пройден!</h3>
         </div>
     </div>
     <p/>
     <div class="row">
-        <div class="col-sm-1">
-            <button data-tag="yes" class="answerBtn btn btn-success">Да</button>
+        <div class="col-sm-3">
+            <h4>Вернуться в начало и пройти тест заново?</h4>
         </div>
         <div class="col-sm-1">
-            <button data-tag="no" class="answerBtn btn btn-warning">Нет</button>
+            <button id="return_button" class="btn btn-secondary">Вернуться</button>
         </div>
     </div>
 </div>
-<script th:src="@{/js/step.js}"></script>
+
+<script th:src="@{/js/result.js}"></script>
 </body>
 </html>

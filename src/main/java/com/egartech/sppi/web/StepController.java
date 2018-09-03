@@ -42,8 +42,17 @@ public class StepController {
     @RequestMapping(value="getnext/{id}", method=RequestMethod.POST)
     public ResponseEntity<Question> getNextQuestion(@PathVariable(value="id") Long id,@RequestBody String answer) {
          Question q1 = stepUtils.getNextQuestion(questionRepository.findById(id).get(),answer);
-         return new ResponseEntity<>(questionRepository.findOne(byCode(q1.getCode())).get() ,HttpStatus.OK);
+        if (q1.getCode().equals("SUCCESS") || q1.getCode().equals("FAIL")) {
+            return new ResponseEntity<>(q1, HttpStatus.OK);
+        }
+         return new ResponseEntity<>(questionRepository.findOne(byCode(q1.getCode())).get(), HttpStatus.OK);
     }
-    
-    
+
+    @RequestMapping(value="showresult/{result}", method=RequestMethod.GET)
+    public ModelAndView showStep(@PathVariable(value="result") String result) {
+        ModelAndView modelAndView = new ModelAndView("result");
+        modelAndView.setStatus(HttpStatus.OK);
+        modelAndView.addObject("result", result);
+        return modelAndView;
+    }
 }

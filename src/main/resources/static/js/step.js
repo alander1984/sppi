@@ -5,7 +5,7 @@ $(document).ready(function () {
         contentType: "application/json; charset=utf-8",
         success: function (response) {
             showAlert("Задача запущена");
-            $("#question").text(response.content);
+            $("#question").append(response.content);
         },
         error: function (error) {
             showAlert("Задача не запущена: " + error)
@@ -22,7 +22,11 @@ $(".answerBtn").on("click",function() {
         data: $(this).data("tag"),
         success: function (response) {
             console.log(response);
-            window.location = "../showquestion/"+response.id;
+            if (response.code === "SUCCESS" || response.code === "FAIL") {
+                window.location = "../showresult/" + response.code.toLowerCase();
+            } else {
+                window.location = "../showquestion/"+response.id;
+            }
         },
         error: function (error) {
             showAlert("Не найдено продолжение опроса...")
