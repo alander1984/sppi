@@ -13,14 +13,17 @@ public class Question {
             sequenceName = "question_sequence",
             allocationSize = 1
     )
-    Long id;
+    private Long id;
     
     @Column(name = "code")
     private String code;
     
     @Column(name="content")
     private String content;
-    
+
+    @Column(name = "answers")
+    private String answers;
+
     public Long getId() {
         return id;
     }
@@ -43,6 +46,13 @@ public class Question {
     
     public void setContent(String content) {
         this.content = content;
-    }        
-    
+    }
+
+    public String getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(String answers) {
+        this.answers = answers;
+    }
 }

@@ -1,17 +1,15 @@
 import com.egartech.sppi.model.Step;
 import com.egartech.sppi.model.Product;
 
-
-
-rule "define first question of Termination or suspension of obligations test"
+rule "define first question of test"
     when
-        product:Product(productCode=="termination_or_suspension_of_obligations");
+        product:Product(productCode=="term_susp_oblig");
     then
         product.setFirstQuestionCode("STEP_1");
         update(product);
 end
 
-rule "Yes to 1 question of Termination or suspension of obligations test"
+rule "Yes to STEP_1 of test"
     when
         step:Step(current.code=="STEP_1"&&answer=="yes");
     then
@@ -19,127 +17,135 @@ rule "Yes to 1 question of Termination or suspension of obligations test"
         update(step);
 end
 
-rule "No to 1 question of Termination or suspension of obligations test"
+rule "No to STEP_1 of test"
     when
         step:Step(current.code=="STEP_1"&&answer=="no");
     then
-        step.setNextQ("FAIL");
+        step.setNextQ("SUCCESS");
         update(step);
 end
 
-rule "Yes to 2 question of Termination or suspension of obligations test"
+rule "Yes_only_cli to STEP_2 of test"
     when
-        step:Step(current.code=="STEP_2"&&answer=="yes");
+        step:Step(current.code=="STEP_2"&&answer=="yes_only_cli");
     then
-        step.setNextQ("STEP_3.1");
+        step.setNextQ("STEP_3.1_YES_ONLY_CLI");
         update(step);
 end
 
-rule "No to 2 question of Termination or suspension of obligations test"
+rule "No_not_only_cli to STEP_2 of test"
     when
-        step:Step(current.code=="STEP_2"&&answer=="no");
+        step:Step(current.code=="STEP_2"&&answer=="no_not_only_cli");
     then
-        step.setNextQ("STEP_4");
+        step.setNextQ("STEP_3.1_NO_NOT_ONLY_CLI");
         update(step);
 end
 
-rule "Yes to 3.1 question of Termination or suspension of obligations test"
+rule "No_not_cli to STEP_2 of test"
     when
-        step:Step(current.code=="STEP_3.1"&&answer=="yes");
-    then
-        step.setNextQ("FAIL");
-        update(step);
-end
-
-rule "No to 3.1 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.1"&&answer=="no");
-    then
-        step.setNextQ("STEP_3.2");
-        update(step);
-end
-
-rule "Yes to 3.2 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.2"&&answer=="yes");
-    then
-        step.setNextQ("STEP_3.3");
-        update(step);
-end
-
-rule "No to 3.2 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.2"&&answer=="no");
-    then
-        step.setNextQ("FAIL");
-        update(step);
-end
-
-rule "Yes to 3.3 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.3"&&answer=="yes");
-    then
-        step.setNextQ("STEP_3.4");
-        update(step);
-end
-
-rule "No to 3.3 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.3"&&answer=="no");
-    then
-        step.setNextQ("FAIL");
-        update(step);
-end
-
-rule "Yes to 3.4 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.4"&&answer=="yes");
-    then
-        step.setNextQ("FAIL");
-        update(step);
-end
-
-rule "No to 3.4 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.4"&&answer=="no");
-    then
-        step.setNextQ("STEP_3.5");
-        update(step);
-end
-
-rule "Yes to 3.5 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.5"&&answer=="yes");
+        step:Step(current.code=="STEP_2"&&answer=="no_not_cli");
     then
         step.setNextQ("STEP_4");
         update(step);
 end
 
-rule "No to 3.5 question of Termination or suspension of obligations test"
+rule "Yes to STEP_3.1_NO_NOT_ONLY_CLI of test"
     when
-        step:Step(current.code=="STEP_3.5"&&answer=="no");
-    then
-        step.setNextQ("STEP_3.6");
-        update(step);
-end
-
-rule "Yes to 3.6 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.6"&&answer=="yes");
-    then
-        step.setNextQ("STEP_4");
-        update(step);
-end
-
-rule "No to 3.6 question of Termination or suspension of obligations test"
-    when
-        step:Step(current.code=="STEP_3.6"&&answer=="no");
+        step:Step(current.code=="STEP_3.1_NO_NOT_ONLY_CLI"&&answer=="yes");
     then
         step.setNextQ("FAIL");
         update(step);
 end
 
-rule "Yes to 4 question of Termination or suspension of obligations test"
+rule "No to STEP_3.1_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.1_NO_NOT_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("STEP_3.2_NO_NOT_ONLY_CLI");
+        update(step);
+end
+
+rule "Yes to STEP_3.2_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.2_NO_NOT_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("STEP_3.3_NO_NOT_ONLY_CLI");
+        update(step);
+end
+
+rule "No to STEP_3.2_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.2_NO_NOT_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "Yes to STEP_3.3_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.3_NO_NOT_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("STEP_3.4_NO_NOT_ONLY_CLI");
+        update(step);
+end
+
+rule "No to STEP_3.3_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.3_NO_NOT_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "Yes to STEP_3.4_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.4_NO_NOT_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "No to STEP_3.4_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.4_NO_NOT_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("STEP_3.5_NO_NOT_ONLY_CLI");
+        update(step);
+end
+
+rule "Yes to STEP_3.5_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.5_NO_NOT_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("STEP_4");
+        update(step);
+end
+
+rule "No to STEP_3.5_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.5_NO_NOT_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("STEP_3.6_NO_NOT_ONLY_CLI");
+        update(step);
+end
+
+rule "Yes to STEP_3.6_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.6_NO_NOT_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("STEP_4");
+        update(step);
+end
+
+rule "No to STEP_3.6_NO_NOT_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.6_NO_NOT_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "Yes to STEP_4 of test"
     when
         step:Step(current.code=="STEP_4"&&answer=="yes");
     then
@@ -147,7 +153,7 @@ rule "Yes to 4 question of Termination or suspension of obligations test"
         update(step);
 end
 
-rule "No to 4 question of Termination or suspension of obligations test"
+rule "No to STEP_4 of test"
     when
         step:Step(current.code=="STEP_4"&&answer=="no");
     then
@@ -155,7 +161,7 @@ rule "No to 4 question of Termination or suspension of obligations test"
         update(step);
 end
 
-rule "Yes to 5 question of Termination or suspension of obligations test"
+rule "Yes to STEP_5 of test"
     when
         step:Step(current.code=="STEP_5"&&answer=="yes");
     then
@@ -163,9 +169,105 @@ rule "Yes to 5 question of Termination or suspension of obligations test"
         update(step);
 end
 
-rule "No to 5 question of Termination or suspension of obligations test"
+rule "No to STEP_5 of test"
     when
         step:Step(current.code=="STEP_5"&&answer=="no");
+    then
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "Yes to STEP_3.1_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.1_YES_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "No to STEP_3.1_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.1_YES_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("STEP_3.2_YES_ONLY_CLI");
+        update(step);
+end
+
+rule "Yes to STEP_3.2_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.2_YES_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("STEP_3.3_YES_ONLY_CLI");
+        update(step);
+end
+
+rule "No to STEP_3.2_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.2_YES_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "Yes to STEP_3.3_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.3_YES_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("STEP_3.4_YES_ONLY_CLI");
+        update(step);
+end
+
+rule "No to STEP_3.3_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.3_YES_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "Yes to STEP_3.4_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.4_YES_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("FAIL");
+        update(step);
+end
+
+rule "No to STEP_3.4_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.4_YES_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("STEP_3.5_YES_ONLY_CLI");
+        update(step);
+end
+
+rule "Yes to STEP_3.5_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.5_YES_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("SUCCESS");
+        update(step);
+end
+
+rule "No to STEP_3.5_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.5_YES_ONLY_CLI"&&answer=="no");
+    then
+        step.setNextQ("STEP_3.6_YES_ONLY_CLI");
+        update(step);
+end
+
+rule "Yes to STEP_3.6_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.6_YES_ONLY_CLI"&&answer=="yes");
+    then
+        step.setNextQ("SUCCESS");
+        update(step);
+end
+
+rule "No to STEP_3.6_YES_ONLY_CLI of test"
+    when
+        step:Step(current.code=="STEP_3.6_YES_ONLY_CLI"&&answer=="no");
     then
         step.setNextQ("FAIL");
         update(step);

@@ -9,7 +9,7 @@
             <column name="id" type="bigint">
                 <constraints nullable="false"/>
             </column>
-            <column name="code" remarks="Код вопроса" type="varchar(20)"/>
+            <column name="code" remarks="Код вопроса" type="varchar(25)"/>
             <column name="content" remarks="Текст вопроса" type="varchar(1000)"/>
         </createTable>
         <addPrimaryKey columnNames="id" constraintName="question_pk" tableName="question"/>

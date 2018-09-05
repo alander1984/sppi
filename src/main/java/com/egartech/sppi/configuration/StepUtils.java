@@ -1,13 +1,13 @@
 package com.egartech.sppi.configuration;
 
-import com.egartech.sppi.model.*;
+import com.egartech.sppi.model.Product;
+import com.egartech.sppi.model.Question;
+import com.egartech.sppi.model.Step;
 import com.egartech.sppi.repo.QuestionRepository;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.lang.Process;
 
 import static com.egartech.sppi.specification.QuestionSpecification.byCode;
 
