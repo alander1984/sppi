@@ -6,6 +6,7 @@ $(document).ready(function () {
         success: function (response) {
             showAlert("Задача запущена");
             $("#question").append(response.content);
+            $("#question_note").append(response.note);
         },
         error: function (error) {
             showAlert("Задача не запущена: " + error)

@@ -8,5 +8,6 @@
         <include file="db/changelog/03_loadquestions.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/04_loadquestions_for_real_test.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/05_question_add_answer_column.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/07_question_add_note_column.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/06_loadquestions_for_real_test2.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

@@ -24,6 +24,9 @@ public class Question {
     @Column(name = "answers")
     private String answers;
 
+    @Column(name = "note")
+    private String note;
+
     public Long getId() {
         return id;
     }
@@ -54,5 +57,13 @@ public class Question {
 
     public void setAnswers(String answers) {
         this.answers = answers;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }
