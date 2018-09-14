@@ -39,4 +39,10 @@ public class HomeController {
         Question q1 = stepUtils.getFirstQuestion(product.get("productCode"));
         return new ResponseEntity<>(q1, HttpStatus.OK);
     }
+
+   @RequestMapping(value = "/question_dictionary", method = RequestMethod.GET)
+    public ModelAndView getQuestionDictionaryView() {
+        ModelAndView modelAndView = new ModelAndView("questions_dictionary");
+        return modelAndView;
+   }
 }

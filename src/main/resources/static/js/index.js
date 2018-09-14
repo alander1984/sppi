@@ -16,3 +16,17 @@ $("#start_button").click(function (e) {
         }
     });
 });
+
+$("#question_dictionary_button").click(function (e) {
+    e.preventDefault();
+    $.ajax({
+        type: "GET",
+        url: "/question_dictionary",
+        success: function () {
+             window.location = "../question_dictionary"
+        },
+        error: function (error) {
+            alert("Ошибка!")
+        }
+    });
+});
