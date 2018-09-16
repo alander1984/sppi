@@ -1,18 +1,10 @@
 $("#start_button").click(function (e) {
     e.preventDefault();
-    var product = {
-        productCode: $("#product_type option:selected").val()
-    };
-    $.ajax({
-        type: "POST",
-        url: "/start_process",
-        contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(product),
-        success: function (response) {
-            window.location = "../showquestion/" + response.id;
-        },
-        error: function (error) {
-            alert("Не найден первый вопрос!")
-        }
-    });
+    var productCode = $("#product_type option:selected").val();
+    var productName = $("#product_type option:selected").text();
+    startProcess(productCode, productName);
+});
+
+$("#my_processes_button").click(function (e) {
+    window.location = "/my_processes";
 });

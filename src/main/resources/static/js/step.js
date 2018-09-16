@@ -1,7 +1,7 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: '../question/'+questionid,
+        url: "/question/" + questionid,
         contentType: "application/json; charset=utf-8",
         success: function (response) {
             showAlert("Задача запущена");
@@ -14,22 +14,20 @@ $(document).ready(function () {
 });
 
 $(".answerBtn").on("click",function() {
-    console.log($(this).data("tag"));
+    var answer = $(this).data("tag");
+    console.log(answer);
+    getNext(processId, questionid, answer);
+});
+
+$("#suspend_test_button").on("click", function () {
     $.ajax({
         type: "POST",
-        url: '../getnext/'+questionid,
-        contentType: "application/json; charset=utf-8",
-        data: $(this).data("tag"),
+        url: "/process/" + processId + "/suspendTest",
         success: function (response) {
-            console.log(response);
-            if (response.code === "SUCCESS" || response.code === "FAIL") {
-                window.location = "../showresult/" + response.code.toLowerCase();
-            } else {
-                window.location = "../showquestion/"+response.id;
-            }
+            window.location = "/process/result/" + response;
         },
         error: function (error) {
-            showAlert("Не найдено продолжение опроса...")
+            showAlert("Невозможно приостановить выполнение теста!")
         }
     });
 });

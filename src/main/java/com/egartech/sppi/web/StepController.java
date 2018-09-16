@@ -1,10 +1,13 @@
 package com.egartech.sppi.web;
 
+import com.egartech.sppi.configuration.CommonUtils;
 import com.egartech.sppi.configuration.StepUtils;
+import com.egartech.sppi.model.Process;
+import com.egartech.sppi.model.ProcessStep;
 import com.egartech.sppi.model.Question;
+import com.egartech.sppi.repo.ProcessRepository;
+import com.egartech.sppi.repo.ProcessStepRepository;
 import com.egartech.sppi.repo.QuestionRepository;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.egartech.sppi.specification.QuestionSpecification.byCode;
 
 @Controller
+@RequestMapping("/process")
 public class StepController {
     
     @Autowired
@@ -30,43 +32,74 @@ public class StepController {
     @Autowired
     StepUtils stepUtils;
 
-    private static final String STANDARD_ANSWERS = "{\"yes\":\"Да\",\"no\":\"Нет\"}";
-    
-    @RequestMapping(value="process/{id}", method=RequestMethod.GET)
+    @Autowired
+    ProcessRepository processRepository;
+
+    @Autowired
+    ProcessStepRepository processStepRepository;
+
+    @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public ModelAndView getStepPage(@PathVariable(value="id") Long id) {
         ModelAndView model = new ModelAndView("step");
         model.addObject("questionid",id);
         return model;
     }       
 
-    @RequestMapping(value="showquestion/{id}", method=RequestMethod.GET)
-    public ModelAndView showStep(@PathVariable(value="id") Long id) {
-        Question question = questionRepository.findById(id).get();
-        ObjectMapper mapper = new ObjectMapper();
-        Map<String, Object> answers = new HashMap<>();
-        try {
-            answers = mapper.readValue(question.getAnswers() == null || question.getAnswers().isEmpty() ?
-                    STANDARD_ANSWERS : question.getAnswers().replace("\'", "\""),
-                    new TypeReference<Map<String, String>>() {});
-        } catch (IOException ignored) {}
+    @RequestMapping(value="/{processId}/showquestion/{questionId}", method=RequestMethod.GET)
+    public ModelAndView showStep(@PathVariable(value = "processId") Long processId,
+                                 @PathVariable(value = "questionId") Long questionId) {
+        Question question = questionRepository.findById(questionId).get();
+        Process process = processRepository.findById(processId).get();
+        boolean isFirstStep = false;
+        if (process.getProcessSteps().isEmpty()) {
+            isFirstStep = true;
+        }
+        Map<String, String> answers = CommonUtils.getAnswersMap(question.getAnswers());
         ModelAndView modelAndView = new ModelAndView("step");
         modelAndView.setStatus(HttpStatus.OK);
-        modelAndView.addObject("questionid", id);
+        modelAndView.addObject("questionid", questionId);
         modelAndView.addObject("answers", answers);
         modelAndView.addObject("answerBtnStyles", new String[] {"btn-success", "btn-warning", "btn-info", "btn-danger", "btn-dark"});
+        modelAndView.addObject("processId", processId);
+        modelAndView.addObject("isFirstStep", isFirstStep);
         return modelAndView;
     }
     
-    @RequestMapping(value="getnext/{id}", method=RequestMethod.POST)
-    public ResponseEntity<Question> getNextQuestion(@PathVariable(value="id") Long id,@RequestBody String answer) {
-         Question q1 = stepUtils.getNextQuestion(questionRepository.findById(id).get(),answer);
-        if (q1.getCode().equals("SUCCESS") || q1.getCode().equals("FAIL")) {
-            return new ResponseEntity<>(q1, HttpStatus.OK);
+    @RequestMapping(value="/{processId}/getnext/{questionId}", method=RequestMethod.POST)
+    public ResponseEntity<Question> getNextQuestion(@PathVariable(value = "processId") Long processId,
+                                                    @PathVariable(value = "questionId") Long questionId,
+                                                    @RequestBody String answer) {
+        Process process = processRepository.findById(processId).get();
+        Question currentQuestion = questionRepository.findById(questionId).get();
+        Question nextQuestion = stepUtils.getNextQuestion(currentQuestion, answer);
+        int stepNumber;
+        if (process.getProcessSteps().isEmpty()) {
+            stepNumber = 1;
+        } else {
+            stepNumber = process.getProcessSteps().size() + 1;
         }
-         return new ResponseEntity<>(questionRepository.findOne(byCode(q1.getCode())).get(), HttpStatus.OK);
+        ProcessStep processStep = new ProcessStep(answer, stepNumber, currentQuestion, process);
+        processStepRepository.save(processStep);
+        String nextQuestionCode = nextQuestion.getCode();
+        if (nextQuestionCode.equals("SUCCESS") || nextQuestionCode.equals("FAIL")) {
+            process.setFinished(Boolean.TRUE);
+            process.setPassed(nextQuestionCode.equals("SUCCESS") ? Boolean.TRUE : Boolean.FALSE);
+            processRepository.save(process);
+            return new ResponseEntity<>(nextQuestion, HttpStatus.OK);
+        }
+         return new ResponseEntity<>(questionRepository.findOne(byCode(nextQuestionCode)).get(), HttpStatus.OK);
     }
 
-    @RequestMapping(value="showresult/{result}", method=RequestMethod.GET)
+    @RequestMapping(value="/{processId}/suspendTest", method=RequestMethod.POST)
+    public ResponseEntity<String> suspendTest(@PathVariable(value="processId") Long processId) {
+        Process process = processRepository.findById(processId).get();
+        process.setPassed(null);
+        process.setFinished(Boolean.FALSE);
+        processRepository.save(process);
+        return new ResponseEntity<>("suspend", HttpStatus.OK);
+    }
+
+    @RequestMapping(value="/result/{result}", method=RequestMethod.GET)
     public ModelAndView showStep(@PathVariable(value="result") String result) {
         ModelAndView modelAndView = new ModelAndView("result");
         modelAndView.setStatus(HttpStatus.OK);
