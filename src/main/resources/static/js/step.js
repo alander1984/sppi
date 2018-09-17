@@ -1,15 +1,15 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "/question/" + questionid,
+        url: _ctx+'question/' + questionid,
         contentType: "application/json; charset=utf-8",
         success: function (response) {
-            showAlert("Задача запущена");
+            //showAlert("Задача запущена");
             $("#question").append(response.content);
             $("#question_note").append(response.note);
         },
         error: function (error) {
-            showAlert("Задача не запущена: " + error)
+            //showAlert("Задача не запущена: " + error)
         }
     });
 });
@@ -23,9 +23,9 @@ $(".answerBtn").on("click",function() {
 $("#suspend_test_button").on("click", function () {
     $.ajax({
         type: "POST",
-        url: "/process/" + processId + "/suspendTest",
+        url: _ctx+'/process/' + processId + '/suspendTest',
         success: function (response) {
-            window.location = "/process/result/" + response;
+            window.location = _ctx+'/process/result/' + response;
         },
         error: function (error) {
             showAlert("Невозможно приостановить выполнение теста!")
