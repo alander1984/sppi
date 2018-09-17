@@ -20,15 +20,13 @@ $(".answerBtn").on("click",function() {
     getNext(processId, questionid, answer);
 });
 
-$("#suspend_test_button").on("click", function () {
-    $.ajax({
-        type: "POST",
-        url: _ctx+'/process/' + processId + '/suspendTest',
-        success: function (response) {
-            window.location = _ctx+'/process/result/' + response;
-        },
-        error: function (error) {
-            showAlert("Невозможно приостановить выполнение теста!")
-        }
-    });
+$(".navPseudo").click(function (e) {
+    if (isFirstStep) {
+        $.ajax({
+            type: "POST",
+            url: _ctx+"/process/" + processId + "/delete_unused_process",
+            contentType: 'application/json; charset=utf-8',
+            async: false
+        });
+    }
 });

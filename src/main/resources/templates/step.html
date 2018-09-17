@@ -35,15 +35,6 @@
                     class="answerBtn btn" th:classappend="${answerBtnStyles[ind.index]}"></button>
         </div>
     </div>
-    <br/>
-    <div class="row" th:if="${!isFirstStep}">
-        <div class="col-sm-5">
-            <h4>Приостановить прохождение теста?</h4>
-        </div>
-        <div class="col-sm-1">
-            <button id="suspend_test_button" class="btn btn-danger">Приостановить</button>
-        </div>
-    </div>
 <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/step.js}"></script>
 </section>

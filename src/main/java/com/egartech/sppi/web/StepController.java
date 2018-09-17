@@ -9,6 +9,7 @@ import com.egartech.sppi.repo.ProcessRepository;
 import com.egartech.sppi.repo.ProcessStepRepository;
 import com.egartech.sppi.repo.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -90,20 +91,18 @@ public class StepController {
          return new ResponseEntity<>(questionRepository.findOne(byCode(nextQuestionCode)).get(), HttpStatus.OK);
     }
 
-    @RequestMapping(value="/{processId}/suspendTest", method=RequestMethod.POST)
-    public ResponseEntity<String> suspendTest(@PathVariable(value="processId") Long processId) {
-        Process process = processRepository.findById(processId).get();
-        process.setPassed(null);
-        process.setFinished(Boolean.FALSE);
-        processRepository.save(process);
-        return new ResponseEntity<>("suspend", HttpStatus.OK);
-    }
-
     @RequestMapping(value="/result/{result}", method=RequestMethod.GET)
     public ModelAndView showStep(@PathVariable(value="result") String result) {
         ModelAndView modelAndView = new ModelAndView("result");
         modelAndView.setStatus(HttpStatus.OK);
         modelAndView.addObject("result", result);
         return modelAndView;
+    }
+
+    @RequestMapping(value="/{processId}/delete_unused_process", method=RequestMethod.POST)
+    public ResponseEntity<String> deleteUnusedProcess(@PathVariable(value="processId") Long processId) {
+        Process process = processRepository.findById(processId).get();
+        processRepository.delete(process);
+        return new ResponseEntity<>("Deleted unused process during answer to the first question because of switching to another form", HttpStatus.OK);
     }
 }

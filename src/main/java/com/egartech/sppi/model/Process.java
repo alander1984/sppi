@@ -39,7 +39,7 @@ public class Process {
     private String productCode;
 
     @Column(name = "is_finished", nullable = false)
-    private Boolean isFinished;
+    private Boolean isFinished = false;
 
     @Column(name = "is_passed")
     private Boolean isPassed;

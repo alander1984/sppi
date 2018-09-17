@@ -78,13 +78,14 @@ public class Question {
         return Objects.equals(id, question.id) &&
                 Objects.equals(code, question.code) &&
                 Objects.equals(content, question.content) &&
-                Objects.equals(answers, question.answers);
+                Objects.equals(answers, question.answers) &&
+                Objects.equals(note, question.note);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, code, content, answers);
+        return Objects.hash(id, code, content, answers, note);
     }
 
     @Override
