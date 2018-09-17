@@ -38,6 +38,11 @@ public class Step {
         this.next.setCode(qCode);
     }
 
+    public void testFailed() {
+        this.next = new Question();
+        this.next.setCode("FAIL");
+    }
+
     public String getAnswer() {
         return answer;
     }
