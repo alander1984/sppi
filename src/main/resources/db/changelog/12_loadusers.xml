@@ -7,7 +7,7 @@
         <loadData encoding="UTF-8"
                   file="db/data/users.csv"
                   separator=";"
-                  tableName="user">
+                  tableName="_user">
         </loadData>
     </changeSet>
 </databaseChangeLog>

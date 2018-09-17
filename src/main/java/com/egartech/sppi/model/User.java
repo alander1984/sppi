@@ -3,7 +3,7 @@ package com.egartech.sppi.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
+@Table(name = "_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
