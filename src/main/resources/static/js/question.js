@@ -5,7 +5,7 @@ $(function() {
                                  pagination: true,
                                  uniqueId: 'id',
                                  buttonsAlign: 'right',
-                                 url: 'showall',
+                                 url: _ctx+'showall',
                                  sidePagination: 'client',
                                  search: 'true',
                                  //dataField: 'content',
@@ -61,7 +61,7 @@ function saveQuestion() {
 
     $.ajax( {
           type: "PUT",
-          url: 'updateQuestion',
+          url: _ctx+'updateQuestion',
           data: JSON.stringify(_data),
           contentType: "application/json; charset=utf-8",
           success: function( response ) {
@@ -96,7 +96,7 @@ function createQuestion() {
 
     $.ajax( {
         type: "POST",
-        url: 'addQuestion',
+        url: _ctx+'addQuestion',
         data: JSON.stringify(_data),
         contentType: "application/json; charset=utf-8",
         success: function( response ) {
@@ -122,7 +122,7 @@ function deleteQuestion() {
              var data = $('#questionForm').serializeJSON();
                     $.ajax( {
                           type: "DELETE",
-                          url: 'deleteQuestion',
+                          url: _ctx+'deleteQuestion',
                           data: JSON.stringify(data),
                           contentType: "application/json; charset=utf-8",
                           success: function( response ) {

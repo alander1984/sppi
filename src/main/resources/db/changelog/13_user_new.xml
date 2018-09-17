@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+
+        <changeSet id="ala_001" author="alander">
+            <preConditions onFail="MARK_RAN">
+                <tableExists tableName="_user"/>
+            </preConditions>
+            <dropTable tableName="_user"/>
+            <rollback>
+                <createTable tableName="_user" remarks="Пользователи">
+                    <column name="id" type="bigint">
+                        <constraints nullable="false"/>
+                    </column>
+                    <column name="username" type="varchar(25)" remarks="Логин пользователя">
+                        <constraints nullable="false" unique="true"/>
+                    </column>
+                    <column name="password" type="varchar(25)" remarks="Пароль">
+                        <constraints nullable="false"/>
+                    </column>
+                </createTable>
+                <addPrimaryKey columnNames="id" constraintName="user_pk" tableName="_user"/>
+            </rollback>
+        </changeSet>
+
+
+        <changeSet id="ala_01" author="alander">
+            <createTable tableName="_user" remarks="Пользователи">
+                <column name="id" type="bigint">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="username" type="varchar(25)" remarks="Логин пользователя">
+                    <constraints nullable="false" unique="true"/>
+                </column>
+                <column name="password" type="varchar(100)" remarks="Пароль">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+            <addPrimaryKey columnNames="id" constraintName="user_pk" tableName="_user"/>
+
+
+            <insert tableName="_user">
+                <column name="id" value="1"></column>
+                <column name="username" value="user"></column>
+                <column name="password" value="5f4dcc3b5aa765d61d8327deb882cf99"></column>
+            </insert>
+        </changeSet>
+</databaseChangeLog>
