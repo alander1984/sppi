@@ -27,9 +27,5 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
         registry.addResourceHandler( "**/*.map", "*.html").addResourceLocations("classpath:META-INF/resources/").setCachePeriod(0);
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
-    }
 
 }
