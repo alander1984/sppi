@@ -13,7 +13,7 @@
         <include file="db/changelog/08_add_process_step_process_link_table.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/09_add_dateStart_productName_productCode_isFinished_isPassed_to_process.xml" relativeToChangelogFile="false"/>
 
-        <include file="db/changelog/07_question_add_note_column.xml" relativeToChangelogFile="false"/>
-        <include file="db/changelog/08_user.xml" relativeToChangelogFile="false"/>
-        <include file="db/changelog/09_loadusers.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/10_question_add_note_column.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/11_user.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/12_loadusers.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
