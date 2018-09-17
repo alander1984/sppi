@@ -2,7 +2,7 @@
 <databaseChangeLog
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog dbchangelog-3.6.xsd">
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog classpath:/xsd/dbchangelog-3.6.xsd">
         <changeSet id="011" author="ykorzhev">
             <validCheckSum>8:1af427ca250d13e897c7d7a363d81f0b</validCheckSum>
             <createTable tableName="_user" remarks="Пользователи">
