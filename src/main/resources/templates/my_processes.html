@@ -1,0 +1,73 @@
+<!DOCTYPE "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Мои тесты</title>
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
+    <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
+    <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<p/>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var processList = [[${processList}]];
+    /*]]>*/
+</script>
+<div class="container">
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Дата начала</th>
+            <th scope="col">Последний вопрос</th>
+            <th scope="col">Ответ</th>
+            <th scope="col">Продукт</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Действие</th>
+        </tr>
+        </thead>
+        <tbody th:if="${not #lists.isEmpty(processList)}">
+        <tr th:each="process : ${processList}">
+            <td th:text="${#dates.format(process.getDateStart(), 'dd-MMM-yyyy')}"></td>
+            <td>
+                <div th:utext="${process.getLastProcessStep().getQuestion().getContent()}"></div>
+            </td>
+            <td th:text="${process.getLastProcessStep().getAnswerText()}"></td>
+            <td th:text="${process.getProductName()}"></td>
+            <td>
+                <div th:if="${process.getPassed() == null}">
+                    <p th:text="'Приостановлен'"></p>
+                </div>
+                <div th:unless="${process.getPassed() == null}">
+                    <p th:text="${process.getPassed().booleanValue() == true ? 'Пройден' : 'Не пройден'}"></p>
+                </div>
+            </td>
+            <td>
+                <div th:if="${process.getFinished().booleanValue()}">
+                    <button class="btn btn-dark" th:text="'Пройти заново'"
+                            th:onclick="|passTestAgain('${process.getProductCode()}',
+                            '${process.getProductName()}')|"></button>
+                </div>
+                <div th:unless="${process.getFinished().booleanValue()}">
+                    <button class="btn btn-success" th:text="'Продолжить'"
+                            th:onclick="|resumeTest('${process.getId()}',
+                            '${process.getLastProcessStep().getQuestion().getId()}',
+                            '${process.getLastProcessStep().getAnswer()}')|"></button>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        <tbody th:if="${#lists.isEmpty(processList)}">
+        <tr>
+            <td colspan="6">Нет процессов</td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:insert="~{footer :: back}"></div>
+</div>
+
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/my_processes.js}"></script>
+</body>
+</html>

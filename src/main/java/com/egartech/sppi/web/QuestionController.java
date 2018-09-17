@@ -24,12 +24,9 @@ public class QuestionController {
     @RequestMapping(value="question/{id}", method=RequestMethod.GET)
     public ResponseEntity<Question> getQuestion(@PathVariable(value="id") Long id) {
         Optional<Question> q = questionRepository.findById(id);
-        if (q.isPresent()) {
-            return new ResponseEntity<Question>(q.get(),HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<Question>(HttpStatus.NO_CONTENT);
-        }
+        return q
+                .map(question -> new ResponseEntity<>(question, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
     }
 
     @RequestMapping(value="showall", method = RequestMethod.GET)

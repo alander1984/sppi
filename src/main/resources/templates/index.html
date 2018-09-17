@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>SPPI-test</title>
+    <title>SPPI-тест</title>
     <link rel="stylesheet"
           href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
     <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
@@ -10,7 +10,7 @@
     <script th:src="@{/js/common.js}"></script>
 </head>
 <body>
-<p/>
+<br/>
 <div class="container">
     <div class="row">
         <form class="form-group" th:action="@{/logout}" method="post">
@@ -25,20 +25,28 @@
             </select>
         </div>
     </div>
-    <p/>
+    <br/>
     <div class="row">
-        <div class="col-sm-3">
-            <h4>Запуск теста</h4>
+        <div class="col-sm-4">
+            <h4>Запуск теста для продукта</h4>
         </div>
         <div class="col-sm-1">
             <button id="start_button" class="btn btn-primary">Старт</button>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-sm-4">
+            <h4>Перейти в "Мои процессы"</h4>
+        </div>
+        <div class="col-sm-1">
+            <button id="my_processes_button" class="btn btn-primary">Процессы</button>
         </div>
     </div>
     <div class="row">
        <button id="question_dictionary_button" class="btn btn-primary">Справочник вопросов</button>
     </div>
 </div>
-
 
 <script th:src="@{/js/index.js}"></script>
 </body>

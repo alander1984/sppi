@@ -5,10 +5,16 @@ public class Step {
     private Question current;
     private Question next=null;
     private String answer;
+    private Long processId;
 
     public Step(Question current, String answer){
         this.current = current;
         this.answer = answer;
+    }
+
+    public Step(Question firstQuestion, Long processId) {
+        this.current = firstQuestion;
+        this.processId = processId;
     }
 
     public Question getCurrent() {
@@ -38,5 +44,13 @@ public class Step {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+    public Long getProcessId() {
+        return processId;
+    }
+
+    public void setProcessId(Long processId) {
+        this.processId = processId;
     }
 }

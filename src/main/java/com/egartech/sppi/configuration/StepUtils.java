@@ -1,5 +1,6 @@
 package com.egartech.sppi.configuration;
 
+import com.egartech.sppi.model.Process;
 import com.egartech.sppi.model.Product;
 import com.egartech.sppi.model.Question;
 import com.egartech.sppi.model.Step;
@@ -20,19 +21,21 @@ public class StepUtils {
     @Autowired
     QuestionRepository questionRepository;
 
-    public Question getNextQuestion(Question q, String answer) {
-        Step step = new Step(q,answer);
+    public Question getNextQuestion(Question current, String answer) {
+        Step step = new Step(current, answer);
         KieSession kieSession = kieContainer.newKieSession();
         kieSession.insert(step);
         kieSession.fireAllRules();
         return step.getNext();
     }
 
-    public Question getFirstQuestion(String productCode) {
+    public Step getFirstStep(String productCode, Process process) {
         Product product = new Product(productCode);
         KieSession kieSession = kieContainer.newKieSession();
         kieSession.insert(product);
         kieSession.fireAllRules();
-        return questionRepository.findOne(byCode(product.getFirstQuestionCode())).get();
+        Question firstQuestion = questionRepository.findOne(byCode(product.getFirstQuestionCode())).get();
+        Step firstStep = new Step(firstQuestion, process.getId());
+        return firstStep;
     }
 }

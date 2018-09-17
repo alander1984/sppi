@@ -2,49 +2,60 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Шаг</title>
+    <title>Вопрос теста</title>
     <link rel="stylesheet"
           href="/webjars/bootstrap/4.1.3/css/bootstrap.min.css"/>
     <script src="/webjars/jquery/3.3.1-1/jquery.min.js"></script>
     <script src="/webjars/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 </head>
 <body>
-<p/>
+<br/>
 <div class="container">
-    <div class="row">
-        <form class="form-group" th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </div>
-    <script th:src="@{/js/common.js}"></script>
     <script th:inline="javascript">
         /*<![CDATA[*/
         var questionid = [[${questionid}]];
         var answers = [[${answers}]];
         var answerBtnStyles = [[${answerBtnStyles}]];
+        var processId = [[${processId}]];
+        var isFirstStep = [[${isFirstStep}]];
         /*]]>*/
     </script>
+    <div class="row">
+        <form class="form-group" th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
     <div class="row">
         <div class="col-sm-1">
             <h3>Вопрос:</h3>
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-7">
             <h4>
                 <div id="question"></div>
                 <blockquote id="question_note">Примечание:</blockquote>
             </h4>
         </div>
     </div>
-    <p/>
+    <br/>
     <div class="row">
         <div th:each="answer,ind : ${answers}" class="col-sm-2">
             <button th:attr="data-tag=${answer.getKey()}" th:text="${answer.getValue()}"
                     class="answerBtn btn" th:classappend="${answerBtnStyles[ind.index]}"></button>
         </div>
     </div>
+    <br/>
+    <div class="row" th:if="${!isFirstStep}">
+        <div class="col-sm-5">
+            <h4>Приостановить прохождение теста?</h4>
+        </div>
+        <div class="col-sm-1">
+            <button id="suspend_test_button" class="btn btn-danger">Приостановить</button>
+        </div>
+    </div>
 </div>
+<script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/step.js}"></script>
 </body>
 </html>

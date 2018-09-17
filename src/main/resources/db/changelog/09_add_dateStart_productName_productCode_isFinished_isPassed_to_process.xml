@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <changeSet id="009" author="a.fedorenko">
+        <addColumn tableName="process">
+            <column name="date_start"  type="datetime" remarks="Дата начала прохождения теста"/>
+        </addColumn>
+        <addColumn tableName="process">
+            <column name="product_name"  type="varchar(60)" remarks="Имя продукта, к которому относится тест"/>
+        </addColumn>
+        <addColumn tableName="process">
+            <column name="product_code"  type="varchar(25)" remarks="Код продукта, к которому относится тест"/>
+        </addColumn>
+        <addColumn tableName="process">
+            <column name="is_finished" type="boolean" defaultValueBoolean="false" remarks="Признак того, что прохождение теста закончено"/>
+        </addColumn>
+        <addColumn tableName="process">
+            <column name="is_passed" type="boolean" remarks="Признак того, что тест пройден успешно"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>
