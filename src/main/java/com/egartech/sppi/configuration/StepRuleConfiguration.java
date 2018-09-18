@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("com.egartech.sppi.configuration")
 public class StepRuleConfiguration {
-    private static final String drlFile = "rules/links.drl";
+    private static final String drlFile = "rules/Rules(credit).drl";
 
     @Bean
     public KieContainer kieContainer() {

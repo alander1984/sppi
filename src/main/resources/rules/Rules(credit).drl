@@ -1,0 +1,2609 @@
+import com.egartech.sppi.model.Step;
+import com.egartech.sppi.model.Product;
+
+rule "define first question of test"
+    when
+        product:Product(productCode=="term_susp_oblig");
+    then
+        product.setFirstQuestionCode("1");
+        update(product);
+end
+
+rule "Step 1 - YES"
+    when
+        step:Step(current.code=="1"&&answer=="yes");
+    then
+        step.setNextQ("2");
+        update(step);
+end
+
+rule "Step 1 - NO"
+    when
+        step:Step(current.code=="1"&&answer=="no");
+    then
+        step.setNextQ("6");
+        update(step);
+end
+
+rule "Step 2 - YES-Only CLI"
+    when
+        step:Step(current.code=="2"&&answer=="yes_only_cli");
+    then
+        step.setNextQ("3.1.2");
+        update(step);
+end
+rule "Step 2 - NO-not only CLI"
+    when
+        step:Step(current.code=="2"&&answer=="no_not_only_cli");
+    then
+        step.setNextQ("3.1.1");
+        update(step);
+        end
+rule "Step 2 - NO"
+     when
+         step:Step(current.code=="2"&&answer=="no_not_cli");
+     then
+         step.setNextQ("4");
+         update(step);
+end
+rule "Step 3.1.2 - YES"
+     when
+         step:Step(current.code=="3.1.2"&&answer=="yes");
+     then
+        step.setTestFailed();
+        update(step);end
+rule "Step 3.1.2 - NO"
+     when
+         step:Step(current.code=="3.1.2"&&answer=="no");
+     then
+         step.setNextQ("3.2.2");
+         update(step);end
+rule "Step 3.2.2 - YES"
+     when
+         step:Step(current.code=="3.2.2"&&answer=="yes");
+     then
+         step.setNextQ("3.3.2");
+         update(step);end
+rule "Step 3.2.2 - NO"
+     when
+         step:Step(current.code=="3.2.2"&&answer=="no");
+     then
+         step.setTestFailed();
+         update(step);end
+rule "Step 3.3.2 - YES"
+     when
+         step:Step(current.code=="3.3.2"&&answer=="yes");
+     then
+         step.setNextQ("3.4.2");
+         update(step);end
+rule "Step 3.3.2 - NO"
+     when
+         step:Step(current.code=="3.3.2"&&answer=="no");
+     then
+         step.setTestFailed();
+         update(step);end
+rule "Step 3.4.2 - YES"
+     when
+         step:Step(current.code=="3.4.2"&&answer=="yes");
+     then
+         step.setTestFailed();
+         update(step);end
+rule "Step 3.4.2 - NO"
+     when
+         step:Step(current.code=="3.4.2"&&answer=="no");
+     then
+         step.setNextQ("3.5.2");
+         update(step);end
+
+rule "Step 3.5.2 - YES"
+     when
+         step:Step(current.code=="3.5.2"&&answer=="yes");
+     then
+        step.setNextQ("6");
+        update(step);end
+rule "Step 3.5.2 - NO"
+     when
+         step:Step(current.code=="3.5.2"&&answer=="no");
+     then
+         step.setNextQ("3.6.2");
+         update(step);end
+
+ rule "Step 3.6.2 - YES"
+      when
+          step:Step(current.code=="3.6.2"&&answer=="yes");
+      then
+         step.setNextQ("6");
+         update(step);end
+ rule "Step 3.6.2 - NO"
+      when
+          step:Step(current.code=="3.6.2"&&answer=="no");
+      then
+         step.setTestFailed();
+         update(step);
+end
+
+rule "Step 3.1.1 - YES"
+     when
+         step:Step(current.code=="3.1.1"&&answer=="yes");
+     then
+        step.setTestFailed();
+        update(step);
+end
+rule "Step 3.1.1 - NO"
+     when
+         step:Step(current.code=="3.1.1"&&answer=="no");
+     then
+         step.setNextQ("3.2.1");
+         update(step);end
+rule "Step 3.2.1 - YES"
+     when
+         step:Step(current.code=="3.2.1"&&answer=="yes");
+     then
+         step.setNextQ("3.3.1");
+         update(step);end
+rule "Step 3.2.1 - NO"
+     when
+         step:Step(current.code=="3.2.1"&&answer=="no");
+     then
+         step.setTestFailed();
+         update(step);end
+rule "Step 3.3.1 - YES"
+     when
+         step:Step(current.code=="3.3.1"&&answer=="yes");
+     then
+         step.setNextQ("3.4.1");
+         update(step);end
+rule "Step 3.3.1 - NO"
+     when
+         step:Step(current.code=="3.3.1"&&answer=="no");
+     then
+         step.setTestFailed();
+         update(step);end
+rule "Step 3.4.1 - YES"
+     when
+         step:Step(current.code=="3.4.1"&&answer=="yes");
+     then
+         step.setTestFailed();
+         update(step);end
+rule "Step 3.4.1 - NO"
+     when
+         step:Step(current.code=="3.4.1"&&answer=="no");
+     then
+         step.setNextQ("3.5.1");
+         update(step);end
+
+rule "Step 3.5.1 - YES"
+     when
+         step:Step(current.code=="3.5.1"&&answer=="yes");
+     then
+        step.setNextQ("4");
+        update(step);end
+rule "Step 3.5.1 - NO"
+     when
+         step:Step(current.code=="3.5.1"&&answer=="no");
+     then
+         step.setNextQ("3.6.1");
+         update(step);end
+
+rule "Step 3.6.1 - YES"
+      when
+          step:Step(current.code=="3.6.1"&&answer=="yes");
+      then
+         step.setNextQ("4");
+         update(step);end
+rule "Step 3.6.1 - NO"
+      when
+          step:Step(current.code=="3.6.1"&&answer=="no");
+      then
+         step.setTestFailed();
+         update(step);end
+
+rule "Step 4 - YES"
+      when
+           step:Step(current.code=="4"&&answer=="yes");
+      then
+           step.setNextQ("6");
+           update(step);end
+rule "Step 4 - NO"
+      when
+            step:Step(current.code=="4"&&answer=="no");
+      then
+           step.setNextQ("5");
+           update(step);end
+
+rule "Step 5 - YES"
+      when
+           step:Step(current.code=="5"&&answer=="yes");
+      then
+           step.setNextQ("6");
+           update(step);end
+rule "Step 5 - NO"
+        when
+            step:Step(current.code=="5"&&answer=="no");
+        then
+             step.setTestFailed();
+             update(step);
+             end
+
+rule "Step 6 - FIXED"
+      when
+           step:Step(current.code=="6"&&answer=="fixed");
+      then
+           step.setNextQ("8.1");
+           update(step);end
+rule "Step 6 - FLOAT"
+      when
+            step:Step(current.code=="6"&&answer=="floating");
+      then
+           step.setNextQ("7.1");
+           update(step);end
+
+rule "Step 7.1 - YES"
+      when
+           step:Step(current.code=="7.1"&&answer=="yes");
+      then
+           step.setNextQ("7.2");
+           update(step);end
+rule "Step 7.1 - NO"
+      when
+            step:Step(current.code=="7.1"&&answer=="no");
+      then
+             step.setTestFailed();
+             update(step);end
+
+rule "Step 7.2 - YES"
+      when
+           step:Step(current.code=="7.2"&&answer=="yes");
+      then
+             step.setTestFailed();
+             update(step);end
+rule "Step 7.2 - NO"
+      when
+            step:Step(current.code=="7.2"&&answer=="no");
+      then
+           step.setNextQ("7.3");
+           update(step);end
+rule "Step 7.3 - YES"
+      when
+           step:Step(current.code=="7.3"&&answer=="yes");
+      then
+             step.setTestFailed();
+             update(step);end
+rule "Step 7.3 - NO"
+      when
+            step:Step(current.code=="7.3"&&answer=="no");
+      then
+           step.setNextQ("7.4");
+           update(step);end
+
+rule "Step 7.4 - YES"
+      when
+           step:Step(current.code=="7.4"&&answer=="yes");
+      then
+           step.setNextQ("7.5");
+           update(step);end
+rule "Step 7.4 - NO"
+      when
+            step:Step(current.code=="7.4"&&answer=="no");
+      then
+             step.setNextQ("7.7.1");
+             update(step);end
+rule "Step 7.5 - YES"
+      when
+           step:Step(current.code=="7.5"&&answer=="yes");
+      then
+           step.setNextQ("7.6");
+           update(step);end
+rule "Step 7.5 - NO"
+      when
+            step:Step(current.code=="7.5"&&answer=="no");
+      then
+           step.setNextQ("7.7.1");
+           update(step);end
+rule "Step 7.6 - YES"
+      when
+           step:Step(current.code=="7.6"&&answer=="yes");
+      then
+           step.setNextQ("7.7.1");
+           update(step);end
+rule "Step 7.6 - NO"
+      when
+            step:Step(current.code=="7.6"&&answer=="no");
+      then
+           step.setNextQ("8.1");
+           update(step);end
+
+rule "Step 7.7.1 - YES"
+      when
+           step:Step(current.code=="7.7.1"&&answer=="yes");
+      then
+           step.setNextQ("8.1");
+           update(step);end
+rule "Step 7.7.1 - NO"
+      when
+            step:Step(current.code=="7.7.1"&&answer=="no");
+      then
+           step.setNextQ("7.7.2");
+           update(step);end
+
+rule "Step 7.7.2 - YES"
+      when
+           step:Step(current.code=="7.7.1"&&answer=="yes");
+      then
+           step.setTestFailed();
+           update(step);
+end
+rule "Step 7.7.2 - NO"
+      when
+            step:Step(current.code=="7.7.1"&&answer=="no");
+      then
+           step.setNextQ("8.1");
+           update(step);
+end
+
+rule "Step 8.1 - YES"
+      when
+           step:Step(current.code=="8.1"&&answer=="yes");
+      then
+           step.setNextQ("8.2.2");
+           update(step);end
+rule "Step 8.1 - NO(with_condition)"
+      when
+            step:Step(current.code=="8.1"&&answer=="no_with_condition");
+      then
+           step.setNextQ("8.2.1");
+           update(step);end
+
+ rule "Step 8.1 - NO(with_steps)"
+       when
+             step:Step(current.code=="8.1"&&answer=="no_with_step");
+       then
+            step.setNextQ("9.1");
+            update(step);end
+
+rule "Step 8.1 - NO (not condition)"
+      when
+           step:Step(current.code=="8.1"&&answer=="no_not_condition");
+      then
+           step.setNextQ("10");
+           update(step);end
+
+
+rule "Step 8.2.1 - YES"
+      when
+            step:Step(current.code=="8.2.1"&&answer=="yes");
+      then
+           step.setNextQ("9.1");
+           update(step);end
+
+rule "Step 8.2.1 - NO"
+      when
+            step:Step(current.code=="8.2.1"&&answer=="no");
+      then
+           step.setTestFailed();
+           update(step);end
+rule "Step 8.2.2 - YES"
+      when
+            step:Step(current.code=="8.2.2"&&answer=="yes");
+      then
+           step.setNextQ("10");
+           update(step);end
+
+rule "Step 8.2.2 - NO"
+      when
+            step:Step(current.code=="8.2.1"&&answer=="no");
+      then
+           step.setTestFailed();
+           update(step);end
+
+rule "Step 9.1 - YES"
+      when
+            step:Step(current.code=="9.1"&&answer=="yes");
+      then
+           step.setNextQ("9.2");
+           update(step);end
+rule "Step 9.1 - NO"
+      when
+            step:Step(current.code=="9.1"&&answer=="no");
+      then
+           step.setNextQ("9.2");
+           update(step);end
+rule "Step 9.2 - YES"
+      when
+            step:Step(current.code=="9.2"&&answer=="yes");
+      then
+           step.setNextQ("9.3");
+           update(step);end
+rule "Step 9.2 - NO"
+      when
+            step:Step(current.code=="9.2"&&answer=="no");
+      then
+           step.setNextQ("9.3");
+           update(step);
+end
+
+rule "Step 9.3 - YES"
+      when
+            step:Step(current.code=="9.3"&&answer=="yes");
+      then
+           step.setNextQ("9.3.1");
+           update(step);
+end
+rule "Step 9.3 - NO"
+      when
+            step:Step(current.code=="9.3"&&answer=="no");
+      then
+           step.setNextQ("9.4");
+           update(step);end
+
+rule "Step 9.3.1 - YES"
+      when
+            step:Step(current.code=="9.3.1"&&answer=="yes");
+      then
+           step.setNextQ("9.4");
+           update(step);end
+rule "Step 9.3.1 - NO"
+      when
+            step:Step(current.code=="9.3.1"&&answer=="no");
+      then
+           step.setNextQ("9.3.2");
+           update(step);end
+
+rule "Step 9.3.2 - YES"
+      when
+            step:Step(current.code=="9.3.2"&&answer=="yes");
+      then
+           step.setNextQ("9.4");
+           update(step);end
+rule "Step 9.3.2 - NO"
+      when
+            step:Step(current.code=="9.3.2"&&answer=="no");
+      then
+           step.setNextQ("9.3.3");
+           update(step);end
+
+rule "Step 9.3.3 - YES"
+      when
+            step:Step(current.code=="9.3.3"&&answer=="yes");
+      then
+           step.setNextQ("9.4");
+           update(step);end
+rule "Step 9.3.3 - NO"
+      when
+            step:Step(current.code=="9.3.3"&&answer=="no");
+      then
+            step.setTestFailed();
+           update(step);end
+rule "Step 9.4 - YES"
+      when
+            step:Step(current.code=="9.4"&&answer=="yes");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 9.4 - NO"
+      when
+            step:Step(current.code=="9.4"&&answer=="no");
+      then
+           step.setNextQ("9.5");
+           update(step);end
+
+rule "Step 9.5 - YES"
+      when
+            step:Step(current.code=="9.5"&&answer=="yes");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 9.5 - NO"
+      when
+            step:Step(current.code=="9.5"&&answer=="no");
+      then
+           step.setNextQ("9.6");
+           update(step);end
+
+rule "Step 9.6 - YES"
+      when
+            step:Step(current.code=="9.6"&&answer=="yes");
+      then
+           step.setNextQ("9.6.1");
+           update(step);end
+rule "Step 9.6 - NO"
+      when
+            step:Step(current.code=="9.6"&&answer=="no");
+      then
+           step.setNextQ("10");
+           update(step);end
+
+rule "Step 9.6.1 - YES"
+      when
+            step:Step(current.code=="9.6.1"&&answer=="yes");
+      then
+           step.setNextQ("10");
+           update(step);end
+rule "Step 9.6.1 - NO"
+      when
+            step:Step(current.code=="9.6.1"&&answer=="no");
+      then
+            step.setTestFailed();
+           update(step);end
+rule "Step 10 - YES"
+      when
+            step:Step(current.code=="10"&&answer=="yes");
+      then
+           step.setNextQ("11");
+           update(step);end
+rule "Step 10 - NO"
+      when
+            step:Step(current.code=="10"&&answer=="no");
+      then
+           step.setNextQ("15");
+           update(step);end
+
+rule "Step 11 - YES"
+      when
+            step:Step(current.code=="11"&&answer=="yes");
+      then
+           step.setNextQ("14.1");
+           update(step);end
+rule "Step 11 - NO"
+      when
+            step:Step(current.code=="11"&&answer=="no");
+      then
+           step.setNextQ("12");
+           update(step);end
+
+rule "Step 12 - YES"
+      when
+            step:Step(current.code=="12"&&answer=="yes");
+      then
+           step.setNextQ("15");
+           update(step);end
+rule "Step 12 - NO"
+      when
+            step:Step(current.code=="12"&&answer=="no");
+      then
+           step.setNextQ("13.1");
+           update(step);end
+
+rule "Step 13.1 - YES"
+      when
+            step:Step(current.code=="13.1"&&answer=="yes");
+      then
+           step.setNextQ("13.2");
+           update(step);end
+rule "Step 13.1 - NO"
+      when
+            step:Step(current.code=="13.1"&&answer=="no");
+      then
+           step.setNextQ("13.2");
+           update(step);end
+
+rule "Step 13.2 - YES"
+      when
+            step:Step(current.code=="13.2"&&answer=="yes");
+      then
+           step.setNextQ("13.3");
+           update(step);end
+rule "Step 13.2 - NO"
+      when
+            step:Step(current.code=="13.2"&&answer=="no");
+      then
+           step.setNextQ("13.3");
+           update(step);end
+
+rule "Step 13.3 - YES"
+      when
+            step:Step(current.code=="13.3"&&answer=="yes");
+      then
+           step.setNextQ("13.4");
+           update(step);end
+rule "Step 13.3 - NO"
+      when
+            step:Step(current.code=="13.3"&&answer=="no");
+      then
+           step.setNextQ("13.4");
+           update(step);end
+
+rule "Step 13.4 - YES"
+      when
+            step:Step(current.code=="13.4"&&answer=="yes");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 13.4 - NO"
+      when
+            step:Step(current.code=="13.4"&&answer=="no");
+      then
+           step.setNextQ("13.5");
+           update(step);end
+rule "Step 13.5 - YES"
+      when
+            step:Step(current.code=="13.5"&&answer=="yes");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 13.5 - NO"
+      when
+            step:Step(current.code=="13.5"&&answer=="no");
+      then
+           step.setNextQ("13.6");
+           update(step);end
+rule "Step 13.6 - YES"
+      when
+            step:Step(current.code=="13.6"&&answer=="yes");
+      then
+           step.setNextQ("13.6.1");
+           update(step);end
+rule "Step 13.6 - NO"
+      when
+            step:Step(current.code=="13.6"&&answer=="no");
+      then
+           step.setNextQ("15");
+           update(step);end
+rule "Step 13.6.1 - YES"
+      when
+            step:Step(current.code=="13.6.1"&&answer=="yes");
+      then
+           step.setNextQ("15");
+           update(step);end
+rule "Step 13.6.1 - NO"
+      when
+            step:Step(current.code=="13.6.1"&&answer=="no");
+      then
+            step.setTestFailed();
+           update(step);end
+
+rule "Step 14.1 - YES"
+      when
+            step:Step(current.code=="14.1"&&answer=="yes");
+      then
+           step.setNextQ("14.4");
+           update(step);end
+rule "Step 14.1 - NO"
+      when
+            step:Step(current.code=="14.1"&&answer=="no");
+      then
+           step.setNextQ("14.2");
+           update(step);end
+
+rule "Step 14.2 - YES"
+      when
+            step:Step(current.code=="14.2"&&answer=="yes");
+      then
+           step.setNextQ("14.4");
+           update(step);end
+rule "Step 14.2 - NO"
+      when
+            step:Step(current.code=="14.2"&&answer=="no");
+      then
+           step.setNextQ("14.3");
+           update(step);end
+
+rule "Step 14.3 - YES"
+      when
+            step:Step(current.code=="14.3"&&answer=="yes");
+      then
+           step.setNextQ("14.4");
+           update(step);end
+rule "Step 14.3 - NO"
+      when
+            step:Step(current.code=="14.3"&&answer=="no");
+      then
+           step.setNextQ("12");
+           update(step);end
+
+rule "Step 14.4 - YES"
+      when
+            step:Step(current.code=="14.4"&&answer=="yes");
+      then
+           step.setNextQ("12");
+           update(step);end
+rule "Step 14.4 - NO"
+      when
+            step:Step(current.code=="14.4"&&answer=="no");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 15 - YES"
+      when
+            step:Step(current.code=="15"&&answer=="yes");
+      then
+           step.setNextQ("16");
+           update(step);end
+rule "Step 15 - NO"
+      when
+            step:Step(current.code=="15"&&answer=="no");
+      then
+           step.setNextQ("24");
+           update(step);end
+
+rule "Step 16 - YES"
+      when
+            step:Step(current.code=="16"&&answer=="yes");
+      then
+           step.setNextQ("24");
+           update(step);end
+rule "Step 16 - NO"
+      when
+            step:Step(current.code=="16"&&answer=="no");
+      then
+           step.setNextQ("17");
+           update(step);end
+
+rule "Step 17 - YES"
+      when
+            step:Step(current.code=="17"&&answer=="yes");
+      then
+           step.setNextQ("24");
+           update(step);end
+rule "Step 17 - NO"
+      when
+            step:Step(current.code=="17"&&answer=="no");
+      then
+           step.setNextQ("18");
+           update(step);end
+
+
+rule "Step 18 - FIXED"
+      when
+           step:Step(current.code=="18"&&answer=="fixed");
+      then
+           step.setNextQ("20.1");
+           update(step);end
+rule "Step 18 - FLOAT"
+      when
+            step:Step(current.code=="18"&&answer=="floating");
+      then
+           step.setNextQ("19.1");
+           update(step);end
+
+rule "Step 19.1 - YES"
+      when
+           step:Step(current.code=="19.1"&&answer=="yes");
+      then
+           step.setNextQ("19.2");
+           update(step);end
+rule "Step 19.1 - NO"
+      when
+            step:Step(current.code=="19.1"&&answer=="no");
+      then
+           step.setTestFailed();
+           update(step);end
+rule "Step 19.2 - YES"
+      when
+           step:Step(current.code=="19.2"&&answer=="yes");
+      then
+             step.setTestFailed();
+             update(step);end
+rule "Step 19.2 - NO"
+      when
+            step:Step(current.code=="19.2"&&answer=="no");
+      then
+           step.setNextQ("19.3");
+           update(step);end
+rule "Step 19.3 - YES"
+      when
+           step:Step(current.code=="19.3"&&answer=="yes");
+      then
+           step.setTestFailed();
+           update(step);end
+rule "Step 19.3 - NO"
+      when
+            step:Step(current.code=="19.3"&&answer=="no");
+      then
+           step.setNextQ("19.4");
+           update(step);end
+
+rule "Step 19.4 - YES"
+      when
+           step:Step(current.code=="19.4"&&answer=="yes");
+      then
+           step.setNextQ("19.5");
+           update(step);end
+rule "Step 19.4 - NO"
+      when
+            step:Step(current.code=="19.4"&&answer=="no");
+      then
+             step.setNextQ("19.7.1");
+             update(step);end
+rule "Step 19.5 - YES"
+      when
+           step:Step(current.code=="19.5"&&answer=="yes");
+      then
+           step.setNextQ("19.6");
+           update(step);end
+rule "Step 19.5 - NO"
+      when
+            step:Step(current.code=="19.5"&&answer=="no");
+      then
+           step.setNextQ("19.7.1");
+           update(step);end
+rule "Step 19.6 - YES"
+      when
+           step:Step(current.code=="19.6"&&answer=="yes");
+      then
+           step.setNextQ("19.7.1");
+           update(step);end
+rule "Step 19.6 - NO"
+      when
+            step:Step(current.code=="19.6"&&answer=="no");
+      then
+           step.setNextQ("20.1");
+           update(step);end
+
+rule "Step 19.7.1 - YES"
+      when
+           step:Step(current.code=="19.7.1"&&answer=="yes");
+      then
+           step.setNextQ("20.1");
+           update(step);end
+rule "Step 19.7.1 - NO"
+      when
+            step:Step(current.code=="19.7.1"&&answer=="no");
+      then
+           step.setNextQ("19.7.2");
+           update(step);end
+
+rule "Step 19.7.2 - YES"
+      when
+           step:Step(current.code=="19.7.2"&&answer=="yes");
+      then
+           step.setTestFailed();
+           update(step);end
+rule "Step 19.7.2 - NO"
+      when
+            step:Step(current.code=="19.7.2"&&answer=="no");
+      then
+           step.setNextQ("20.1");
+           update(step);end
+
+rule "Step 20.1 - YES"
+      when
+           step:Step(current.code=="20.1"&&answer=="yes");
+      then
+           step.setNextQ("20.2.2");
+           update(step);end
+rule "Step 20.1 - NO(with_condition)"
+      when
+            step:Step(current.code=="20.1"&&answer=="no_with_condition");
+      then
+           step.setNextQ("20.2.1");
+           update(step);end
+   rule "Step 20.1 - NO(with_steps)"
+         when
+               step:Step(current.code=="20.1"&&answer=="no_with_step");
+         then
+              step.setNextQ("21.1");
+              update(step);end
+
+rule "Step 20.1 - NO (not condition)"
+      when
+           step:Step(current.code=="20.1"&&answer=="no_not_condition");
+      then
+           step.setNextQ("22");
+           update(step);end
+
+
+rule "Step 20.2.1 - YES"
+      when
+            step:Step(current.code=="20.2.1"&&answer=="yes");
+      then
+           step.setNextQ("21.1");
+           update(step);end
+
+rule "Step 20.2.1 - NO"
+      when
+            step:Step(current.code=="20.2.1"&&answer=="no");
+      then
+           step.setTestFailed();
+           update(step);end
+rule "Step 20.2.2 - YES"
+      when
+            step:Step(current.code=="20.2.2"&&answer=="yes");
+      then
+           step.setNextQ("22");
+           update(step);end
+
+rule "Step 20.2.2 - NO"
+      when
+            step:Step(current.code=="20.2.2"&&answer=="no");
+      then
+           step.setTestFailed();
+           update(step);end
+
+rule "Step 21.1 - YES"
+      when
+            step:Step(current.code=="21.1"&&answer=="yes");
+      then
+           step.setNextQ("21.2");
+           update(step);end
+rule "Step 21.1 - NO"
+      when
+            step:Step(current.code=="21.1"&&answer=="no");
+      then
+           step.setNextQ("21.2");
+           update(step);end
+rule "Step 21.2 - YES"
+      when
+            step:Step(current.code=="21.2"&&answer=="yes");
+      then
+           step.setNextQ("21.3");
+           update(step);end
+rule "Step 21.2 - NO"
+      when
+            step:Step(current.code=="21.2"&&answer=="no");
+      then
+           step.setNextQ("21.3");
+           update(step);end
+
+rule "Step 21.3 - YES"
+      when
+            step:Step(current.code=="21.3"&&answer=="yes");
+      then
+           step.setNextQ("21.3.1");
+           update(step);end
+rule "Step 21.3 - NO"
+      when
+            step:Step(current.code=="21.3"&&answer=="no");
+      then
+           step.setNextQ("21.4");
+           update(step);end
+
+rule "Step 21.3.1 - YES"
+      when
+            step:Step(current.code=="21.3.1"&&answer=="yes");
+      then
+           step.setNextQ("21.4");
+           update(step);end
+rule "Step 21.3.1 - NO"
+      when
+            step:Step(current.code=="21.3.1"&&answer=="no");
+      then
+           step.setNextQ("21.3.2");
+           update(step);end
+
+rule "Step 21.3.2 - YES"
+      when
+            step:Step(current.code=="21.3.2"&&answer=="yes");
+      then
+           step.setNextQ("21.4");
+           update(step);end
+rule "Step 21.3.2 - NO"
+      when
+            step:Step(current.code=="21.3.2"&&answer=="no");
+      then
+           step.setNextQ("21.3.3");
+           update(step);end
+
+rule "Step 21.3.3 - YES"
+      when
+            step:Step(current.code=="21.3.3"&&answer=="yes");
+      then
+           step.setNextQ("21.4");
+           update(step);end
+rule "Step 21.3.3 - NO"
+      when
+            step:Step(current.code=="21.3.3"&&answer=="no");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 21.4 - YES"
+      when
+            step:Step(current.code=="21.4"&&answer=="yes");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 21.4 - NO"
+      when
+            step:Step(current.code=="21.4"&&answer=="no");
+      then
+           step.setNextQ("21.5");
+           update(step);end
+
+rule "Step 21.5 - YES"
+      when
+            step:Step(current.code=="21.5"&&answer=="yes");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 21.5 - NO"
+      when
+            step:Step(current.code=="21.5"&&answer=="no");
+      then
+           step.setNextQ("21.6");
+           update(step);end
+
+rule "Step 21.6 - YES"
+      when
+            step:Step(current.code=="21.6"&&answer=="yes");
+      then
+           step.setNextQ("21.6.1");
+           update(step);end
+rule "Step 21.6 - NO"
+      when
+            step:Step(current.code=="21.6"&&answer=="no");
+      then
+           step.setNextQ("22");
+           update(step);end
+
+rule "Step 21.6.1 - YES"
+      when
+            step:Step(current.code=="21.6.1"&&answer=="yes");
+      then
+           step.setNextQ("22");
+           update(step);end
+rule "Step 21.6.1 - NO"
+      when
+            step:Step(current.code=="21.6.1"&&answer=="no");
+      then
+            step.setTestFailed();
+            update(step);end
+
+
+rule "Step 22 - YES"
+      when
+            step:Step(current.code=="22"&&answer=="yes");
+      then
+           step.setNextQ("23");
+           update(step);end
+rule "Step 22 - NO"
+      when
+            step:Step(current.code=="22"&&answer=="no");
+      then
+           step.setNextQ("24");
+           update(step);end
+
+rule "Step 23 - YES"
+      when
+            step:Step(current.code=="23"&&answer=="yes");
+      then
+           step.setNextQ("24");
+           update(step);end
+rule "Step 23 - NO"
+      when
+            step:Step(current.code=="23"&&answer=="no");
+      then
+           step.setNextQ("23.1");
+           update(step);end
+
+rule "Step 23.1 - YES"
+      when
+            step:Step(current.code=="23.1"&&answer=="yes");
+      then
+           step.setNextQ("23.2");
+           update(step);end
+rule "Step 23.1 - NO"
+      when
+            step:Step(current.code=="23.1"&&answer=="no");
+      then
+           step.setNextQ("23.2");
+           update(step);end
+rule "Step 23.2 - YES"
+      when
+            step:Step(current.code=="23.2"&&answer=="yes");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 23.2 - NO"
+      when
+            step:Step(current.code=="23.2"&&answer=="no");
+      then
+           step.setNextQ("23.3");
+           update(step);end
+
+rule "Step 23.3 - YES"
+      when
+            step:Step(current.code=="23.3"&&answer=="yes");
+      then
+           step.setNextQ("23.3.1");
+           update(step);end
+rule "Step 23.3 - NO"
+      when
+            step:Step(current.code=="23.3"&&answer=="no");
+      then
+           step.setNextQ("24");
+           update(step);end
+
+rule "Step 23.3.1 - YES"
+      when
+            step:Step(current.code=="23.3.1"&&answer=="yes");
+      then
+           step.setNextQ("24");
+           update(step);end
+rule "Step 23.3.1 - NO"
+      when
+            step:Step(current.code=="23.3.1"&&answer=="no");
+      then
+            step.setTestFailed();
+            update(step);end
+
+rule "Step 24 - YES"
+      when
+            step:Step(current.code=="24"&&answer=="yes");
+      then
+           step.setNextQ("30");
+           update(step);end
+rule "Step 24 - NO"
+      when
+            step:Step(current.code=="24"&&answer=="no");
+      then
+           step.setNextQ("25");
+           update(step);end
+
+rule "Step 25 - YES"
+      when
+            step:Step(current.code=="25"&&answer=="yes");
+      then
+           step.setNextQ("26");
+           update(step);end
+rule "Step 25 - NO"
+      when
+            step:Step(current.code=="25"&&answer=="no");
+      then
+           step.setNextQ("30");
+           update(step);end
+rule "Step 26 - YES"
+      when
+            step:Step(current.code=="26"&&answer=="yes");
+      then
+           step.setNextQ("27");
+           update(step);end
+rule "Step 26 - NO"
+      when
+            step:Step(current.code=="26"&&answer=="no");
+      then
+           step.setNextQ("28.1");
+           update(step);end
+
+rule "Step 27 - YES"
+      when
+            step:Step(current.code=="27"&&answer=="yes");
+      then
+           step.setNextQ("28.1");
+           update(step);end
+rule "Step 27 - NO"
+      when
+            step:Step(current.code=="27"&&answer=="no");
+      then
+           step.setNextQ("30");
+           update(step);end
+
+rule "Step 28.1 - YES"
+      when
+            step:Step(current.code=="28.1"&&answer=="yes");
+      then
+           step.setNextQ("28.2");
+           update(step);end
+rule "Step 28.1 - NO"
+      when
+            step:Step(current.code=="28.1"&&answer=="no");
+      then
+           step.setNextQ("28.3");
+           update(step);end
+
+rule "Step 28.2 - YES"
+      when
+            step:Step(current.code=="28.2"&&answer=="yes");
+      then
+           step.setNextQ("30");
+           update(step);end
+rule "Step 28.2 - NO"
+      when
+            step:Step(current.code=="28.2"&&answer=="no");
+      then
+           step.setNextQ("28.3");
+           update(step);end
+
+rule "Step 28.3 - YES"
+      when
+            step:Step(current.code=="28.3"&&answer=="yes");
+      then
+           step.setNextQ("30");
+           update(step);end
+rule "Step 28.3 - NO"
+      when
+            step:Step(current.code=="28.3"&&answer=="no");
+      then
+           step.setNextQ("29");
+           update(step);end
+
+rule "Step 29 - YES"
+      when
+            step:Step(current.code=="29"&&answer=="yes");
+      then
+           step.setNextQ("29.1");
+           update(step);end
+rule "Step 29 - NO"
+      when
+            step:Step(current.code=="29"&&answer=="no");
+      then
+            step.setTestFailed();
+            update(step);end
+rule "Step 29.1 - YES"
+      when
+            step:Step(current.code=="29.1"&&answer=="yes");
+      then
+           step.setNextQ("30");
+           update(step);end
+rule "Step 29.1 - NO"
+      when
+            step:Step(current.code=="29.1"&&answer=="no");
+      then
+            step.setTestFailed();
+            update(step);end
+ rule "Step 30 - YES"
+       when
+             step:Step(current.code=="30"&&answer=="yes");
+       then
+            step.setNextQ("31");
+            update(step);end
+ rule "Step 30 - NO"
+       when
+             step:Step(current.code=="30"&&answer=="no");
+       then
+            step.setNextQ("36");
+            update(step);end
+
+ rule "Step 31 - YES"
+       when
+             step:Step(current.code=="31"&&answer=="yes");
+       then
+            step.setNextQ("39");
+            update(step);end
+ rule "Step 31 - NO"
+       when
+             step:Step(current.code=="31"&&answer=="no");
+       then
+            step.setNextQ("32");
+            update(step);end
+
+ rule "Step 32 - YES"
+       when
+             step:Step(current.code=="32"&&answer=="yes");
+       then
+            step.setNextQ("33");
+            update(step);end
+ rule "Step 32 - NO"
+       when
+             step:Step(current.code=="32"&&answer=="no");
+       then
+            step.setNextQ("39");
+            update(step);end
+
+ rule "Step 33 - YES"
+       when
+             step:Step(current.code=="33"&&answer=="yes");
+       then
+            step.setNextQ("36");
+            update(step);end
+ rule "Step 33 - NO"
+       when
+             step:Step(current.code=="33"&&answer=="no");
+       then
+            step.setNextQ("34");
+            update(step);end
+
+ rule "Step 34 - YES"
+       when
+             step:Step(current.code=="34"&&answer=="yes");
+       then
+            step.setTestFailed();
+            update(step);end
+ rule "Step 34 - NO"
+       when
+             step:Step(current.code=="34"&&answer=="no");
+       then
+            step.setNextQ("35.1");
+            update(step);end
+
+
+rule "Step 35.1 - YES"
+       when
+             step:Step(current.code=="35.1"&&answer=="yes");
+       then
+            step.setNextQ("35.2");
+            update(step);end
+rule "Step 35.1 - NO"
+       when
+             step:Step(current.code=="35.1"&&answer=="no");
+       then
+            step.setNextQ("35.2");
+            update(step);end
+
+rule "Step 35.2 - YES"
+       when
+             step:Step(current.code=="35.2"&&answer=="yes");
+       then
+            step.setNextQ("35.3");
+            update(step);end
+rule "Step 35.2 - NO"
+       when
+             step:Step(current.code=="35.2"&&answer=="no");
+       then
+            step.setNextQ("35.3");
+            update(step);end
+rule "Step 35.3 - YES"
+        when
+              step:Step(current.code=="35.3"&&answer=="yes");
+        then
+             step.setNextQ("35.3.1");
+             update(step);end
+rule "Step 35.3 - NO"
+        when
+              step:Step(current.code=="35.3"&&answer=="no");
+        then
+             step.setNextQ("35.4");
+             update(step);end
+ rule "Step 35.3.1 - YES"
+       when
+             step:Step(current.code=="35.3.1"&&answer=="yes");
+       then
+            step.setNextQ("35.4");
+            update(step);end
+ rule "Step 35.3.1 - NO"
+       when
+             step:Step(current.code=="35.3.1"&&answer=="no");
+       then
+            step.setNextQ("35.3.2");
+            update(step);end
+
+ rule "Step 35.3.2 - YES"
+       when
+             step:Step(current.code=="35.3.2"&&answer=="yes");
+       then
+            step.setNextQ("35.4");
+            update(step);end
+ rule "Step 35.3.2 - NO"
+       when
+             step:Step(current.code=="35.3.2"&&answer=="no");
+       then
+            step.setNextQ("35.3.3");
+            update(step);end
+ rule "Step 35.3.3 - YES"
+       when
+             step:Step(current.code=="35.3.3"&&answer=="yes");
+       then
+            step.setNextQ("35.4");
+            update(step);end
+ rule "Step 35.3.3 - NO"
+       when
+             step:Step(current.code=="35.3.3"&&answer=="no");
+       then
+            step.setTestFailed();
+            update(step);end
+rule "Step 35.4 - YES"
+       when
+             step:Step(current.code=="35.4"&&answer=="yes");
+       then
+            step.setTestFailed();
+             update(step);end
+rule "Step 35.4 - NO"
+       when
+             step:Step(current.code=="35.4"&&answer=="no");
+       then
+             step.setNextQ("35.5");
+             update(step);end
+
+rule "Step 35.5 - YES"
+       when
+             step:Step(current.code=="35.5"&&answer=="yes");
+       then
+             step.setNextQ("35.5.1");
+             update(step);end
+
+rule "Step 35.5 - NO"
+       when
+             step:Step(current.code=="35.5"&&answer=="no");
+       then
+             step.setNextQ("36");
+             update(step);end
+
+rule "Step 35.5.1 - YES"
+       when
+             step:Step(current.code=="35.5.1"&&answer=="yes");
+       then
+             step.setNextQ("36");
+             update(step);end
+
+ rule "Step 35.5.1 - NO"
+       when
+             step:Step(current.code=="35.5.1"&&answer=="no");
+       then
+            step.setTestFailed();
+            update(step);end
+ rule "Step 36 - YES"
+       when
+             step:Step(current.code=="36"&&answer=="yes");
+       then
+             step.setNextQ("37");
+             update(step);end
+
+ rule "Step 36 - NO"
+       when
+             step:Step(current.code=="36"&&answer=="no");
+       then
+             step.setNextQ("61");
+             update(step);end
+
+ rule "Step 37 - YES"
+       when
+             step:Step(current.code=="37"&&answer=="yes");
+       then
+            step.setTestOK();
+            update(step);end
+ rule "Step 37 - NO"
+       when
+             step:Step(current.code=="37"&&answer=="no");
+       then
+             step.setNextQ("38");
+             update(step);end
+
+
+rule "Step 38 - YES"
+       when
+             step:Step(current.code=="38"&&answer=="yes");
+       then
+            step.setTestOK();
+            update(step);end
+rule "Step 38 - NO"
+       when
+             step:Step(current.code=="38"&&answer=="no");
+       then
+             step.setNextQ("39");
+             update(step);end
+
+
+rule "Step 39 - YES"
+       when
+             step:Step(current.code=="39"&&answer=="yes");
+       then
+             step.setNextQ("40");
+             update(step);end
+
+rule "Step 39 - NO"
+       when
+             step:Step(current.code=="39"&&answer=="no");
+       then
+             step.setNextQ("46");
+             update(step);end
+rule "Step 40 - YES"
+       when
+             step:Step(current.code=="40"&&answer=="yes");
+       then
+             step.setNextQ("42");
+             update(step);end
+
+rule "Step 40 - NO"
+       when
+             step:Step(current.code=="40"&&answer=="no");
+       then
+             step.setNextQ("41");
+             update(step);end
+rule "Step 41 - YES"
+       when
+             step:Step(current.code=="41"&&answer=="yes");
+       then
+             step.setNextQ("46");
+             update(step);end
+
+rule "Step 41 - NO"
+       when
+             step:Step(current.code=="41"&&answer=="no");
+       then
+            step.setTestFailed();
+            update(step);end
+rule "Step 42 - YES"
+       when
+             step:Step(current.code=="42"&&answer=="yes");
+       then
+            step.setTestFailed();
+            update(step);end
+rule "Step 42 - NO"
+       when
+             step:Step(current.code=="42"&&answer=="no");
+       then
+             step.setNextQ("43");
+             update(step);end
+
+rule "Step 43 - YES"
+       when
+             step:Step(current.code=="43"&&answer=="yes");
+       then
+             step.setNextQ("44");
+             update(step);end
+ rule "Step 43 - NO"
+       when
+             step:Step(current.code=="43"&&answer=="no");
+       then
+            step.setTestFailed();
+            update(step);end
+rule "Step 44 - YES"
+       when
+             step:Step(current.code=="43"&&answer=="yes");
+       then
+            step.setTestFailed();
+            update(step);end
+ rule "Step 44 - NO"
+       when
+             step:Step(current.code=="44"&&answer=="no");
+       then
+             step.setNextQ("45");
+             update(step);end
+
+rule "Step 45 - YES"
+       when
+             step:Step(current.code=="45"&&answer=="yes");
+       then
+             step.setNextQ("46");
+             update(step);end
+rule "Step 45 - NO"
+       when
+             step:Step(current.code=="45"&&answer=="no");
+       then
+            step.setTestFailed();
+            update(step);end
+rule "Step 46 - YES"
+         when
+               step:Step(current.code=="46"&&answer=="yes");
+         then
+               step.setNextQ("46.1.1");
+               update(step);end
+
+rule "Step 46 - NO(with component)"
+          when
+                step:Step(current.code=="46"&&answer=="no_not_only)");
+          then
+                step.setNextQ("46.1.2");
+                update(step);end
+
+rule "Step 46 - NO(no component)"
+            when
+                  step:Step(current.code=="46"&&answer=="no_not_component)");
+            then
+                  step.setNextQ("51");
+                  update(step);end
+rule "Step 46 - NO"
+         when
+               step:Step(current.code=="46"&&answer=="no");
+         then
+            step.setTestOK();
+            update(step);end
+
+
+
+rule "Step 46.1.1 - YES"
+         when
+               step:Step(current.code=="46.1.1"&&answer=="yes");
+         then
+              step.setTestOK();
+              update(step);end
+rule "Step 46.1.1 - NO"
+         when
+               step:Step(current.code=="46.1.1"&&answer=="no");
+         then
+               step.setNextQ("47.1");
+               update(step);end
+
+
+
+ rule "Step 47.1 - FIXED"
+       when
+            step:Step(current.code=="47.1"&&answer=="fixed");
+       then
+            step.setNextQ("49.1.1");
+            update(step);end
+rule "Step 47.1 - FLOAT"
+       when
+             step:Step(current.code=="47.1"&&answer=="floating");
+       then
+            step.setNextQ("48.1.1");
+            update(step);end
+
+rule "Step 48.1.1 - YES"
+       when
+            step:Step(current.code=="48.1.1"&&answer=="yes");
+       then
+            step.setNextQ("48.2.1");
+            update(step);end
+rule "Step 48.1.1 - NO"
+       when
+             step:Step(current.code=="48.1.1"&&answer=="no");
+       then
+              step.setTestFailed();
+              update(step);end
+rule "Step 48.2.1 - YES"
+       when
+            step:Step(current.code=="48.2.1"&&answer=="yes");
+       then
+              step.setTestFailed();
+               update(step);end
+rule "Step 48.2.1 - NO"
+       when
+             step:Step(current.code=="48.2.1"&&answer=="no");
+       then
+            step.setNextQ("48.3.1");
+            update(step);end
+rule "Step 48.3.1 - YES"
+       when
+            step:Step(current.code=="48.3.1"&&answer=="yes");
+       then
+              step.setTestFailed();
+               update(step);end
+rule "Step 48.3.1 - NO"
+       when
+             step:Step(current.code=="48.3.1"&&answer=="no");
+       then
+            step.setNextQ("48.4.1");
+            update(step);end
+
+rule "Step 48.4.1 - YES"
+       when
+            step:Step(current.code=="48.4.1"&&answer=="yes");
+       then
+            step.setNextQ("48.5.1");
+            update(step);end
+rule "Step 48.4.1 - NO"
+       when
+             step:Step(current.code=="48.4.1"&&answer=="no");
+       then
+              step.setNextQ("48.7.1.1");
+              update(step);end
+rule "Step 48.5.1 - YES"
+       when
+            step:Step(current.code=="48.5.1"&&answer=="yes");
+       then
+            step.setNextQ("48.6.1");
+            update(step);end
+rule "Step 48.5.1 - NO"
+       when
+             step:Step(current.code=="48.5.1"&&answer=="no");
+       then
+            step.setNextQ("48.7.1.1");
+            update(step);end
+rule "Step 48.6.1 - YES"
+       when
+            step:Step(current.code=="48.6.1"&&answer=="yes");
+       then
+            step.setNextQ("48.7.1.1");
+            update(step);end
+rule "Step 48.6.1 - NO"
+       when
+             step:Step(current.code=="48.6.1"&&answer=="no");
+       then
+            step.setNextQ("49.1.1");
+            update(step);end
+
+rule "Step 48.7.1.1 - YES"
+       when
+            step:Step(current.code=="48.7.1.1"&&answer=="yes");
+       then
+            step.setNextQ("49.1.1");
+            update(step);end
+rule "Step 48.7.1.1 - NO"
+       when
+             step:Step(current.code=="48.7.1.1"&&answer=="no");
+       then
+            step.setNextQ("48.7.2.1");
+            update(step);end
+
+rule "Step 48.7.2.1 - YES"
+       when
+            step:Step(current.code=="48.7.2.1"&&answer=="yes");
+       then
+            step.setTestFailed();
+            update(step);end
+rule "Step 48.7.2.1 - NO"
+       when
+             step:Step(current.code=="48.7.2.1"&&answer=="no");
+       then
+            step.setNextQ("49.1.1");
+            update(step);end
+
+rule "Step 49.1.1 - YES"
+       when
+            step:Step(current.code=="49.1.1"&&answer=="yes");
+       then
+            step.setNextQ("49.2.2.1");
+            update(step);end
+rule "Step 49.1.1 - NO(with_condition)"
+       when
+             step:Step(current.code=="49.1.1"&&answer=="no_with_condition");
+       then
+            step.setNextQ("49.2.1.1");
+            update(step);end
+rule "Step 49.1.1 - NO (not condition)"
+       when
+            step:Step(current.code=="49.1.1"&&answer=="no_not_condition");
+       then
+            step.setTestOK();
+           update(step);end
+rule "Step 49.1.1 - NO(with_steps)"
+       when
+             step:Step(current.code=="49.1.1"&&answer=="no_with_step)");
+       then
+            step.setNextQ("50.1.1");
+            update(step);end
+
+rule "Step 49.2.1.1 - YES"
+       when
+             step:Step(current.code=="49.2.1.1"&&answer=="yes");
+       then
+            step.setNextQ("50.1.1");
+            update(step);end
+
+rule "Step 49.2.1.1 - NO"
+       when
+             step:Step(current.code=="49.2.1.1"&&answer=="no");
+       then
+            step.setTestFailed();
+            update(step);end
+rule "Step 49.2.2.1 - YES"
+       when
+             step:Step(current.code=="49.2.2.1"&&answer=="yes");
+       then
+            step.setTestOK();
+            update(step);end
+rule "Step 49.2.2.1 - NO"
+       when
+             step:Step(current.code=="49.2.2.1"&&answer=="no");
+       then
+            step.setTestFailed();
+            update(step);end
+
+rule "Step 50.1.1 - YES"
+       when
+             step:Step(current.code=="50.1.1"&&answer=="yes");
+       then
+            step.setNextQ("50.2.1");
+            update(step);end
+rule "Step 50.1.1 - NO"
+       when
+             step:Step(current.code=="50.1.1"&&answer=="no");
+       then
+            step.setNextQ("50.2.1");
+            update(step);end
+rule "Step 50.2.1 - YES"
+       when
+             step:Step(current.code=="50.2.1"&&answer=="yes");
+       then
+            step.setNextQ("50.3.1");
+            update(step);end
+ rule "Step 50.2.1 - NO"
+       when
+             step:Step(current.code=="50.2.1"&&answer=="no");
+       then
+            step.setNextQ("50.3.1");
+            update(step);end
+
+ rule "Step 50.3.1 - YES"
+       when
+             step:Step(current.code=="50.3.1"&&answer=="yes");
+       then
+            step.setNextQ("50.3.1.1");
+            update(step);end
+ rule "Step 50.3.1 - NO"
+       when
+             step:Step(current.code=="50.3.1"&&answer=="no");
+       then
+            step.setNextQ("50.4.1");
+            update(step);end
+
+ rule "Step 50.3.1.1 - YES"
+       when
+             step:Step(current.code=="50.3.1.1"&&answer=="yes");
+       then
+            step.setNextQ("50.4.1");
+            update(step);end
+ rule "Step 50.3.1.1 - NO"
+       when
+             step:Step(current.code=="50.3.1.1"&&answer=="no");
+       then
+            step.setNextQ("50.3.2.1");
+            update(step);end
+
+rule "Step 50.3.2.1 - YES"
+       when
+             step:Step(current.code=="50.3.2.1"&&answer=="yes");
+       then
+            step.setNextQ("50.4.1");
+            update(step);end
+rule "Step 50.3.2.1 - NO"
+       when
+             step:Step(current.code=="50.3.2.1"&&answer=="no");
+       then
+            step.setNextQ("50.3.3.1");
+            update(step);end
+
+rule "Step 50.3.3.1 - YES"
+       when
+             step:Step(current.code=="50.3.3.1"&&answer=="yes");
+       then
+            step.setNextQ("50.4.1");
+            update(step);end
+rule "Step 50.3.3.1 - NO"
+       when
+             step:Step(current.code=="50.3.3.1"&&answer=="no");
+       then
+             step.setTestFailed();
+             update(step);end
+rule "Step 50.4.1 - YES"
+       when
+             step:Step(current.code=="50.4.1"&&answer=="yes");
+       then
+             step.setTestFailed();
+            update(step);end
+
+rule "Step 50.4.1 - NO"
+       when
+             step:Step(current.code=="50.4.1"&&answer=="no");
+       then
+            step.setNextQ("50.5.1");
+            update(step);end
+
+rule "Step 50.5.1 - YES"
+       when
+             step:Step(current.code=="50.5.1"&&answer=="yes");
+       then
+             step.setTestFailed();
+             update(step);end
+rule "Step 50.5.1 - NO"
+       when
+             step:Step(current.code=="50.5.1"&&answer=="no");
+       then
+            step.setNextQ("50.6.1");
+            update(step);end
+
+ rule "Step 50.6.1 - YES"
+       when
+             step:Step(current.code=="50.6.1"&&answer=="yes");
+       then
+            step.setNextQ("50.6.1.1");
+            update(step);end
+ rule "Step 50.6.1 - NO"
+       when
+             step:Step(current.code=="50.6.1"&&answer=="no");
+       then
+            step.setTestOK();
+            update(step);end
+
+ rule "Step 50.6.1.1 - YES"
+       when
+             step:Step(current.code=="50.6.1.1"&&answer=="yes");
+       then
+            step.setTestOK();
+            update(step);end
+rule "Step 50.6.1.1 - NO"
+       when
+             step:Step(current.code=="50.6.1.1"&&answer=="no");
+       then
+             step.setTestFailed();
+             update(step);end
+
+rule "Step 46.1.2 - YES"
+         when
+               step:Step(current.code=="46.1.2"&&answer=="yes");
+         then
+               step.setNextQ("51");
+               update(step);end
+rule "Step 46.1.2 - NO"
+         when
+               step:Step(current.code=="46.1.2"&&answer=="no");
+         then
+               step.setNextQ("47.2");
+               update(step);end
+
+
+//------
+
+ rule "Step 47.2 - FIXED"
+       when
+            step:Step(current.code=="47.2"&&answer=="fixed");
+       then
+            step.setNextQ("49.1.2");
+            update(step);end
+rule "Step 47.2 - FLOAT"
+       when
+             step:Step(current.code=="47.2"&&answer=="floating");
+       then
+            step.setNextQ("48.1.2");
+            update(step);end
+
+rule "Step 48.1.2 - YES"
+       when
+            step:Step(current.code=="48.1.2"&&answer=="yes");
+       then
+            step.setNextQ("48.2.2");
+            update(step);end
+rule "Step 48.1.2 - NO"
+       when
+             step:Step(current.code=="48.1.2"&&answer=="no");
+       then
+              step.setTestFailed();
+              update(step);end
+rule "Step 48.2.2 - YES"
+       when
+            step:Step(current.code=="48.2.2"&&answer=="yes");
+       then
+              step.setTestFailed();
+               update(step);end
+rule "Step 48.2.2 - NO"
+       when
+             step:Step(current.code=="48.2.2"&&answer=="no");
+       then
+            step.setNextQ("48.3.2");
+            update(step);end
+rule "Step 48.3.2 - YES"
+       when
+            step:Step(current.code=="48.3.2"&&answer=="yes");
+       then
+              step.setTestFailed();
+               update(step);end
+rule "Step 48.3.2 - NO"
+       when
+             step:Step(current.code=="48.3.2"&&answer=="no");
+       then
+            step.setNextQ("48.4.2");
+            update(step);end
+
+rule "Step 48.4.2 - YES"
+       when
+            step:Step(current.code=="48.4.2"&&answer=="yes");
+       then
+            step.setNextQ("48.5.2");
+            update(step);end
+rule "Step 48.4.2 - NO"
+       when
+             step:Step(current.code=="48.4.2"&&answer=="no");
+       then
+              step.setNextQ("48.7.1.2");
+              update(step);end
+rule "Step 48.5.2 - YES"
+       when
+            step:Step(current.code=="48.5.2"&&answer=="yes");
+       then
+            step.setNextQ("48.6.2");
+            update(step);end
+rule "Step 48.5.2 - NO"
+       when
+             step:Step(current.code=="48.5.2"&&answer=="no");
+       then
+            step.setNextQ("48.7.1.2");
+            update(step);end
+rule "Step 48.6.2 - YES"
+       when
+            step:Step(current.code=="48.6.2"&&answer=="yes");
+       then
+            step.setNextQ("48.7.1.2");
+            update(step);end
+rule "Step 48.6.2 - NO"
+       when
+             step:Step(current.code=="48.6.2"&&answer=="no");
+       then
+            step.setNextQ("49.1.2");
+            update(step);end
+
+rule "Step 48.7.1.2 - YES"
+       when
+            step:Step(current.code=="48.7.1.2"&&answer=="yes");
+       then
+            step.setNextQ("49.1.2");
+            update(step);end
+rule "Step 48.7.1.2 - NO"
+       when
+             step:Step(current.code=="48.7.1.2"&&answer=="no");
+       then
+            step.setNextQ("48.7.2.2");
+            update(step);end
+
+rule "Step 48.7.2.2 - YES"
+       when
+            step:Step(current.code=="48.7.2.2"&&answer=="yes");
+       then
+            step.setTestFailed();
+            update(step);end
+rule "Step 48.7.2.2 - NO"
+       when
+             step:Step(current.code=="48.7.2.2"&&answer=="no");
+       then
+            step.setNextQ("49.1.2");
+            update(step);end
+
+rule "Step 49.1.2 - YES"
+       when
+            step:Step(current.code=="49.1.2"&&answer=="yes");
+       then
+            step.setNextQ("49.2.2.2");
+            update(step);end
+rule "Step 49.1.2 - NO(with_condition)"
+       when
+             step:Step(current.code=="49.1.2"&&answer=="no_with_condition");
+       then
+            step.setNextQ("49.2.1.2");
+            update(step);end
+rule "Step 49.1.2 - NO (not condition)"
+       when
+            step:Step(current.code=="49.1.2"&&answer=="no_not_condition");
+       then
+             step.setNextQ("51");
+           update(step);end
+rule "Step 49.1.2 - NO(with_steps)"
+       when
+             step:Step(current.code=="49.1.2"&&answer=="no_with_step");
+       then
+            step.setNextQ("50.1.2");
+            update(step);end
+
+rule "Step 49.2.1.2 - YES"
+       when
+             step:Step(current.code=="49.2.1.2"&&answer=="yes");
+       then
+            step.setNextQ("50.1.2");
+            update(step);end
+
+rule "Step 49.2.1.2 - NO"
+       when
+             step:Step(current.code=="49.2.1.2"&&answer=="no");
+       then
+            step.setTestFailed();
+            update(step);end
+rule "Step 49.2.2.2 - YES"
+       when
+             step:Step(current.code=="49.2.2.2"&&answer=="yes");
+       then
+            step.setNextQ("51");
+            update(step);end
+rule "Step 49.2.2.2 - NO"
+       when
+             step:Step(current.code=="49.2.2.2"&&answer=="no");
+       then
+            step.setTestFailed();
+            update(step);end
+
+rule "Step 50.1.2 - YES"
+       when
+             step:Step(current.code=="50.1.2"&&answer=="yes");
+       then
+            step.setNextQ("50.2.2");
+            update(step);end
+rule "Step 50.1.2 - NO"
+       when
+             step:Step(current.code=="50.1.2"&&answer=="no");
+       then
+            step.setNextQ("50.2.2");
+            update(step);end
+rule "Step 50.2.2 - YES"
+       when
+             step:Step(current.code=="50.2.2"&&answer=="yes");
+       then
+            step.setNextQ("50.3.2");
+            update(step);end
+ rule "Step 50.2.2 - NO"
+       when
+             step:Step(current.code=="50.2.2"&&answer=="no");
+       then
+            step.setNextQ("50.3.2");
+            update(step);end
+
+ rule "Step 50.3.2 - YES"
+       when
+             step:Step(current.code=="50.3.2"&&answer=="yes");
+       then
+            step.setNextQ("50.3.1.2");
+            update(step);end
+ rule "Step 50.3.2 - NO"
+       when
+             step:Step(current.code=="50.3.2"&&answer=="no");
+       then
+            step.setNextQ("50.4.2");
+            update(step);end
+
+ rule "Step 50.3.1.2 - YES"
+       when
+             step:Step(current.code=="50.3.1.2"&&answer=="yes");
+       then
+            step.setNextQ("50.4.2");
+            update(step);end
+ rule "Step 50.3.1.2 - NO"
+       when
+             step:Step(current.code=="50.3.1.2"&&answer=="no");
+       then
+            step.setNextQ("50.3.2.2");
+            update(step);end
+
+rule "Step 50.3.2.2 - YES"
+       when
+             step:Step(current.code=="50.3.2.2"&&answer=="yes");
+       then
+            step.setNextQ("50.4.2");
+            update(step);end
+rule "Step 50.3.2.2 - NO"
+       when
+             step:Step(current.code=="50.3.2.2"&&answer=="no");
+       then
+            step.setNextQ("50.3.3.2");
+            update(step);end
+
+rule "Step 50.3.3.2 - YES"
+       when
+             step:Step(current.code=="50.3.3.2"&&answer=="yes");
+       then
+            step.setNextQ("50.4.2");
+            update(step);end
+rule "Step 50.3.3.2 - NO"
+       when
+             step:Step(current.code=="50.3.3.2"&&answer=="no");
+       then
+             step.setTestFailed();
+             update(step);end
+rule "Step 50.4.2 - YES"
+       when
+             step:Step(current.code=="50.4.2"&&answer=="yes");
+       then
+             step.setTestFailed();
+            update(step);end
+
+rule "Step 50.4.2 - NO"
+       when
+             step:Step(current.code=="50.4.2"&&answer=="no");
+       then
+            step.setNextQ("50.5.2");
+            update(step);end
+
+rule "Step 50.5.2 - YES"
+       when
+             step:Step(current.code=="50.5.2"&&answer=="yes");
+       then
+             step.setTestFailed();
+             update(step);end
+rule "Step 50.5.2 - NO"
+       when
+             step:Step(current.code=="50.5.2"&&answer=="no");
+       then
+            step.setNextQ("50.6.2");
+            update(step);end
+
+rule "Step 50.6.2 - YES"
+       when
+             step:Step(current.code=="50.6.2"&&answer=="yes");
+       then
+            step.setNextQ("50.6.1.2");
+            update(step);end
+rule "Step 50.6.2 - NO"
+       when
+             step:Step(current.code=="50.6.2"&&answer=="no");
+       then
+            step.setNextQ("51");
+            update(step);end
+
+rule "Step 50.6.1.2 - YES"
+       when
+             step:Step(current.code=="50.6.1.2"&&answer=="yes");
+       then
+            step.setNextQ("51");
+            update(step);end
+rule "Step 50.6.1.2 - NO"
+       when
+             step:Step(current.code=="50.6.1.2"&&answer=="no");
+       then
+             step.setTestFailed();
+             update(step);end
+//-------
+
+
+
+
+
+rule "Step 51 - YES"
+          when
+                step:Step(current.code=="51"&&answer=="yes");
+          then
+                step.setNextQ("52");
+                update(step);end
+rule "Step 51 - NO"
+          when
+                step:Step(current.code=="51"&&answer=="no");
+          then
+                step.setNextQ("57");
+                update(step);end
+
+rule "Step 52 - YES"
+          when
+                step:Step(current.code=="52"&&answer=="yes");
+          then
+                step.setNextQ("53");
+                update(step);end
+rule "Step 52 - NO"
+          when
+                step:Step(current.code=="52"&&answer=="no");
+          then
+              step.setTestFailed();
+           update(step);end
+
+rule "Step 53 - FIXED"
+      when
+           step:Step(current.code=="53"&&answer=="fixed");
+      then
+           step.setNextQ("55.1");
+           update(step);end
+rule "Step 53 - FLOAT"
+      when
+            step:Step(current.code=="53"&&answer=="floating");
+      then
+           step.setNextQ("54.1");
+           update(step);end
+
+rule "Step 54.1 - YES"
+      when
+           step:Step(current.code=="54.1"&&answer=="yes");
+      then
+           step.setNextQ("54.2");
+           update(step);end
+rule "Step 54.1 - NO"
+      when
+            step:Step(current.code=="54.1"&&answer=="no");
+      then
+             step.setTestFailed();
+             update(step);end
+rule "Step 54.2 - YES"
+      when
+           step:Step(current.code=="54"&&answer=="yes");
+      then
+             step.setTestFailed();
+            update(step);end
+rule "Step 54.2 - NO"
+      when
+            step:Step(current.code=="54.2"&&answer=="no");
+      then
+           step.setNextQ("54.3");
+           update(step);end
+rule "Step 54.3 - YES"
+      when
+           step:Step(current.code=="54.3"&&answer=="yes");
+      then
+             step.setTestFailed();
+             update(step);end
+rule "Step 54.3 - NO"
+      when
+            step:Step(current.code=="54.3"&&answer=="no");
+      then
+           step.setNextQ("54.4");
+           update(step);end
+
+rule "Step 54.4 - YES"
+      when
+           step:Step(current.code=="54.4"&&answer=="yes");
+      then
+           step.setNextQ("54.5");
+           update(step);end
+rule "Step 54.4 - NO"
+      when
+            step:Step(current.code=="54.4"&&answer=="no");
+      then
+             step.setNextQ("54.7.1");
+             update(step);end
+rule "Step 54.5 - YES"
+      when
+           step:Step(current.code=="54.5"&&answer=="yes");
+      then
+           step.setNextQ("54.6");
+           update(step);end
+rule "Step 54.5 - NO"
+      when
+            step:Step(current.code=="54.5"&&answer=="no");
+      then
+           step.setNextQ("54.7.1");
+           update(step);end
+rule "Step 54.6 - YES"
+      when
+           step:Step(current.code=="54.6"&&answer=="yes");
+      then
+           step.setNextQ("54.7.1");
+           update(step);end
+rule "Step 54.6 - NO"
+      when
+            step:Step(current.code=="54.6"&&answer=="no");
+      then
+           step.setNextQ("55.1");
+           update(step);end
+
+rule "Step 54.7.1 - YES"
+      when
+           step:Step(current.code=="54.7.1"&&answer=="yes");
+      then
+           step.setNextQ("55.1");
+           update(step);end
+rule "Step 54.7.1 - NO"
+      when
+            step:Step(current.code=="54.7.1"&&answer=="no");
+      then
+           step.setNextQ("54.7.2");
+           update(step);end
+
+rule "Step 54.7.2 - YES"
+      when
+           step:Step(current.code=="54.7.1"&&answer=="yes");
+      then
+           step.setTestFailed();
+           update(step);end
+rule "Step 54.7.2 - NO"
+      when
+            step:Step(current.code=="54.7.1"&&answer=="no");
+      then
+           step.setNextQ("55.1");
+           update(step);end
+
+rule "Step 55.1 - YES"
+      when
+           step:Step(current.code=="55.1"&&answer=="yes");
+      then
+           step.setNextQ("55.2.2");
+           update(step);end
+rule "Step 55.1 - NO(with_condition)"
+      when
+            step:Step(current.code=="55.1"&&answer=="no_with_condition");
+      then
+           step.setNextQ("55.2.1");
+           update(step);end
+rule "Step 55.1 - NO (not condition)"
+      when
+           step:Step(current.code=="55.1"&&answer=="no_not_condition");
+      then
+           step.setNextQ("57");
+           update(step);end
+rule "Step 55.1 - NO(with_steps)"
+      when
+            step:Step(current.code=="55.1"&&answer=="no_with_step");
+      then
+           step.setNextQ("56.1");
+           update(step);end
+
+rule "Step 55.2.1 - YES"
+      when
+            step:Step(current.code=="55.2.1"&&answer=="yes");
+      then
+           step.setNextQ("56.1");
+           update(step);end
+
+rule "Step 55.2.1 - NO"
+      when
+            step:Step(current.code=="55.2.1"&&answer=="no");
+      then
+           step.setTestFailed();
+           update(step);end
+rule "Step 55.2.2 - YES"
+      when
+            step:Step(current.code=="55.2.2"&&answer=="yes");
+      then
+           step.setNextQ("57");
+           update(step);end
+
+rule "Step 55.2.2 - NO"
+      when
+            step:Step(current.code=="55.2.2"&&answer=="no");
+      then
+           step.setTestFailed();
+           update(step);end
+
+rule "Step 56.1 - YES"
+      when
+            step:Step(current.code=="56.1"&&answer=="yes");
+      then
+           step.setNextQ("56.2");
+           update(step);end
+rule "Step 56.1 - NO"
+      when
+            step:Step(current.code=="56.1"&&answer=="no");
+      then
+           step.setNextQ("56.2");
+           update(step);end
+rule "Step 56.2 - YES"
+      when
+            step:Step(current.code=="56.2"&&answer=="yes");
+      then
+           step.setNextQ("56.3");
+           update(step);end
+rule "Step 56.2 - NO"
+      when
+            step:Step(current.code=="56.2"&&answer=="no");
+      then
+           step.setNextQ("56.3");
+           update(step);end
+
+rule "Step 56.3 - YES"
+      when
+            step:Step(current.code=="56.3"&&answer=="yes");
+      then
+           step.setNextQ("56.3.1");
+           update(step);end
+rule "Step 56.3 - NO"
+      when
+            step:Step(current.code=="56.3"&&answer=="no");
+      then
+           step.setNextQ("56.4");
+           update(step);end
+
+rule "Step 56.3.1 - YES"
+      when
+            step:Step(current.code=="56.3.1"&&answer=="yes");
+      then
+           step.setNextQ("56.4");
+           update(step);end
+rule "Step 56.3.1 - NO"
+      when
+            step:Step(current.code=="56.3.1"&&answer=="no");
+      then
+           step.setNextQ("56.3.2");
+           update(step);end
+
+rule "Step 56.3.2 - YES"
+      when
+            step:Step(current.code=="56.3.2"&&answer=="yes");
+      then
+           step.setNextQ("56.4");
+           update(step);end
+rule "Step 56.3.2 - NO"
+      when
+            step:Step(current.code=="56.3.2"&&answer=="no");
+      then
+           step.setNextQ("56.3.3");
+           update(step);end
+
+rule "Step 56.3.3 - YES"
+      when
+            step:Step(current.code=="56.3.3"&&answer=="yes");
+      then
+           step.setNextQ("56.4");
+           update(step);end
+rule "Step 56.3.3 - NO"
+      when
+            step:Step(current.code=="56.3.3"&&answer=="no");
+      then
+           step.setTestFailed();
+           update(step);
+end
+rule "Step 56.4 - YES"
+      when
+            step:Step(current.code=="56.4"&&answer=="yes");
+      then
+           step.setTestFailed();
+           update(step);
+end
+rule "Step 56.4 - NO"
+      when
+            step:Step(current.code=="56.4"&&answer=="no");
+      then
+           step.setNextQ("56.5");
+           update(step);end
+
+rule "Step 56.5 - YES"
+      when
+            step:Step(current.code=="56.5"&&answer=="yes");
+      then
+            step.setTestFailed();
+           update(step);end
+rule "Step 56.5 - NO"
+      when
+            step:Step(current.code=="56.5"&&answer=="no");
+      then
+           step.setNextQ("56.6");
+           update(step);end
+
+rule "Step 56.6 - YES"
+      when
+            step:Step(current.code=="56.6"&&answer=="yes");
+      then
+           step.setNextQ("56.6.1");
+           update(step);end
+rule "Step 56.6 - NO"
+      when
+            step:Step(current.code=="56.6"&&answer=="no");
+      then
+           step.setNextQ("57");
+           update(step);end
+
+rule "Step 56.6.1 - YES"
+      when
+            step:Step(current.code=="56.6.1"&&answer=="yes");
+      then
+           step.setNextQ("57");
+           update(step);end
+rule "Step 56.6.1 - NO"
+      when
+            step:Step(current.code=="56.6.1"&&answer=="no");
+      then
+            step.setTestFailed();
+           update(step);end
+
+rule "Step 57 - YES"
+          when
+                step:Step(current.code=="57"&&answer=="yes");
+          then
+                step.setNextQ("58");
+                update(step);end
+rule "Step 57 - NO"
+          when
+                step:Step(current.code=="57"&&answer=="no");
+          then
+                step.setNextQ("58");
+                update(step);end
+
+rule "Step 58 - YES"
+          when
+                step:Step(current.code=="58"&&answer=="yes");
+          then
+                step.setNextQ("59");
+                update(step);end
+rule "Step 58 - NO(amount update)"
+          when
+                step:Step(current.code=="58"&&answer=="no_amount_update");
+          then
+              step.setTestFailed();
+             update(step);end
+rule "Step 58 - NO(no component)"
+          when
+                step:Step(current.code=="58"&&answer=="not_component");
+          then
+                step.setNextQ("59");
+                update(step);end
+
+rule "Step 59 - YES"
+          when
+                step:Step(current.code=="59"&&answer=="yes");
+          then
+              step.setTestFailed();
+              update(step);end
+rule "Step 59 - NO"
+          when
+                step:Step(current.code=="59"&&answer=="no");
+          then
+                step.setNextQ("60");
+                update(step);end
+rule "Step 60 - YES"
+          when
+                step:Step(current.code=="60"&&answer=="yes");
+          then
+                step.setNextQ("60.1");
+                update(step);end
+rule "Step 60 - NO"
+          when
+                step:Step(current.code=="60"&&answer=="no");
+          then
+              step.setTestOK();
+              update(step);end
+
+rule "Step 60.1 - YES"
+          when
+                step:Step(current.code=="60"&&answer=="no");
+          then
+              step.setTestOK();
+             update(step);end
+rule "Step 60.1 - NO"
+          when
+                step:Step(current.code=="60.1"&&answer=="no");
+          then
+             step.setTestFailed();
+           update(step);end
+rule "Step 61 - YES"
+          when
+                step:Step(current.code=="61"&&answer=="yes");
+          then
+            step.setNextQ("62");
+            update(step);end
+rule "Step 61 - NO"
+          when
+                step:Step(current.code=="61"&&answer=="no");
+          then
+           step.setTestOK();
+           update(step);end
+rule "Step 62 - YES"
+          when
+                step:Step(current.code=="62"&&answer=="yes");
+          then
+              step.setTestFailed();
+           update(step);end
+rule "Step 62 - NO"
+          when
+                step:Step(current.code=="62"&&answer=="no");
+          then
+              step.setTestOK();
+           update(step);end
+

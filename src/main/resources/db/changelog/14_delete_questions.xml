@@ -3,12 +3,9 @@
         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
-    <changeSet id="003" author="alander">
-        <validCheckSum>8:aca3bde44c6ab87ee9503d30333cf15a</validCheckSum>
-        <loadData encoding="UTF-8"
-                  file="db/data/questions.csv"
-                  separator=";"
-                  tableName="question">
-        </loadData>
+    <changeSet id="014" author="ykorzhev">
+        <delete tableName="question">
+        </delete>
     </changeSet>
+
 </databaseChangeLog>

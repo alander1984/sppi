@@ -38,9 +38,14 @@ public class Step {
         this.next.setCode(qCode);
     }
 
-    public void testFailed() {
+    public void setTestFailed() {
         this.next = new Question();
         this.next.setCode("FAIL");
+    }
+
+    public void setTestOK() {
+        this.next = new Question();
+        this.next.setCode("SUCCESS");
     }
 
     public String getAnswer() {
