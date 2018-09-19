@@ -3,14 +3,12 @@ package com.egartech.sppi.configuration;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 @EnableWebMvc
-public class WebMvcConfiguration implements WebMvcConfigurer{
-    
+public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
+
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
@@ -26,6 +24,5 @@ public class WebMvcConfiguration implements WebMvcConfigurer{
                 .addResourceLocations("classpath:/static/fonts/");
         registry.addResourceHandler( "**/*.map", "*.html").addResourceLocations("classpath:META-INF/resources/").setCachePeriod(0);
     }
-
 
 }

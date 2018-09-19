@@ -1,27 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.egartech</groupId>
-	<artifactId>sppi</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<name>analyt-sppi-branch-war</name>
+
+	<groupId>ru.sbrf.efs.app</groupId>
+	<artifactId>analyt-sppi-branch-war</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
 	<packaging>jar</packaging>
 
-	<name>sppi</name>
 	<description>SPPI drools test</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.0.M2</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<version>1.5.10.RELEASE</version>
+		<relativePath/>
 	</parent>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+		<java.version>1.7</java.version>
+		<maven.compiler.source>1.7</maven.compiler.source>
+		<maven.compiler.target>1.7</maven.compiler.target>
+		<!-- Jetty version -->
+		<thirdparty.jetty.version>9.4.8.v20171121</thirdparty.jetty.version>
+		<!--<thirdparty.jetty.version>9.2.1.v20140609</thirdparty.jetty.version>-->
+		<test.jetty.stop-port>9999</test.jetty.stop-port>
+		<test.jetty.stop-key>STOP</test.jetty.stop-key>
 	</properties>
 
 	<dependencies>
@@ -40,46 +49,62 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!--            <exclusions>
+                            <exclusion>
+                                <groupId>org.springframework.boot</groupId>
+                                <artifactId>spring-boot-starter-tomcat</artifactId>
+                            </exclusion>
+                        </exclusions>-->
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>20.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.liquibase</groupId>
 			<artifactId>liquibase-core</artifactId>
+			<version>3.4.1</version>
 		</dependency>
 
-<!--		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-		</dependency>-->
+		<!--		<dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-devtools</artifactId>
+                    <scope>runtime</scope>
+                </dependency>-->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-tomcat</artifactId>
-			<scope>provided</scope>
-		</dependency>
+		<!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-jpamodelgen</artifactId>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>org.drools</groupId>
 			<artifactId>drools-core</artifactId>
-			<version>7.0.0.Final</version>
+			<version>6.2.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.kie</groupId>
 			<artifactId>kie-spring</artifactId>
-			<version>7.0.0.Final</version>
+			<version>6.2.0.Final</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -92,18 +117,24 @@
 			<version>4.1.3</version>
 		</dependency>
 		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.7</version>
+		</dependency>
+		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-core</artifactId>
 			<version>2.9.6</version>
 		</dependency>
 		<dependency>
-			<groupId>nz.net.ultraq.thymeleaf</groupId>
-			<artifactId>thymeleaf-layout-dialect</artifactId>
-			<version>2.2.2</version>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
+			<groupId>nz.net.ultraq.thymeleaf</groupId>
+			<artifactId>thymeleaf-layout-dialect</artifactId>
+			<!--<version>2.2.2</version>-->
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
@@ -141,6 +172,18 @@
 
 	<repositories>
 		<repository>
+			<url>http://sbtnexus.ca.sbrf.ru:8081/nexus/content/repositories/central/</url>
+			<id>nexus-central</id>
+		</repository>
+		<repository>
+			<url>http://sbtnexus.ca.sbrf.ru:8081/nexus/content/repositories/Atlassian_proxy/</url>
+			<id>nexus-Atlassian-proxy</id>
+		</repository>
+		<repository>
+			<url>http://sbtnexus.ca.sbrf.ru:8081/nexus/content/repositories/backbase_repo/</url>
+			<id>nexus-backbase-repo</id>
+		</repository>
+		<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
 			<url>https://repo.spring.io/snapshot</url>
@@ -156,9 +199,14 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</repository>
+
 	</repositories>
 
 	<pluginRepositories>
+		<pluginRepository>
+			<url>http://sbtnexus.ca.sbrf.ru:8081/nexus/content/repositories/central/</url>
+			<id>nexus-central</id>
+		</pluginRepository>
 		<pluginRepository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
@@ -175,7 +223,44 @@
 				<enabled>false</enabled>
 			</snapshots>
 		</pluginRepository>
-	</pluginRepositories>
 
+	</pluginRepositories>
+	<profiles>
+		<profile>
+			<!-- запуск Jetty в стационарном режиме для разработки и отладки -->
+			<id>dev-jetty</id>
+			<activation>
+				<property>
+					<name>runJetty</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.eclipse.jetty</groupId>
+						<artifactId>jetty-maven-plugin</artifactId>
+						<version>${thirdparty.jetty.version}</version>
+						<executions>
+							<execution>
+								<id>start-jetty</id>
+								<phase>package</phase>
+								<goals>
+									<goal>stop</goal>
+									<goal>run-war</goal>
+								</goals>
+								<configuration>
+									<webApp>
+										<contextPath>/analyt-sppi-branch-war</contextPath>
+									</webApp>
+									<stopKey>${test.jetty.stop-key}</stopKey>
+									<stopPort>${test.jetty.stop-port}</stopPort>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

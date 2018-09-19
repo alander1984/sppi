@@ -26,7 +26,7 @@ import static com.egartech.sppi.specification.QuestionSpecification.byCode;
 @Controller
 @RequestMapping("/process")
 public class StepController {
-    
+
     @Autowired
     QuestionRepository questionRepository;
 
@@ -44,13 +44,13 @@ public class StepController {
         ModelAndView model = new ModelAndView("step");
         model.addObject("questionid",id);
         return model;
-    }       
+    }
 
     @RequestMapping(value="/{processId}/showquestion/{questionId}", method=RequestMethod.GET)
     public ModelAndView showStep(@PathVariable(value = "processId") Long processId,
                                  @PathVariable(value = "questionId") Long questionId) {
-        Question question = questionRepository.findById(questionId).get();
-        Process process = processRepository.findById(processId).get();
+        Question question = questionRepository.findOne(questionId);
+        Process process = processRepository.findOne(processId);
         boolean isFirstStep = false;
         if (process.getProcessSteps().isEmpty()) {
             isFirstStep = true;
@@ -65,13 +65,13 @@ public class StepController {
         modelAndView.addObject("isFirstStep", isFirstStep);
         return modelAndView;
     }
-    
+
     @RequestMapping(value="/{processId}/getnext/{questionId}", method=RequestMethod.POST)
     public ResponseEntity<Question> getNextQuestion(@PathVariable(value = "processId") Long processId,
                                                     @PathVariable(value = "questionId") Long questionId,
                                                     @RequestBody String answer) {
-        Process process = processRepository.findById(processId).get();
-        Question currentQuestion = questionRepository.findById(questionId).get();
+        Process process = processRepository.findOne(processId);
+        Question currentQuestion = questionRepository.findOne(questionId);
         Question nextQuestion = stepUtils.getNextQuestion(currentQuestion, answer);
         int stepNumber;
         if (process.getProcessSteps().isEmpty()) {
@@ -88,7 +88,9 @@ public class StepController {
             processRepository.save(process);
             return new ResponseEntity<>(nextQuestion, HttpStatus.OK);
         }
-         return new ResponseEntity<>(questionRepository.findOne(byCode(nextQuestionCode)).get(), HttpStatus.OK);
+        Question question = questionRepository.findOne(byCode(nextQuestionCode));
+
+        return new ResponseEntity<>(question, HttpStatus.OK);
     }
 
     @RequestMapping(value="/result/{result}", method=RequestMethod.GET)
@@ -101,7 +103,7 @@ public class StepController {
 
     @RequestMapping(value="/{processId}/delete_unused_process", method=RequestMethod.POST)
     public ResponseEntity<String> deleteUnusedProcess(@PathVariable(value="processId") Long processId) {
-        Process process = processRepository.findById(processId).get();
+        Process process = processRepository.findOne(processId);
         processRepository.delete(process);
         return new ResponseEntity<>("Deleted unused process during answer to the first question because of switching to another form", HttpStatus.OK);
     }

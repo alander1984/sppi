@@ -13,36 +13,31 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class QuestionController {
-    
+
     @Autowired
     QuestionRepository questionRepository;
-    
-    @RequestMapping(value="question/{id}", method=RequestMethod.GET)
-    public ResponseEntity<Question> getQuestion(@PathVariable(value="id") Long id) {
-        Optional<Question> q = questionRepository.findById(id);
-        return q
-                .map(question -> new ResponseEntity<>(question, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NO_CONTENT));
+
+    @RequestMapping(value = "question/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Question> getQuestion(@PathVariable(value = "id") Long id) {
+        Question question = questionRepository.findOne(id);
+
+        return question == null ? new ResponseEntity<Question>(HttpStatus.NO_CONTENT) : new ResponseEntity<>(question, HttpStatus.OK);
     }
 
-    @RequestMapping(value="showall", method = RequestMethod.GET)
+    @RequestMapping(value = "showall", method = RequestMethod.GET)
     public ResponseEntity<List<Question>> getQuestions() {
-        Optional<List<Question>> q = Optional.of(questionRepository.findAll());
-        if(q.isPresent()) {
-            ResponseEntity<List<Question>> responseEntity = new ResponseEntity<List<Question>>(q.get(), HttpStatus.OK);
-            return responseEntity;
-        }
-        else {
-            return new ResponseEntity<List<Question>>(HttpStatus.NO_CONTENT);
-        }
+        List<Question> questions = questionRepository.findAll();
+
+        return questions.isEmpty() ?
+                new ResponseEntity<List<Question>>(HttpStatus.NO_CONTENT) :
+                new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
     @RequestMapping(value = "updateQuestion", method = RequestMethod.PUT)
-    public ResponseEntity<Question>updateQuestion(RequestEntity<Question> questionRequestEntity) {
+    public ResponseEntity<Question> updateQuestion(RequestEntity<Question> questionRequestEntity) {
         questionRepository.save(questionRequestEntity.getBody());
         return new ResponseEntity<Question>(questionRequestEntity.getBody(), HttpStatus.OK);
     }
@@ -56,13 +51,7 @@ public class QuestionController {
 
     @RequestMapping(value = "deleteQuestion", method = RequestMethod.DELETE)
     public ModelAndView deleteQuestion(RequestEntity<Question> questionRequestEntity) {
-        questionRepository.deleteById(questionRequestEntity.getBody().getId());
+        questionRepository.delete(questionRequestEntity.getBody().getId());
         return new ModelAndView("questions_dictionary");
     }
-
-
-
-
-
-
 }

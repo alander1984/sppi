@@ -1,6 +1,7 @@
 package com.egartech.sppi.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.google.common.collect.FluentIterable;
 
 import javax.persistence.*;
 import java.util.*;
@@ -8,7 +9,7 @@ import java.util.*;
 @Entity
 @Table(name="process")
 public class Process {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "process_seq")
     @SequenceGenerator(
@@ -24,8 +25,8 @@ public class Process {
     @OrderBy("step_number")
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "process_step_process",
-        joinColumns = @JoinColumn(name = "process_id", referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "process_step_id", referencedColumnName = "id"))
+            joinColumns = @JoinColumn(name = "process_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "process_step_id", referencedColumnName = "id"))
     @JsonManagedReference("process-steps")
     private List<ProcessStep> processSteps = new ArrayList<>();
 
@@ -47,15 +48,15 @@ public class Process {
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public String getComment() {
         return comment;
     }
-    
+
     public void setComment(String comment) {
         this.comment = comment;
     }
@@ -77,9 +78,7 @@ public class Process {
     }
 
     public ProcessStep getLastProcessStep() {
-        return processSteps.stream()
-                .reduce((first, second) -> second)
-                .orElseGet(ProcessStep::new);
+        return FluentIterable.from(processSteps).last().or(new ProcessStep());
     }
 
     public String getProductName() {

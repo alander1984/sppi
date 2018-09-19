@@ -7,6 +7,7 @@ import com.egartech.sppi.model.Step;
 import com.egartech.sppi.repo.QuestionRepository;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.runtime.StatelessKieSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,9 +24,10 @@ public class StepUtils {
 
     public Question getNextQuestion(Question current, String answer) {
         Step step = new Step(current, answer);
-        KieSession kieSession = kieContainer.newKieSession();
-        kieSession.insert(step);
-        kieSession.fireAllRules();
+        StatelessKieSession kieSession = kieContainer.newStatelessKieSession();
+        kieSession.execute(step);
+//        kieSession.insert(step);
+//        kieSession.fireAllRules();
         return step.getNext();
     }
 
@@ -34,8 +36,8 @@ public class StepUtils {
         KieSession kieSession = kieContainer.newKieSession();
         kieSession.insert(product);
         kieSession.fireAllRules();
-        Question firstQuestion = questionRepository.findOne(byCode(product.getFirstQuestionCode())).get();
-        Step firstStep = new Step(firstQuestion, process.getId());
-        return firstStep;
+        Question firstQuestion = questionRepository.findOne(byCode(product.getFirstQuestionCode()));
+
+        return new Step(firstQuestion, process.getId());
     }
 }
