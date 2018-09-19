@@ -53,3 +53,8 @@ function startProcess(productCode, productName) {
         }
     });
 }
+
+$(".action-item").on("click",function() {
+    $(".action-item.active").removeClass("active");
+    $(this).addClass("active");
+})
