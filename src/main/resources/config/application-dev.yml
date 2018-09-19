@@ -21,8 +21,8 @@ spring:
       show-sql: true
       hibernate:
         ddl-auto: none
-    liquibase:
-        change-log: classpath:/db/db.changelog.xml
+    #liquibase:
+#        change-log: classpath:/db/db.changelog.xml
 #        enabled: false
     servlet:
         multipart:
@@ -30,6 +30,8 @@ spring:
             file-size-threshold: 2KB
             max-file-size: 100MB
             max-request-size: 100MB
-server:
-    servlet:
-        contextPath: /sppi
+#server:
+#    servlet:
+#        contextPath: /sppi
+liquibase:
+  change-log: classpath:/db/db.changelog.xml
