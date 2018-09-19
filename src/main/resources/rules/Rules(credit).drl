@@ -3,7 +3,7 @@ import com.egartech.sppi.model.Product;
 
 rule "define first question of test"
     when
-        product:Product(productCode=="term_susp_oblig");
+        product:Product(productCode=="credit_legal_entity");
     then
         product.setFirstQuestionCode("1");
         update(product);
