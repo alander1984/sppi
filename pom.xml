@@ -9,7 +9,7 @@
 	<artifactId>analyt-sppi-branch-war</artifactId>
 	<version>1.0-SNAPSHOT</version>
 
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<description>SPPI drools test</description>
 
