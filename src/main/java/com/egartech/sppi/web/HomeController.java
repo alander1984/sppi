@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.websocket.server.PathParam;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import static com.egartech.sppi.specification.ProcessSpecification.paused;
+import static com.egartech.sppi.specification.ProcessSpecification.completed;
 
 @Controller
 public class HomeController {
@@ -50,10 +54,22 @@ public class HomeController {
     }
 
     @RequestMapping(value="/my_processes", method = RequestMethod.GET)
-    public ModelAndView getMyTestsPage() {
+    public ModelAndView getMyTestsPage(@PathParam("status") String status) {
         ModelAndView modelAndView = new ModelAndView("my_processes");
-        List<Process> processList = processRepository.findAll();
+        List<Process> processList = new ArrayList<>();
+        if (status.equalsIgnoreCase("paused")) {
+            processList = processRepository.findAll(paused());
+
+        }
+        else {
+            if (status.equalsIgnoreCase("completed")) {
+                {
+                    processList = processRepository.findAll(completed());
+                }
+            }
+        }
         modelAndView.addObject("processList", processList);
+        modelAndView.addObject("status",status);
         return modelAndView;
     }
 

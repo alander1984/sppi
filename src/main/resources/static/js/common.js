@@ -63,3 +63,11 @@ $(".action-item").on("click",function() {
 $(".index-tab").on("click",function(e) {
     window.location = location.origin+_ctx;
 })
+
+$(".complete-processes").on("click",function(e) {
+    window.location = location.origin+_ctx+"my_processes?status=complete";
+})
+
+$(".paused-processes").on("click",function(e) {
+    window.location = location.origin+_ctx+"my_processes?status=paused";
+})
