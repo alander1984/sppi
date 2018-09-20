@@ -1,7 +1,8 @@
-$("#start_button").click(function (e) {
+$(".start-btn").click(function (e) {
+    $(this).data("product");
     e.preventDefault();
-    var productCode = $("#product_type option:selected").val();
-    var productName = $("#product_type option:selected").text();
+    var productCode = $(this).data("product");
+    var productName = $(this).data("product-name");
     startProcess(productCode, productName);
 });
 
@@ -21,3 +22,5 @@ $("#question_dictionary_button").click(function (e) {
         }
     });
 });
+
+

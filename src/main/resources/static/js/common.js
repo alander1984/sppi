@@ -58,3 +58,8 @@ $(".action-item").on("click",function() {
     $(".action-item.active").removeClass("active");
     $(this).addClass("active");
 })
+
+
+$(".index-tab").on("click",function(e) {
+    window.location = '..'+_ctx;
+})
