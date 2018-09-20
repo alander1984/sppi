@@ -61,5 +61,5 @@ $(".action-item").on("click",function() {
 
 
 $(".index-tab").on("click",function(e) {
-    window.location = '..'+_ctx;
+    window.location = location.origin+_ctx;
 })
