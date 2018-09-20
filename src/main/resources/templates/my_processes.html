@@ -6,11 +6,6 @@
 <body>
 <section layout:fragment="content">
 <p/>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    var processList = [[${processList}]];
-    /*]]>*/
-</script>
     <table class="table">
         <thead>
         <tr>
@@ -24,7 +19,6 @@
         </thead>
         <tbody th:if="${not #lists.isEmpty(processList)}">
         <tr th:each="process : ${processList}">
-            <td th:text="${#dates.format(process.getDateStart(), 'dd-MMM-yyyy')}"></td>
             <td>
                 <div th:utext="${process.getLastProcessStep().getQuestion().getContent()}"></div>
             </td>

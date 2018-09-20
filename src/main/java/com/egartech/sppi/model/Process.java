@@ -1,7 +1,10 @@
 package com.egartech.sppi.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.google.common.collect.FluentIterable;
+import org.joda.time.LocalDate;
 
 import javax.persistence.*;
 import java.util.*;
@@ -27,10 +30,11 @@ public class Process {
     @JoinTable(name = "process_step_process",
             joinColumns = @JoinColumn(name = "process_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "process_step_id", referencedColumnName = "id"))
-    @JsonManagedReference("process-steps")
+    //@JsonManagedReference("process-steps")
     private List<ProcessStep> processSteps = new ArrayList<>();
 
     @Column(name = "date_start")
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private Date dateStart;
 
     @Column(name = "product_name")

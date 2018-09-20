@@ -2,6 +2,7 @@ package com.egartech.sppi.model;
 
 import com.egartech.sppi.configuration.CommonUtils;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -19,6 +20,14 @@ public class ProcessStep implements Comparable<ProcessStep> {
         this.process = process;
     }
 
+    public ProcessStep(String answer, Integer stepNumber, Question question, Process process, String answerText) {
+        this.answer = answer;
+        this.stepNumber = stepNumber;
+        this.question = question;
+        this.process = process;
+        this.answerText = answerText;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "process_step_seq")
     @SequenceGenerator(
@@ -31,6 +40,9 @@ public class ProcessStep implements Comparable<ProcessStep> {
     @Column(name = "answer")
     private String answer;
 
+    @Column(name = "answer_text")
+    private String answerText;
+
     @ManyToOne(optional = false)
     @JoinColumn(name = "question_id", nullable = false)
     private Question question;
@@ -42,7 +54,8 @@ public class ProcessStep implements Comparable<ProcessStep> {
     @JoinTable(name = "process_step_process",
             inverseJoinColumns = @JoinColumn(name = "process_id", referencedColumnName = "id"),
             joinColumns = @JoinColumn(name = "process_step_id", referencedColumnName = "id"))
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnore
     private Process process;
 
     public Long getId() {
@@ -53,9 +66,9 @@ public class ProcessStep implements Comparable<ProcessStep> {
         this.id = id;
     }
 
-    public String getAnswerText() {
+    /*public String getAnswerText() {
         return CommonUtils.getAnswersMap(question.getAnswers()).get(answer);
-    }
+    }*/
 
     public String getAnswer() {
         return answer;
@@ -122,4 +135,13 @@ public class ProcessStep implements Comparable<ProcessStep> {
     public int compareTo(ProcessStep processStep) {
         return this.getStepNumber().compareTo(processStep.getStepNumber());
     }
+
+    public String getAnswerText() {
+        return answerText;
+    }
+
+    public void setAnswerText(String answerText) {
+        this.answerText = answerText;
+    }
 }
+

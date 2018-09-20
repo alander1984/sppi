@@ -79,7 +79,7 @@ public class StepController {
         } else {
             stepNumber = process.getProcessSteps().size() + 1;
         }
-        ProcessStep processStep = new ProcessStep(answer, stepNumber, currentQuestion, process);
+        ProcessStep processStep = new ProcessStep(answer, stepNumber, currentQuestion, process, CommonUtils.getAnswersMap(currentQuestion.getAnswers()).get(answer));
         processStepRepository.save(processStep);
         String nextQuestionCode = nextQuestion.getCode();
         if (nextQuestionCode.equals("SUCCESS") || nextQuestionCode.equals("FAIL")) {

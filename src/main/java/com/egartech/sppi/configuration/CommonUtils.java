@@ -19,6 +19,7 @@ public class CommonUtils {
                             STANDARD_ANSWERS : answersJson.replace("\'", "\""),
                     new TypeReference<Map<String, String>>() {});
         } catch (IOException ignored) {}
+        System.out.println("answers="+answers);
         return answers;
     }
 }
