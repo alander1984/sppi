@@ -20,6 +20,7 @@
         <include file="db/changelog/15_increase_columns_size_of_question.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/16_load_questions_for_legal_entity.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/17_update_code_column_of_question.xml" relativeToChangelogFile="false"/>
-        <include file="db/changelog/18_update_question_id_column_for_autoincrement.xml" relativeToChangelogFile="false"/>
-        <include file="db/changelog/19_load_question_for_securities.xml" relativeToChangelogFile="false"/>
+        <!--<include file="db/changelog/18_update_question_id_column_for_autoincrement.xml" relativeToChangelogFile="false"/>-->
+        <!--<include file="db/changelog/20_change_question_id_type_for_bigint.xml" relativeToChangelogFile="false"/>-->
+
 </databaseChangeLog>
