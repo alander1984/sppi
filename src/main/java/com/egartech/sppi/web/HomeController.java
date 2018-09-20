@@ -62,7 +62,7 @@ public class HomeController {
 
         }
         else {
-            if (status.equalsIgnoreCase("completed")) {
+            if (status.equalsIgnoreCase("complete")) {
                 {
                     processList = processRepository.findAll(completed());
                 }
