@@ -9,6 +9,8 @@ import org.kie.internal.io.ResourceFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by alander on 31.08.18.
@@ -21,7 +23,6 @@ public class StepRuleConfiguration {
     @Bean
     public KieContainer kieContainer() {
         KieServices kieServices = KieServices.Factory.get();
-
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
         kieFileSystem.write(ResourceFactory.newClassPathResource(drlFile));
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
