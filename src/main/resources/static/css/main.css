@@ -138,6 +138,8 @@
 .card-container.card {
     max-width: 450px;
     padding: 40px 40px;
+    background: none;
+    border: none;
 }
 
 .center-block {
