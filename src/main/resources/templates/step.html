@@ -15,7 +15,40 @@
         var isFirstStep = [[${isFirstStep}]];
         /*]]>*/
     </script>
-    <div class="row">
+
+
+    <div class="jumbotron">
+        <div class="container">
+            <h3 id="question"></h3>
+            <div id="question_note"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="center-div">
+            <div class="Row">
+                <div th:each="answer,ind : ${answers}" class="Column">
+                    <button th:attr="data-tag=${answer.getKey()}" th:text="${answer.getValue()}"
+                        class="answerBtn themeBtn" th:classappend="${answerBtnStyles[ind.index]}"></button>
+                </div>
+            </div>
+        </div>
+
+        <hr/>
+
+    </div> <!-- /container -->
+
+
+
+
+
+
+
+
+
+
+    <!--<div class="row">
         <div class="col-sm-1">
             <h3>Вопрос:</h3>
         </div>
@@ -34,7 +67,7 @@
             <button th:attr="data-tag=${answer.getKey()}" th:text="${answer.getValue()}"
                     class="answerBtn btn" th:classappend="${answerBtnStyles[ind.index]}"></button>
         </div>
-    </div>
+    </div>-->
 <script th:src="@{/js/step.js}"></script>
 <script th:src="@{/js/common.js}"></script>
 </section>
