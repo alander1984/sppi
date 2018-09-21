@@ -23,4 +23,5 @@
         <include file="db/changelog/18_add_default_value_for_question_id.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/19_load_question_for_securities.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/17_ala_processStepAnswer.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/18_ala_question_id_auto.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
