@@ -1,31 +1,62 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml" layout:decorator="layouts/layout">
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
 <head>
     <title>Результат прохождения теста</title>
+    <meta name="ctx" th:content="@{/}" />
+    <title>Layout</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.3/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"/>
+    <script th:src="@{/webjars/bootstrap/4.1.3/js/bootstrap.min.js}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.css}"/>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome/css/font-awesome.min.css}"/>
 </head>
 <body>
 <section layout:fragment="content">
-    <div class="row">
-        <form class="form-group" th:action="@{/logout}" method="post">
-            <input type="submit" value="Sign Out"/>
-        </form>
-    </div>
+    <button type="button" class="btn-default btn-circle close-complete-test-btn navPseudo" style="position:absolute;right:10px;top:10px;cursor:pointer"><i class="fa fa-times" aria-hidden="true"></i></button>
     <script th:inline="javascript">
         /*<![CDATA[*/
         var result = [[${result}]];
         /*]]>*/
     </script>
-    <div class="row">
-        <div th:switch="${result}" class="col-sm-4">
-            <h3 th:case="'success'">SPPI-тест пройден.</h3>
-            <h3 th:case="'fail'">SPPI-тест не пройден!</h3>
-            <h3 th:case="'suspend'">Прохождение  SPPI-теста приостановлено.</h3>
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="center-div">
+            <div class="Row">
+                <div th:switch="${result}" class="Column">
+                     <h3 th:case="'success'">SPPI-тест пройден</h3>
+                     <h3 th:case="'fail'">SPPI-тест не пройден...</h3>
+                 </div>
+            </div></div>
         </div>
     </div>
-    <div th:insert="~{footer :: back}"></div>
 
-<script th:src="@{/js/common.js}"></script>
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="center-div">
+            <div class="Row">
+                <h2>Скачать результаты теста</h2>
+            </div>
+        </div>
+        <div class="center-div">
+            <div class="Row">
+                    <button class="answerBtn themeBtn"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel</button>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+
+
+
+
+
+
+
+    <script th:src="@{/js/common.js}"></script>
 <script th:src="@{/js/result.js}"></script>
 </section>
 </body>
