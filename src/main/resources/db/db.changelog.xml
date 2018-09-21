@@ -20,4 +20,5 @@
         <include file="db/changelog/15_increase_columns_size_of_question.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/16_load_questions_for_legal_entity.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/17_ala_processStepAnswer.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/18_ala_question_id_auto.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>
