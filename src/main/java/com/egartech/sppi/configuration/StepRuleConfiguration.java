@@ -24,6 +24,7 @@ public class StepRuleConfiguration {
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
         kieFileSystem.write(ResourceFactory.newClassPathResource("rules/Rules(credit).drl"));
         kieFileSystem.write(ResourceFactory.newClassPathResource("rules/Rules(securities).drl"));
+        kieFileSystem.write(ResourceFactory.newClassPathResource("rules/Rules(update).drl"));
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
         KieModule kieModule = kieBuilder.getKieModule();
