@@ -7,7 +7,4 @@
         <dropSequence sequenceName="question_sequence"/>
         <createSequence sequenceName="question_sequence" startValue="194" incrementBy="1"/>
     </changeSet>
-    <changeSet id="002" author="ykorzhev">
-        <addDefaultValue tableName="question" columnName="id" defaultValueSequenceNext="question_sequence"/>
-    </changeSet>
 </databaseChangeLog>
