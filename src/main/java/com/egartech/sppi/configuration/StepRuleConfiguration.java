@@ -18,13 +18,12 @@ import org.springframework.transaction.annotation.Transactional;
 @Configuration
 @ComponentScan("com.egartech.sppi.configuration")
 public class StepRuleConfiguration {
-    private static final String drlFile = "rules/Rules(credit).drl";
-
     @Bean
     public KieContainer kieContainer() {
         KieServices kieServices = KieServices.Factory.get();
         KieFileSystem kieFileSystem = kieServices.newKieFileSystem();
-        kieFileSystem.write(ResourceFactory.newClassPathResource(drlFile));
+        kieFileSystem.write(ResourceFactory.newClassPathResource("rules/Rules(credit).drl"));
+        kieFileSystem.write(ResourceFactory.newClassPathResource("rules/Rules(securities).drl"));
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
         KieModule kieModule = kieBuilder.getKieModule();
