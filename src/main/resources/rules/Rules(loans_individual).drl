@@ -1,0 +1,2312 @@
+import com.egartech.sppi.model.Step;
+import com.egartech.sppi.model.Product;
+
+rule "define first question of CIP test"
+    when
+        $product:Product(productCode=="credit_individual_person");
+    then
+        $product.setFirstQuestionCode("CIP1");
+end
+
+rule "Step CIP1 - YES"
+    when
+        $step:Step(current.code=="CIP1"&&answer=="yes");
+    then
+        $step.setNextQ("CIP2");
+         
+end
+
+rule "Step CIP1 - NO"
+    when
+        $step:Step(current.code=="CIP1"&&answer=="no");
+    then
+        $step.setNextQ("CIP4");
+         
+end
+
+rule "Step CIP2 - YES"
+    when
+        $step:Step(current.code=="CIP2"&&answer=="yes");
+    then
+        $step.setNextQ("CIP4");
+         end
+
+rule "Step CIP2 - NO"
+     when
+         $step:Step(current.code=="CIP2"&&answer=="no");
+     then
+         $step.setNextQ("CIP3");
+          end
+rule "Step CIP3 - YES"
+     when
+         $step:Step(current.code=="CIP3"&&answer=="yes");
+     then
+         $step.setNextQ("CIP4");
+          end
+rule "Step CIP3 - NO"
+     when
+         $step:Step(current.code=="CIP3"&&answer=="no");
+     then
+        $step.setTestFailed();
+         end
+
+
+
+rule "Step CIP4 - FIXED"
+      when
+           $step:Step(current.code=="CIP4"&&answer=="fixed");
+      then
+           $step.setNextQ("CIP6.1");
+            end
+rule "Step CIP4 - FLOAT"
+      when
+            $step:Step(current.code=="CIP4"&&answer=="floating");
+      then
+           $step.setNextQ("CIP5.1");
+            end
+
+rule "Step CIP5.1 - YES"
+      when
+           $step:Step(current.code=="CIP5.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP5.2");
+            end
+rule "Step CIP5.1 - NO"
+      when
+            $step:Step(current.code=="CIP5.1"&&answer=="no");
+      then
+             $step.setTestFailed();
+              end
+
+rule "Step CIP5.2 - YES"
+      when
+           $step:Step(current.code=="CIP5.2"&&answer=="yes");
+      then
+             $step.setTestFailed();
+              end
+rule "Step CIP5.2 - NO"
+      when
+            $step:Step(current.code=="CIP5.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP5.3");
+            end
+
+rule "Step CIP5.3 - YES"
+      when
+           $step:Step(current.code=="CIP5.3"&&answer=="yes");
+      then
+             $step.setTestFailed();
+              end
+rule "Step CIP5.3 - NO"
+      when
+            $step:Step(current.code=="CIP5.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP5.4");
+            end
+
+rule "Step CIP5.4 - YES"
+      when
+           $step:Step(current.code=="CIP5.4"&&answer=="yes");
+      then
+           $step.setNextQ("CIP5.5");
+            end
+rule "Step CIP5.4 - NO"
+      when
+            $step:Step(current.code=="CIP5.4"&&answer=="no");
+      then
+             $step.setNextQ("CIP5.7.1");
+              end
+rule "Step CIP5.5 - YES"
+      when
+           $step:Step(current.code=="CIP5.5"&&answer=="yes");
+      then
+           $step.setNextQ("CIP5.6");
+            end
+rule "Step CIP5.5 - NO"
+      when
+            $step:Step(current.code=="CIP5.5"&&answer=="no");
+      then
+           $step.setNextQ("CIP5.7.1");
+            end
+rule "Step CIP5.6 - YES"
+      when
+           $step:Step(current.code=="CIP5.6"&&answer=="yes");
+      then
+           $step.setNextQ("CIP5.7.1");
+            end
+rule "Step CIP5.6 - NO"
+      when
+            $step:Step(current.code=="CIP5.6"&&answer=="no");
+      then
+           $step.setNextQ("CIP6.1");
+            end
+
+rule "Step CIP5.7.1 - YES"
+      when
+           $step:Step(current.code=="CIP5.7.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP6.1");
+            end
+rule "Step CIP5.7.1 - NO"
+      when
+            $step:Step(current.code=="CIP5.7.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP5.7.2");
+            end
+
+rule "Step CIP5.7.2 - YES"
+      when
+           $step:Step(current.code=="CIP5.7.2"&&answer=="yes");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP5.7.2 - NO"
+      when
+            $step:Step(current.code=="CIP5.7.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP6.1");
+            end
+
+rule "Step CIP6.1 - YES"
+      when
+           $step:Step(current.code=="CIP6.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP6.2.2");
+            end
+rule "Step CIP6.1 - NO(with_condition)"
+      when
+            $step:Step(current.code=="CIP6.1"&&answer=="no_with_condition");
+      then
+           $step.setNextQ("CIP6.2.1");
+            end
+
+ rule "Step CIP6.1 - NO(with_$steps)"
+       when
+             $step:Step(current.code=="CIP6.1"&&answer=="no_with_$step");
+       then
+            $step.setNextQ("CIP7.1");
+             end
+
+rule "Step CIP6.1 - NO (not condition)"
+      when
+           $step:Step(current.code=="CIP6.1"&&answer=="no_not_condition");
+      then
+           $step.setNextQ("CIP8");
+            end
+
+
+rule "Step CIP6.2.1 - YES"
+      when
+            $step:Step(current.code=="CIP6.2.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP7.1");
+            end
+
+rule "Step CIP6.2.1 - NO"
+      when
+            $step:Step(current.code=="CIP6.2.1"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP6.2.2 - YES"
+      when
+            $step:Step(current.code=="CIP6.2.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP8");
+            end
+
+rule "Step CIP6.2.2 - NO"
+      when
+            $step:Step(current.code=="CIP6.2.1"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+
+rule "Step CIP7.1 - YES"
+      when
+            $step:Step(current.code=="CIP7.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP7.2");
+            end
+rule "Step CIP7.1 - NO"
+      when
+            $step:Step(current.code=="CIP7.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP7.2");
+            end
+rule "Step CIP7.2 - YES"
+      when
+            $step:Step(current.code=="CIP7.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP7.3");
+            end
+rule "Step CIP7.2 - NO"
+      when
+            $step:Step(current.code=="CIP7.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP7.3");
+            end
+
+rule "Step CIP7.3 - YES"
+      when
+            $step:Step(current.code=="CIP7.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP7.3.1");
+            end
+rule "Step CIP7.3 - NO"
+      when
+            $step:Step(current.code=="CIP7.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP7.4");
+            end
+
+rule "Step CIP7.3.1 - YES"
+      when
+            $step:Step(current.code=="CIP7.3.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP7.4");
+            end
+rule "Step CIP7.3.1 - NO"
+      when
+            $step:Step(current.code=="CIP7.3.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP7.3.2");
+            end
+
+rule "Step CIP7.3.2 - YES"
+      when
+            $step:Step(current.code=="CIP7.3.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP7.4");
+            end
+rule "Step CIP7.3.2 - NO"
+      when
+            $step:Step(current.code=="CIP7.3.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP7.3.3");
+            end
+
+rule "Step CIP7.3.3 - YES"
+      when
+            $step:Step(current.code=="CIP7.3.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP7.4");
+            end
+rule "Step CIP7.3.3 - NO"
+      when
+            $step:Step(current.code=="CIP7.3.3"&&answer=="no");
+      then
+            $step.setTestFailed();
+            end
+rule "Step CIP7.4 - YES"
+      when
+            $step:Step(current.code=="CIP7.4"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP7.4 - NO"
+      when
+            $step:Step(current.code=="CIP7.4"&&answer=="no");
+      then
+           $step.setNextQ("CIP7.5");
+            end
+
+rule "Step CIP7.5 - YES"
+      when
+            $step:Step(current.code=="CIP7.5"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP7.5 - NO"
+      when
+            $step:Step(current.code=="CIP7.5"&&answer=="no");
+      then
+           $step.setNextQ("CIP7.6");
+            end
+
+rule "Step CIP7.6 - YES"
+      when
+            $step:Step(current.code=="CIP7.6"&&answer=="yes");
+      then
+           $step.setNextQ("CIP7.6.1");
+            end
+rule "Step CIP7.6 - NO"
+      when
+            $step:Step(current.code=="CIP7.6"&&answer=="no");
+      then
+           $step.setNextQ("CIP8");
+            end
+
+rule "Step CIP7.6.1 - YES"
+      when
+            $step:Step(current.code=="CIP7.6.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP8");
+            end
+rule "Step CIP7.6.1 - NO"
+      when
+            $step:Step(current.code=="CIP7.6.1"&&answer=="no");
+      then
+            $step.setTestFailed();
+            end
+rule "Step CIP8 - YES"
+      when
+            $step:Step(current.code=="CIP8"&&answer=="yes");
+      then
+           $step.setNextQ("CIP9");
+            end
+rule "Step CIP8 - NO"
+      when
+            $step:Step(current.code=="CIP8"&&answer=="no");
+      then
+           $step.setNextQ("CIP13");
+            end
+
+rule "Step CIP9 - YES"
+      when
+            $step:Step(current.code=="CIP9"&&answer=="yes");
+      then
+           $step.setNextQ("CIP12.1");
+            end
+rule "Step CIP9 - NO"
+      when
+            $step:Step(current.code=="CIP9"&&answer=="no");
+      then
+           $step.setNextQ("CIP10");
+            end
+
+rule "Step CIP10 - YES"
+      when
+            $step:Step(current.code=="CIP10"&&answer=="yes");
+      then
+           $step.setNextQ("CIP13");
+            end
+rule "Step CIP10 - NO"
+      when
+            $step:Step(current.code=="CIP10"&&answer=="no");
+      then
+           $step.setNextQ("CIP11.1");
+            end
+
+rule "Step CIP11.1 - YES"
+      when
+            $step:Step(current.code=="CIP11.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP11.2");
+            end
+rule "Step CIP11.1 - NO"
+      when
+            $step:Step(current.code=="CIP11.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP11.2");
+            end
+
+rule "Step CIP11.2 - YES"
+      when
+            $step:Step(current.code=="CIP11.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP11.3");
+            end
+rule "Step CIP11.2 - NO"
+      when
+            $step:Step(current.code=="CIP11.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP11.3");
+            end
+
+rule "Step CIP11.3 - YES"
+      when
+            $step:Step(current.code=="CIP11.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP11.4");
+            end
+rule "Step CIP11.3 - NO"
+      when
+            $step:Step(current.code=="CIP11.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP11.4");
+            end
+
+rule "Step CIP11.4 - YES"
+      when
+            $step:Step(current.code=="CIP11.4"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP11.4 - NO"
+      when
+            $step:Step(current.code=="CIP11.4"&&answer=="no");
+      then
+           $step.setNextQ("CIP11.5");
+            end
+rule "Step CIP11.5 - YES"
+      when
+            $step:Step(current.code=="CIP11.5"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP11.5 - NO"
+      when
+            $step:Step(current.code=="CIP11.5"&&answer=="no");
+      then
+           $step.setNextQ("CIP11.6");
+            end
+rule "Step CIP11.6 - YES"
+      when
+            $step:Step(current.code=="CIP11.6"&&answer=="yes");
+      then
+           $step.setNextQ("CIP11.6.1");
+            end
+rule "Step CIP11.6 - NO"
+      when
+            $step:Step(current.code=="CIP11.6"&&answer=="no");
+      then
+           $step.setNextQ("CIP13");
+            end
+rule "Step CIP11.6.1 - YES"
+      when
+            $step:Step(current.code=="CIP11.6.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP13");
+            end
+rule "Step CIP11.6.1 - NO"
+      when
+            $step:Step(current.code=="CIP11.6.1"&&answer=="no");
+      then
+            $step.setTestFailed();
+            end
+
+rule "Step CIP12.1 - YES"
+      when
+            $step:Step(current.code=="CIP12.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP12.4");
+            end
+rule "Step CIP12.1 - NO"
+      when
+            $step:Step(current.code=="CIP12.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP12.2");
+            end
+
+rule "Step CIP12.2 - YES"
+      when
+            $step:Step(current.code=="CIP12.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP12.4");
+            end
+rule "Step CIP12.2 - NO"
+      when
+            $step:Step(current.code=="CIP12.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP12.3");
+            end
+
+rule "Step CIP12.3 - YES"
+      when
+            $step:Step(current.code=="CIP12.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP12.4");
+            end
+rule "Step CIP12.3 - NO"
+      when
+            $step:Step(current.code=="CIP12.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP10");
+            end
+
+rule "Step CIP12.4 - YES"
+      when
+            $step:Step(current.code=="CIP12.4"&&answer=="yes");
+      then
+           $step.setNextQ("CIP10");
+            end
+rule "Step CIP12.4 - NO"
+      when
+            $step:Step(current.code=="CIP12.4"&&answer=="no");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP13 - YES"
+      when
+            $step:Step(current.code=="CIP13"&&answer=="yes");
+      then
+           $step.setNextQ("CIP14");
+            end
+rule "Step CIP13 - NO"
+      when
+            $step:Step(current.code=="CIP13"&&answer=="no");
+      then
+           $step.setNextQ("CIP22");
+            end
+
+rule "Step CIP14 - YES"
+      when
+            $step:Step(current.code=="CIP14"&&answer=="yes");
+      then
+           $step.setNextQ("CIP22");
+            end
+rule "Step CIP14 - NO"
+      when
+            $step:Step(current.code=="CIP14"&&answer=="no");
+      then
+           $step.setNextQ("CIP15");
+            end
+
+rule "Step CIP15 - YES"
+      when
+            $step:Step(current.code=="CIP15"&&answer=="yes");
+      then
+           $step.setNextQ("CIP22");
+            end
+rule "Step CIP15 - NO"
+      when
+            $step:Step(current.code=="CIP15"&&answer=="no");
+      then
+           $step.setNextQ("CIP16");
+            end
+
+
+rule "Step CIP16 - FIXED"
+      when
+           $step:Step(current.code=="CIP16"&&answer=="fixed");
+      then
+           $step.setNextQ("CIP18.1");
+            end
+rule "Step CIP16 - FLOAT"
+      when
+            $step:Step(current.code=="CIP16"&&answer=="floating");
+      then
+           $step.setNextQ("CIP17.1");
+            end
+
+rule "Step CIP17.1 - YES"
+      when
+           $step:Step(current.code=="CIP17.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP17.2");
+            end
+rule "Step CIP17.1 - NO"
+      when
+            $step:Step(current.code=="CIP17.1"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP17.2 - YES"
+      when
+           $step:Step(current.code=="CIP17.2"&&answer=="yes");
+      then
+             $step.setTestFailed();
+              end
+rule "Step CIP17.2 - NO"
+      when
+            $step:Step(current.code=="CIP17.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP17.3");
+            end
+rule "Step CIP17.3 - YES"
+      when
+           $step:Step(current.code=="CIP17.3"&&answer=="yes");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP17.3 - NO"
+      when
+            $step:Step(current.code=="CIP17.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP17.4");
+            end
+
+rule "Step CIP17.4 - YES"
+      when
+           $step:Step(current.code=="CIP17.4"&&answer=="yes");
+      then
+           $step.setNextQ("CIP17.5");
+            end
+rule "Step CIP17.4 - NO"
+      when
+            $step:Step(current.code=="CIP17.4"&&answer=="no");
+      then
+            $step.setNextQ("CIP17.7.1");
+              end
+rule "Step CIP17.5 - YES"
+      when
+           $step:Step(current.code=="CIP17.5"&&answer=="yes");
+      then
+           $step.setNextQ("CIP17.6");
+            end
+rule "Step CIP17.5 - NO"
+      when
+            $step:Step(current.code=="CIP17.5"&&answer=="no");
+      then
+           $step.setNextQ("CIP17.7.1");
+            end
+rule "Step CIP17.6 - YES"
+      when
+           $step:Step(current.code=="CIP17.6"&&answer=="yes");
+      then
+           $step.setNextQ("CIP17.7.1");
+            end
+rule "Step CIP17.6 - NO"
+      when
+            $step:Step(current.code=="CIP17.6"&&answer=="no");
+      then
+           $step.setNextQ("CIP18.1");
+            end
+
+rule "Step CIP17.7.1 - YES"
+      when
+           $step:Step(current.code=="CIP17.7.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP18.1");
+            end
+rule "Step CIP17.7.1 - NO"
+      when
+            $step:Step(current.code=="CIP17.7.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP17.7.2");
+            end
+
+rule "Step CIP17.7.2 - YES"
+      when
+           $step:Step(current.code=="CIP17.7.2"&&answer=="yes");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP17.7.2 - NO"
+      when
+            $step:Step(current.code=="CIP17.7.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP18.1");
+            end
+
+rule "Step CIP18.1 - YES"
+      when
+           $step:Step(current.code=="CIP18.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP18.2.2");
+            end
+rule "Step CIP18.1 - NO(with_condition)"
+      when
+            $step:Step(current.code=="CIP18.1"&&answer=="no_with_condition");
+      then
+           $step.setNextQ("CIP18.2.1");
+            end
+   rule "Step CIP18.1 - NO(with_$steps)"
+         when
+               $step:Step(current.code=="CIP18.1"&&answer=="no_with_$step");
+         then
+              $step.setNextQ("CIP19.1");
+               end
+
+rule "Step CIP18.1 - NO (not condition)"
+      when
+           $step:Step(current.code=="CIP18.1"&&answer=="no_not_condition");
+      then
+           $step.setNextQ("CIP20");
+            end
+
+
+rule "Step CIP18.2.1 - YES"
+      when
+            $step:Step(current.code=="CIP18.2.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP19.1");
+            end
+
+rule "Step CIP18.2.1 - NO"
+      when
+            $step:Step(current.code=="CIP20.2.1"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP18.2.2 - YES"
+      when
+            $step:Step(current.code=="CIP18.2.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP20");
+            end
+
+rule "Step CIP18.2.2 - NO"
+      when
+            $step:Step(current.code=="CIP18.2.2"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+
+rule "Step CIP19.1 - YES"
+      when
+            $step:Step(current.code=="CIP19.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP19.2");
+            end
+rule "Step CIP19.1 - NO"
+      when
+            $step:Step(current.code=="CIP19.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP19.2");
+            end
+rule "Step CIP19.2 - YES"
+      when
+            $step:Step(current.code=="CIP19.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP19.3");
+            end
+rule "Step CIP19.2 - NO"
+      when
+            $step:Step(current.code=="CIP19.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP19.3");
+            end
+
+rule "Step CIP19.3 - YES"
+      when
+            $step:Step(current.code=="CIP19.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP19.3.1");
+            end
+rule "Step CIP19.3 - NO"
+      when
+            $step:Step(current.code=="CIP19.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP19.4");
+            end
+
+rule "Step CIP19.3.1 - YES"
+      when
+            $step:Step(current.code=="CIP19.3.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP19.4");
+            end
+rule "Step CIP19.3.1 - NO"
+      when
+            $step:Step(current.code=="CIP19.3.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP19.3.2");
+            end
+
+rule "Step CIP19.3.2 - YES"
+      when
+            $step:Step(current.code=="CIP19.3.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP19.4");
+            end
+rule "Step CIP19.3.2 - NO"
+      when
+            $step:Step(current.code=="CIP19.3.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP19.3.3");
+            end
+
+rule "Step CIP19.3.3 - YES"
+      when
+            $step:Step(current.code=="CIP19.3.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP19.4");
+            end
+rule "Step CIP19.3.3 - NO"
+      when
+            $step:Step(current.code=="CIP19.3.3"&&answer=="no");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP19.4 - YES"
+      when
+            $step:Step(current.code=="CIP19.4"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP19.4 - NO"
+      when
+            $step:Step(current.code=="CIP19.4"&&answer=="no");
+      then
+           $step.setNextQ("CIP19.5");
+            end
+
+rule "Step CIP19.5 - YES"
+      when
+            $step:Step(current.code=="CIP19.5"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP19.5 - NO"
+      when
+            $step:Step(current.code=="CIP19.5"&&answer=="no");
+      then
+           $step.setNextQ("CIP19.6");
+            end
+
+rule "Step CIP19.6 - YES"
+      when
+            $step:Step(current.code=="CIP19.6"&&answer=="yes");
+      then
+           $step.setNextQ("CIP19.6.1");
+            end
+rule "Step CIP19.6 - NO"
+      when
+            $step:Step(current.code=="CIP19.6"&&answer=="no");
+      then
+           $step.setNextQ("CIP20");
+            end
+
+rule "Step CIP19.6.1 - YES"
+      when
+            $step:Step(current.code=="CIP19.6.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP20");
+            end
+rule "Step CIP19.6.1 - NO"
+      when
+            $step:Step(current.code=="CIP19.6.1"&&answer=="no");
+      then
+            $step.setTestFailed();
+             end
+
+
+rule "Step CIP20 - YES"
+      when
+            $step:Step(current.code=="CIP20"&&answer=="yes");
+      then
+           $step.setNextQ("CIP21");
+            end
+rule "Step CIP20 - NO"
+      when
+            $step:Step(current.code=="CIP20"&&answer=="no");
+      then
+           $step.setNextQ("CIP22");
+            end
+
+rule "Step CIP21 - YES"
+      when
+            $step:Step(current.code=="CIP21"&&answer=="yes");
+      then
+           $step.setNextQ("CIP22");
+            end
+rule "Step CIP21 - NO"
+      when
+            $step:Step(current.code=="CIP21"&&answer=="no");
+      then
+           $step.setNextQ("CIP21.1");
+            end
+
+rule "Step CIP21.1 - YES"
+      when
+            $step:Step(current.code=="CIP21.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP21.2");
+            end
+rule "Step CIP21.1 - NO"
+      when
+            $step:Step(current.code=="CIP21.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP21.2");
+            end
+rule "Step CIP21.2 - YES"
+      when
+            $step:Step(current.code=="CIP21.2"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP21.2 - NO"
+      when
+            $step:Step(current.code=="CIP21.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP21.3");
+            end
+
+rule "Step CIP21.3 - YES"
+      when
+            $step:Step(current.code=="CIP21.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP21.3.1");
+            end
+rule "Step CIP21.3 - NO"
+      when
+            $step:Step(current.code=="CIP21.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP22");
+            end
+
+rule "Step CIP21.3.1 - YES"
+      when
+            $step:Step(current.code=="CIP21.3.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP22");
+            end
+rule "Step CIP21.3.1 - NO"
+      when
+            $step:Step(current.code=="CIP21.3.1"&&answer=="no");
+      then
+            $step.setTestFailed();
+             end
+
+rule "Step CIP22 - YES"
+      when
+            $step:Step(current.code=="CIP22"&&answer=="yes");
+      then
+           $step.setNextQ("CIP23");
+            end
+rule "Step CIP22 - NO"
+      when
+            $step:Step(current.code=="CIP22"&&answer=="no");
+      then
+           $step.setNextQ("CIP28");
+            end
+
+rule "Step CIP23 - YES"
+      when
+            $step:Step(current.code=="CIP23"&&answer=="yes");
+      then
+           $step.setNextQ("CIP31");
+            end
+rule "Step CIP23 - NO"
+      when
+            $step:Step(current.code=="CIP23"&&answer=="no");
+      then
+           $step.setNextQ("CIP24");
+            end
+rule "Step CIP24 - YES"
+      when
+            $step:Step(current.code=="CIP24"&&answer=="yes");
+      then
+           $step.setNextQ("CIP25");
+            end
+rule "Step CIP24 - NO"
+      when
+            $step:Step(current.code=="CIP24"&&answer=="no");
+      then
+           $step.setNextQ("CIP31");
+            end
+
+rule "Step CIP25 - YES"
+      when
+            $step:Step(current.code=="CIP25"&&answer=="yes");
+      then
+           $step.setNextQ("CIP28");
+            end
+rule "Step CIP25 - NO"
+      when
+            $step:Step(current.code=="CIP25"&&answer=="no");
+      then
+           $step.setNextQ("CIP26");
+            end
+
+rule "Step CIP26 - YES"
+      when
+            $step:Step(current.code=="CIP26"&&answer=="yes");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP26 - NO"
+      when
+            $step:Step(current.code=="CIP26"&&answer=="no");
+      then
+           $step.setNextQ("CIP27.1");
+            end
+
+rule "Step CIP27.1 - YES"
+      when
+            $step:Step(current.code=="CIP27.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP27.2");
+            end
+rule "Step CIP27.1 - NO"
+      when
+            $step:Step(current.code=="CIP27.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP27.2");
+            end
+
+rule "Step CIP27.2 - YES"
+      when
+            $step:Step(current.code=="CIP27.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP27.3");
+            end
+rule "Step CIP27.2 - NO"
+      when
+            $step:Step(current.code=="CIP27.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP27.3");
+            end
+
+rule "Step CIP27.3 - YES"
+      when
+            $step:Step(current.code=="CIP27.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP27.3.1");
+            end
+rule "Step CIP27.3 - NO"
+      when
+            $step:Step(current.code=="CIP27.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP27.4");
+             end
+rule "Step CIP27.3.1 - YES"
+      when
+            $step:Step(current.code=="CIP27.3.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP27.4");
+            end
+rule "Step CIP27.3.1 - NO"
+      when
+            $step:Step(current.code=="CIP27.3.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP27.3.2");
+             end
+ rule "Step CIP27.3.2 - YES"
+       when
+             $step:Step(current.code=="CIP27.3.2"&&answer=="yes");
+       then
+            $step.setNextQ("CIP27.4");
+             end
+ rule "Step CIP27.3.2 - NO"
+       when
+             $step:Step(current.code=="CIP27.3.2"&&answer=="no");
+       then
+            $step.setNextQ("CIP27.3.3");
+             end
+
+ rule "Step CIP27.3.3 - YES"
+       when
+             $step:Step(current.code=="CIP27.3.3"&&answer=="yes");
+       then
+            $step.setNextQ("CIP27.4");
+             end
+ rule "Step CIP27.3.3 - NO"
+       when
+             $step:Step(current.code=="CIP27.3.3"&&answer=="no");
+       then
+            $step.setTestFailed();
+             end
+
+ rule "Step CIP27.4 - YES"
+       when
+             $step:Step(current.code=="CIP27.4"&&answer=="yes");
+       then
+            $step.setTestFailed();
+             end
+ rule "Step CIP27.4 - NO"
+       when
+             $step:Step(current.code=="CIP27.4"&&answer=="no");
+       then
+            $step.setNextQ("CIP27.5");
+             end
+
+ rule "Step CIP27.5 - YES"
+       when
+             $step:Step(current.code=="CIP27.5"&&answer=="yes");
+       then
+            $step.setNextQ("CIP27.5.1");
+             end
+ rule "Step CIP27.5 - NO"
+       when
+             $step:Step(current.code=="CIP27.5"&&answer=="no");
+       then
+            $step.setNextQ("CIP28");
+             end
+
+ rule "Step CIP27.5.1 - YES"
+       when
+             $step:Step(current.code=="CIP27.5.1"&&answer=="yes");
+       then
+            $step.setNextQ("CIP28");
+             end
+ rule "Step CIP27.5.1 - NO"
+       when
+             $step:Step(current.code=="CIP27.5.1"&&answer=="no");
+       then
+            $step.setTestFailed();
+             end
+
+
+rule "Step CIP28 - YES"
+       when
+             $step:Step(current.code=="CIP28"&&answer=="yes");
+       then
+            $step.setNextQ("CIP29");
+             end
+rule "Step CIP28 - NO"
+       when
+             $step:Step(current.code=="CIP28"&&answer=="no");
+       then
+            $step.setNextQ("CIP53");
+             end
+
+rule "Step CIP29 - YES"
+       when
+             $step:Step(current.code=="CIP29"&&answer=="yes");
+       then
+            $step.setTestOK();
+             end
+rule "Step CIP29 - NO"
+       when
+             $step:Step(current.code=="CIP29"&&answer=="no");
+       then
+            $step.setNextQ("CIP30");
+             end
+rule "Step CIP30 - YES"
+        when
+              $step:Step(current.code=="CIP30"&&answer=="yes");
+        then
+             $step.setTestOK();
+              end
+rule "Step CIP30 - NO"
+        when
+              $step:Step(current.code=="CIP30"&&answer=="no");
+        then
+             $step.setNextQ("CIP31");
+              end
+ rule "Step CIP31 - YES"
+       when
+             $step:Step(current.code=="CIP31"&&answer=="yes");
+       then
+            $step.setNextQ("CIP32");
+             end
+ rule "Step CIP31 - NO"
+       when
+             $step:Step(current.code=="CIP31"&&answer=="no");
+       then
+            $step.setNextQ("CIP38");
+             end
+
+ rule "Step CIP32 - YES"
+       when
+             $step:Step(current.code=="CIP32"&&answer=="yes");
+       then
+            $step.setNextQ("CIP34");
+             end
+ rule "Step CIP32 - NO"
+       when
+             $step:Step(current.code=="CIP32"&&answer=="no");
+       then
+            $step.setNextQ("CIP33");
+             end
+ rule "Step CIP33 - YES"
+       when
+             $step:Step(current.code=="CIP33"&&answer=="yes");
+       then
+            $step.setNextQ("CIP38");
+             end
+ rule "Step CIP33 - NO"
+       when
+             $step:Step(current.code=="CIP33"&&answer=="no");
+       then
+            $step.setTestFailed();
+             end
+rule "Step CIP34 - YES"
+       when
+             $step:Step(current.code=="CIP34"&&answer=="yes");
+       then
+            $step.setTestFailed();
+              end
+rule "Step CIP34 - NO"
+       when
+             $step:Step(current.code=="CIP34"&&answer=="no");
+       then
+             $step.setNextQ("CIP35");
+              end
+
+rule "Step CIP35 - YES"
+       when
+             $step:Step(current.code=="CIP35"&&answer=="yes");
+       then
+             $step.setNextQ("CIP36");
+              end
+
+rule "Step CIP35 - NO"
+       when
+             $step:Step(current.code=="CIP35"&&answer=="no");
+       then
+             $step.setTestFailed();
+              end
+
+rule "Step CIP36 - YES"
+       when
+             $step:Step(current.code=="CIP36"&&answer=="yes");
+       then
+             $step.setTestFailed();
+              end
+
+
+rule "Step CIP36 - NO"
+       when
+             $step:Step(current.code=="CIP36"&&answer=="no");
+       then
+             $step.setNextQ("CIP37");
+              end
+
+
+
+rule "Step CIP37 - YES"
+       when
+             $step:Step(current.code=="CIP37"&&answer=="yes");
+       then
+            $step.setNextQ("CIP38");
+             end
+ rule "Step CIP37 - NO"
+       when
+             $step:Step(current.code=="CIP37"&&answer=="no");
+       then
+             $step.setTestFailed();
+              end
+
+
+rule "Step CIP38 - YES"
+       when
+             $step:Step(current.code=="CIP38"&&answer=="yes");
+       then
+            $step.setNextQ("CIP38.1.1");
+             end
+rule "Step CIP38 - NO (not only)"
+       when
+             $step:Step(current.code=="CIP38"&&answer=="no_not_only");
+       then
+             $step.setNextQ("CIP38.1.2");
+              end
+
+
+rule "Step CIP38 - NO (not_component)"
+       when
+             $step:Step(current.code=="CIP38"&&answer=="no_not_component");
+       then
+             $step.setNextQ("CIP43");
+              end
+
+rule "Step CIP38 - NO"
+       when
+             $step:Step(current.code=="CIP38"&&answer=="no");
+       then
+             $step.setTestOK();
+              end
+
+rule "Step CIP38.1.1 - YES"
+       when
+             $step:Step(current.code=="CIP38.1.1"&&answer=="yes");
+       then
+             $step.setTestOK();
+              end
+
+rule "Step CIP38.1.1 - NO"
+       when
+             $step:Step(current.code=="CIP38.1.1"&&answer=="no");
+       then
+             $step.setNextQ("CIP39.1");
+              end
+
+rule "Step CIP39.1 - FIXED"
+      when
+           $step:Step(current.code=="CIP39.1"&&answer=="fixed");
+      then
+           $step.setNextQ("CIP41.1.1");
+            end
+rule "Step CIP39.1 - FLOAT"
+      when
+            $step:Step(current.code=="CIP39.1"&&answer=="floating");
+      then
+           $step.setNextQ("CIP40.1.1");
+            end
+
+rule "Step CIP40.1.1 - YES"
+      when
+           $step:Step(current.code=="CIP40.1.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP40.2.1");
+            end
+rule "Step CIP40.1.1 - NO"
+      when
+            $step:Step(current.code=="CIP40.1.1"&&answer=="no");
+      then
+             $step.setTestFailed();
+              end
+
+rule "Step CIP40.2.1 - YES"
+      when
+           $step:Step(current.code=="CIP40.2.1"&&answer=="yes");
+      then
+             $step.setTestFailed();
+              end
+rule "Step CIP40.2.1 - NO"
+      when
+            $step:Step(current.code=="CIP40.2.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP40.3.1");
+            end
+
+rule "Step CIP40.3.1 - YES"
+      when
+           $step:Step(current.code=="CIP40.3.1"&&answer=="yes");
+      then
+             $step.setTestFailed();
+              end
+rule "Step CIP40.3.1 - NO"
+      when
+            $step:Step(current.code=="CIP40.3.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP40.4.1");
+            end
+
+rule "Step CIP40.4.1 - YES"
+      when
+           $step:Step(current.code=="CIP40.4.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP40.5.1");
+            end
+rule "Step CIP40.4.1 - NO"
+      when
+            $step:Step(current.code=="CIP40.4.1"&&answer=="no");
+      then
+             $step.setNextQ("CIP40.7.1.1");
+              end
+rule "Step CIP40.5.1 - YES"
+      when
+           $step:Step(current.code=="CIP40.5.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP40.6.1");
+            end
+rule "Step CIP40.5.1 - NO"
+      when
+            $step:Step(current.code=="CIP40.5.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP40.7.1.1");
+            end
+rule "Step CIP40.6.1 - YES"
+      when
+           $step:Step(current.code=="CIP40.6.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP40.7.1.1");
+            end
+rule "Step CIP40.6.1 - NO"
+      when
+            $step:Step(current.code=="CIP40.6.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP41.1.1");
+            end
+
+rule "Step CIP40.7.1.1 - YES"
+      when
+           $step:Step(current.code=="CIP40.7.1.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP41.1.1");
+            end
+rule "Step CIP40.7.1.1 - NO"
+      when
+            $step:Step(current.code=="CIP40.7.1.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP40.7.2.1");
+            end
+
+rule "Step CIP40.7.2.1 - YES"
+      when
+           $step:Step(current.code=="CIP40.7.2.1"&&answer=="yes");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP40.7.2.1 - NO"
+      when
+            $step:Step(current.code=="CIP40.7.2.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP41.1.1");
+            end
+
+rule "Step CIP41.1.1 - YES"
+      when
+           $step:Step(current.code=="CIP41.1.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP41.2.2.1");
+            end
+rule "Step CIP41.1.1 - NO(with_condition)"
+      when
+            $step:Step(current.code=="CIP41.1.1"&&answer=="no_with_condition");
+      then
+           $step.setNextQ("CIP41.2.1.1");
+            end
+
+ rule "Step CIP41.1.1 - NO(with_$steps)"
+       when
+             $step:Step(current.code=="CIP41.1.1"&&answer=="no_with_$step");
+       then
+            $step.setNextQ("CIP42.1.1");
+             end
+
+rule "Step CIP41.1.1 - NO (not condition)"
+      when
+           $step:Step(current.code=="CIP41.1.1"&&answer=="no_not_condition");
+      then
+           $step.setTestOK();
+            end
+
+
+rule "Step CIP41.2.1.1 - YES"
+      when
+            $step:Step(current.code=="CIP41.2.1.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.1.1");
+            end
+
+rule "Step CIP41.2.1.1 - NO"
+      when
+            $step:Step(current.code=="CIP41.2.1.1"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP41.2.2.1 - YES"
+      when
+            $step:Step(current.code=="CIP41.2.2.1"&&answer=="yes");
+      then
+           $step.setTestOK();
+            end
+
+rule "Step CIP41.2.2.1 - NO"
+      when
+            $step:Step(current.code=="CIP41.2.2.1"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+
+rule "Step CIP42.1.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.1.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.2.1");
+            end
+rule "Step CIP42.1.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.1.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.2.1");
+            end
+rule "Step CIP42.2.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.2.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.3.1");
+            end
+rule "Step CIP42.2.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.2.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.3.1");
+            end
+
+rule "Step CIP42.3.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.3.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.3.1.1");
+            end
+rule "Step CIP42.3.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.3.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.4.1");
+            end
+
+rule "Step CIP42.3.1.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.3.1.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.4.1");
+            end
+rule "Step CIP42.3.1.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.3.1.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.3.2.1");
+            end
+
+rule "Step CIP42.3.2.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.3.2.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.4.1");
+            end
+rule "Step CIP42.3.2.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.3.2.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.3.3.1");
+            end
+
+rule "Step CIP42.3.3.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.3.3.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.4.1");
+            end
+rule "Step CIP42.3.3.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.3.3.1"&&answer=="no");
+      then
+            $step.setTestFailed();
+            end
+rule "Step CIP42.4.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.4.1"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP42.4.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.4.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.5.1");
+            end
+
+rule "Step CIP42.5.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.5.1"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP42.5.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.5.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.6.1");
+            end
+
+rule "Step CIP42.6.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.6.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.6.1.1");
+            end
+rule "Step CIP42.6.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.6.1"&&answer=="no");
+      then
+           $step.setTestOK();
+            end
+
+rule "Step CIP42.6.1.1 - YES"
+      when
+            $step:Step(current.code=="CIP42.6.1.1"&&answer=="yes");
+      then
+           $step.setTestOK();
+            end
+rule "Step CIP42.6.1.1 - NO"
+      when
+            $step:Step(current.code=="CIP42.6.1.1"&&answer=="no");
+      then
+            $step.setTestFailed();
+            end
+
+rule "Step CIP39.2 - FIXED"
+      when
+           $step:Step(current.code=="CIP39.2"&&answer=="fixed");
+      then
+           $step.setNextQ("CIP41.1.2");
+            end
+rule "Step CIP39.2 - FLOAT"
+      when
+            $step:Step(current.code=="CIP39.2"&&answer=="floating");
+      then
+           $step.setNextQ("CIP40.1.2");
+            end
+
+rule "Step CIP40.1.2 - YES"
+      when
+           $step:Step(current.code=="CIP40.1.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP40.2.2");
+            end
+rule "Step CIP40.1.2 - NO"
+      when
+            $step:Step(current.code=="CIP40.1.2"&&answer=="no");
+      then
+             $step.setTestFailed();
+              end
+
+rule "Step CIP40.2.2 - YES"
+      when
+           $step:Step(current.code=="CIP40.2.2"&&answer=="yes");
+      then
+             $step.setTestFailed();
+              end
+rule "Step CIP40.2.2 - NO"
+      when
+            $step:Step(current.code=="CIP40.2.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP40.3.2");
+            end
+
+rule "Step CIP40.3.2 - YES"
+      when
+           $step:Step(current.code=="CIP40.3.2"&&answer=="yes");
+      then
+             $step.setTestFailed();
+              end
+rule "Step CIP40.3.2 - NO"
+      when
+            $step:Step(current.code=="CIP40.3.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP40.4.2");
+            end
+
+rule "Step CIP40.4.2 - YES"
+      when
+           $step:Step(current.code=="CIP40.4.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP40.5.2");
+            end
+rule "Step CIP40.4.2 - NO"
+      when
+            $step:Step(current.code=="CIP40.4.2"&&answer=="no");
+      then
+             $step.setNextQ("CIP40.7.1.2");
+              end
+rule "Step CIP40.5.2 - YES"
+      when
+           $step:Step(current.code=="CIP40.5.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP40.6.2");
+            end
+rule "Step CIP40.5.2 - NO"
+      when
+            $step:Step(current.code=="CIP40.5.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP40.7.1.2");
+            end
+rule "Step CIP40.6.2 - YES"
+      when
+           $step:Step(current.code=="CIP40.6.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP40.7.1.2");
+            end
+rule "Step CIP40.6.2 - NO"
+      when
+            $step:Step(current.code=="CIP40.6.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP41.1.2");
+            end
+
+rule "Step CIP40.7.1.2 - YES"
+      when
+           $step:Step(current.code=="CIP40.7.1.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP41.1.2");
+            end
+rule "Step CIP40.7.1.2 - NO"
+      when
+            $step:Step(current.code=="CIP40.7.1.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP40.7.2.2");
+            end
+
+rule "Step CIP40.7.2.2 - YES"
+      when
+           $step:Step(current.code=="CIP40.7.2.2"&&answer=="yes");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP40.7.2.2 - NO"
+      when
+            $step:Step(current.code=="CIP40.7.2.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP41.1.2");
+            end
+
+rule "Step CIP41.1.2 - YES"
+      when
+           $step:Step(current.code=="CIP41.1.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP41.2.2.2");
+            end
+rule "Step CIP41.1.2 - NO(with_condition)"
+      when
+            $step:Step(current.code=="CIP41.1.2"&&answer=="no_with_condition");
+      then
+           $step.setNextQ("CIP41.2.1.2");
+            end
+
+ rule "Step CIP41.1.2 - NO(with_$steps)"
+       when
+             $step:Step(current.code=="CIP41.1.2"&&answer=="no_with_$step");
+       then
+            $step.setNextQ("CIP42.1.2");
+             end
+
+rule "Step CIP41.1.2 - NO (not condition)"
+      when
+           $step:Step(current.code=="CIP41.1.2"&&answer=="no_not_condition");
+      then
+           $step.setNextQ("CIP43");
+            end
+
+
+rule "Step CIP41.2.1.2 - YES"
+      when
+            $step:Step(current.code=="CIP41.2.1.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.1.2");
+            end
+
+rule "Step CIP41.2.1.2 - NO"
+      when
+            $step:Step(current.code=="CIP41.2.1.2"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP41.2.2.2 - YES"
+      when
+            $step:Step(current.code=="CIP41.2.2.2"&&answer=="yes");
+      then
+           $step.setTestOK();
+            end
+
+rule "Step CIP41.2.2.2 - NO"
+      when
+            $step:Step(current.code=="CIP41.2.2.2"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+
+rule "Step CIP42.1.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.1.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.2.2");
+            end
+rule "Step CIP42.1.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.1.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.2.2");
+            end
+rule "Step CIP42.2.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.2.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.3.2");
+            end
+rule "Step CIP42.2.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.2.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.3.2");
+            end
+
+rule "Step CIP42.3.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.3.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.3.1.2");
+            end
+rule "Step CIP42.3.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.3.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.4.2");
+            end
+
+rule "Step CIP42.3.1.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.3.1.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.4.2");
+            end
+rule "Step CIP42.3.1.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.3.1.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.3.2.2");
+            end
+
+rule "Step CIP42.3.2.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.3.2.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.4.2");
+            end
+rule "Step CIP42.3.2.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.3.2.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.3.3.2");
+            end
+
+rule "Step CIP42.3.3.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.3.3.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.4.2");
+            end
+rule "Step CIP42.3.3.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.3.3.2"&&answer=="no");
+      then
+            $step.setTestFailed();
+            end
+rule "Step CIP42.4.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.4.2"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP42.4.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.4.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.5.2");
+            end
+
+rule "Step CIP42.5.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.5.2"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP42.5.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.5.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP42.6.2");
+            end
+
+rule "Step CIP42.6.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.6.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP42.6.1.2");
+            end
+rule "Step CIP42.6.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.6.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP43");
+            end
+
+rule "Step CIP42.6.1.2 - YES"
+      when
+            $step:Step(current.code=="CIP42.6.1.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP43");
+            end
+rule "Step CIP42.6.1.2 - NO"
+      when
+            $step:Step(current.code=="CIP42.6.1.2"&&answer=="no");
+      then
+            $step.setTestFailed();
+            end
+
+
+rule "Step CIP43 - YES"
+       when
+             $step:Step(current.code=="CIP43"&&answer=="yes");
+       then
+             $step.setNextQ("CIP44");
+              end
+ rule "Step CIP43 - NO"
+       when
+             $step:Step(current.code=="CIP43"&&answer=="no");
+       then
+             $step.setNextQ("CIP49");
+             end
+rule "Step CIP44 - YES"
+       when
+             $step:Step(current.code=="CIP44"&&answer=="yes");
+       then
+             $step.setNextQ("CIP45");
+             end
+ rule "Step CIP44 - NO"
+       when
+             $step:Step(current.code=="CIP44"&&answer=="no");
+       then
+             $step.setTestFailed();
+              end
+
+rule "Step CIP45 - FIXED"
+      when
+           $step:Step(current.code=="CIP45"&&answer=="fixed");
+      then
+           $step.setNextQ("CIP47.1");
+            end
+rule "Step CIP45 - FLOAT"
+      when
+            $step:Step(current.code=="CIP45"&&answer=="floating");
+      then
+           $step.setNextQ("CIP46.1");
+            end
+
+rule "Step CIP46.1 - YES"
+      when
+           $step:Step(current.code=="CIP46.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP46.2");
+            end
+rule "Step CIP46.1 - NO"
+      when
+            $step:Step(current.code=="CIP46.1"&&answer=="no");
+      then
+             $step.setTestFailed();
+              end
+
+rule "Step CIP46.2 - YES"
+      when
+           $step:Step(current.code=="CIP46.2"&&answer=="yes");
+      then
+             $step.setTestFailed();
+              end
+rule "Step CIP46.2 - NO"
+      when
+            $step:Step(current.code=="CIP46.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP46.3");
+            end
+
+rule "Step CIP46.3 - YES"
+      when
+           $step:Step(current.code=="CIP46.3"&&answer=="yes");
+      then
+             $step.setTestFailed();
+              end
+rule "Step CIP46.3 - NO"
+      when
+            $step:Step(current.code=="CIP46.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP46.4");
+            end
+
+rule "Step CIP46.4 - YES"
+      when
+           $step:Step(current.code=="CIP46.4"&&answer=="yes");
+      then
+           $step.setNextQ("CIP46.5");
+            end
+rule "Step CIP46.4 - NO"
+      when
+            $step:Step(current.code=="CIP46.4"&&answer=="no");
+      then
+             $step.setNextQ("CIP46.7.1");
+              end
+rule "Step CIP46.5 - YES"
+      when
+           $step:Step(current.code=="CIP46.5"&&answer=="yes");
+      then
+           $step.setNextQ("CIP46.6");
+            end
+rule "Step CIP46.5 - NO"
+      when
+            $step:Step(current.code=="CIP46.5"&&answer=="no");
+      then
+           $step.setNextQ("CIP46.7.1");
+            end
+rule "Step CIP46.6 - YES"
+      when
+           $step:Step(current.code=="CIP46.6"&&answer=="yes");
+      then
+           $step.setNextQ("CIP46.7.1");
+            end
+rule "Step CIP46.6 - NO"
+      when
+            $step:Step(current.code=="CIP46.6"&&answer=="no");
+      then
+           $step.setNextQ("CIP47.1");
+            end
+
+rule "Step CIP46.7.1 - YES"
+      when
+           $step:Step(current.code=="CIP46.7.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP47.1");
+            end
+rule "Step CIP46.7.1 - NO"
+      when
+            $step:Step(current.code=="CIP46.7.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP46.7.2");
+            end
+
+rule "Step CIP46.7.2 - YES"
+      when
+           $step:Step(current.code=="CIP46.7.2"&&answer=="yes");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP46.7.2 - NO"
+      when
+            $step:Step(current.code=="CIP5.7.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP47.1");
+            end
+
+rule "Step CIP47.1 - YES"
+      when
+           $step:Step(current.code=="CIP47.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP47.2.2");
+            end
+rule "Step CIP47.1 - NO(with_condition)"
+      when
+            $step:Step(current.code=="CIP47.1"&&answer=="no_with_condition");
+      then
+           $step.setNextQ("CIP47.2.1");
+            end
+
+ rule "Step CIP47.1 - NO(with_steps)"
+       when
+             $step:Step(current.code=="CIP47.1"&&answer=="no_with_step");
+       then
+            $step.setNextQ("CIP48.1");
+             end
+
+rule "Step CIP47.1 - NO (not condition)"
+      when
+           $step:Step(current.code=="CIP47.1"&&answer=="no_not_condition");
+      then
+           $step.setNextQ("CIP49");
+            end
+
+
+rule "Step CIP47.2.1 - YES"
+      when
+            $step:Step(current.code=="CIP47.2.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP48.1");
+            end
+
+rule "Step CIP47.2.1 - NO"
+      when
+            $step:Step(current.code=="CIP47.2.1"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+rule "Step CIP47.2.2 - YES"
+      when
+            $step:Step(current.code=="CIP47.2.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP49");
+            end
+
+rule "Step CIP47.2.2 - NO"
+      when
+            $step:Step(current.code=="CIP47.2.2"&&answer=="no");
+      then
+           $step.setTestFailed();
+            end
+
+rule "Step CIP48.1 - YES"
+      when
+            $step:Step(current.code=="CIP48.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP48.2");
+            end
+rule "Step CIP48.1 - NO"
+      when
+            $step:Step(current.code=="CIP48.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP48.2");
+            end
+rule "Step CIP48.2 - YES"
+      when
+            $step:Step(current.code=="CIP48.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP48.3");
+            end
+rule "Step CIP48.2 - NO"
+      when
+            $step:Step(current.code=="CIP48.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP48.3");
+            end
+
+rule "Step CIP48.3 - YES"
+      when
+            $step:Step(current.code=="CIP48.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP48.3.1");
+            end
+rule "Step CIP48.3 - NO"
+      when
+            $step:Step(current.code=="CIP48.3"&&answer=="no");
+      then
+           $step.setNextQ("CIP48.4");
+            end
+
+rule "Step CIP48.3.1 - YES"
+      when
+            $step:Step(current.code=="CIP48.3.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP48.4");
+            end
+rule "Step CIP48.3.1 - NO"
+      when
+            $step:Step(current.code=="CIP48.3.1"&&answer=="no");
+      then
+           $step.setNextQ("CIP48.3.2");
+            end
+
+rule "Step CIP48.3.2 - YES"
+      when
+            $step:Step(current.code=="CIP48.3.2"&&answer=="yes");
+      then
+           $step.setNextQ("CIP48.4");
+            end
+rule "Step CIP48.3.2 - NO"
+      when
+            $step:Step(current.code=="CIP48.3.2"&&answer=="no");
+      then
+           $step.setNextQ("CIP48.3.3");
+            end
+
+rule "Step CIP48.3.3 - YES"
+      when
+            $step:Step(current.code=="CIP48.3.3"&&answer=="yes");
+      then
+           $step.setNextQ("CIP48.4");
+            end
+rule "Step CIP48.3.3 - NO"
+      when
+            $step:Step(current.code=="CIP48.3.3"&&answer=="no");
+      then
+            $step.setTestFailed();
+            end
+rule "Step CIP48.4 - YES"
+      when
+            $step:Step(current.code=="CIP48.4"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP48.4 - NO"
+      when
+            $step:Step(current.code=="CIP48.4"&&answer=="no");
+      then
+           $step.setNextQ("CIP48.5");
+            end
+
+rule "Step CIP48.5 - YES"
+      when
+            $step:Step(current.code=="CIP48.5"&&answer=="yes");
+      then
+            $step.setTestFailed();
+             end
+rule "Step CIP48.5 - NO"
+      when
+            $step:Step(current.code=="CIP48.5"&&answer=="no");
+      then
+           $step.setNextQ("CIP48.6");
+            end
+
+rule "Step CIP48.6 - YES"
+      when
+            $step:Step(current.code=="CIP48.6"&&answer=="yes");
+      then
+           $step.setNextQ("CIP48.6.1");
+            end
+rule "Step CIP48.6 - NO"
+      when
+            $step:Step(current.code=="CIP7.6"&&answer=="no");
+      then
+           $step.setNextQ("CIP49");
+            end
+
+rule "Step CIP48.6.1 - YES"
+      when
+            $step:Step(current.code=="CIP48.6.1"&&answer=="yes");
+      then
+           $step.setNextQ("CIP49");
+            end
+rule "Step CIP48.6.1 - NO"
+      when
+            $step:Step(current.code=="CIP48.6.1"&&answer=="no");
+      then
+            $step.setTestFailed();
+            end
+
+
+rule "Step CIP49 - YES"
+       when
+             $step:Step(current.code=="CIP49"&&answer=="yes");
+       then
+             $step.setNextQ("CIP50");
+              end
+rule "Step CIP49 - NO"
+       when
+             $step:Step(current.code=="CIP49"&&answer=="no");
+       then
+             $step.setNextQ("CIP50");
+             end
+
+rule "Step CIP50 - YES"
+          when
+                $step:Step(current.code=="CIP50"&&answer=="yes");
+          then
+                $step.setNextQ("CIP51");
+                 end
+rule "Step CIP50 - NO(amount update)"
+          when
+                $step:Step(current.code=="CIP50"&&answer=="no_amount_update");
+          then
+              $step.setTestFailed();
+              end
+rule "Step CIP50 - NO(no component)"
+          when
+                $step:Step(current.code=="CIP50"&&answer=="not_component");
+          then
+                $step.setNextQ("CIP51");
+                 end
+
+rule "Step CIP51 - YES"
+          when
+                $step:Step(current.code=="CIP51"&&answer=="yes");
+          then
+              $step.setTestFailed();
+               end
+rule "Step CIP51 - NO"
+          when
+                $step:Step(current.code=="CIP51"&&answer=="no");
+          then
+                $step.setNextQ("CIP52");
+                 end
+rule "Step CIP52 - YES"
+          when
+                $step:Step(current.code=="CIP52"&&answer=="yes");
+          then
+                $step.setNextQ("CIP52.1");
+                 end
+rule "Step CIP52 - NO"
+          when
+                $step:Step(current.code=="CIP52"&&answer=="no");
+          then
+              $step.setTestOK();
+               end
+
+rule "Step CIP52.1 - YES"
+          when
+                $step:Step(current.code=="CIP52.1"&&answer=="yes");
+          then
+              $step.setTestOK();
+              end
+rule "Step CIP52.1 - NO"
+          when
+                $step:Step(current.code=="CIP52.1"&&answer=="no");
+          then
+             $step.setTestFailed();
+            end
+rule "Step CIP53 - YES"
+          when
+                $step:Step(current.code=="CIP53"&&answer=="yes");
+          then
+            $step.setNextQ("CIP54");
+             end
+rule "Step CIP53 - NO"
+          when
+                $step:Step(current.code=="CIP53"&&answer=="no");
+          then
+           $step.setTestOK();
+            end
+rule "Step CIP54 - YES"
+          when
+                $step:Step(current.code=="CIP54"&&answer=="yes");
+          then
+              $step.setTestFailed();
+            end
+rule "Step CIP54 - NO"
+          when
+                $step:Step(current.code=="CIP54"&&answer=="no");
+          then
+              $step.setTestOK();
+            end
+
+

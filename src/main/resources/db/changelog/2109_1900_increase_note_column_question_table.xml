@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+    <changeSet id="001" author="ykorzhev">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="question"/>
+                <columnExists columnName="note" tableName="question"/>
+            </and>
+        </preConditions>
+        <modifyDataType tableName="question" columnName="note" newDataType="varchar(2000)" />
+    </changeSet>
+</databaseChangeLog>

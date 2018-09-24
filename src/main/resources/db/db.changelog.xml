@@ -25,4 +25,6 @@
         <include file="db/changelog/19_load_question_for_securities.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/17_ala_processStepAnswer.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/2109_1630_load_question_for_update_agreement.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/2109_1900_increase_note_column_question_table.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/2109_1805_load_questions_for_credit_individual_person.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

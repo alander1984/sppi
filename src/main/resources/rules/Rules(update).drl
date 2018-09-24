@@ -1,7 +1,7 @@
 import com.egartech.sppi.model.Step;
 import com.egartech.sppi.model.Product;
 
-rule "define first question of test"
+rule "define first question of UPD test"
     when
         $product:Product(productCode=="update");
     then
