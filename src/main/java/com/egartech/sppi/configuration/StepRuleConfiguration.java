@@ -9,8 +9,6 @@ import org.kie.internal.io.ResourceFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by alander on 31.08.18.
@@ -26,6 +24,7 @@ public class StepRuleConfiguration {
         kieFileSystem.write(ResourceFactory.newClassPathResource("rules/Rules(securities).drl"));
         kieFileSystem.write(ResourceFactory.newClassPathResource("rules/Rules(update).drl"));
         kieFileSystem.write(ResourceFactory.newClassPathResource("rules/Rules(loans_individual).drl"));
+        kieFileSystem.write(ResourceFactory.newClassPathResource("rules/Rules(gray_zone).drl"));
         KieBuilder kieBuilder = kieServices.newKieBuilder(kieFileSystem);
         kieBuilder.buildAll();
         KieModule kieModule = kieBuilder.getKieModule();
