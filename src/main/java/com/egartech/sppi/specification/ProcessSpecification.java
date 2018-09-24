@@ -1,8 +1,6 @@
 package com.egartech.sppi.specification;
 
 import com.egartech.sppi.model.Process_;
-import com.egartech.sppi.model.Question;
-import com.egartech.sppi.model.Question_;
 import org.springframework.data.jpa.domain.Specification;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,7 +13,7 @@ public class ProcessSpecification {
         return new Specification<com.egartech.sppi.model.Process>() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder cb) {
-                return cb.equal(root.get(Process_.isFinished), false);
+                return cb.isNull(root.get(Process_.isPassed));
             }
         };
     }
@@ -24,7 +22,7 @@ public class ProcessSpecification {
         return new Specification<com.egartech.sppi.model.Process>() {
             @Override
             public Predicate toPredicate(Root root, CriteriaQuery query, CriteriaBuilder cb) {
-                return cb.equal(root.get(Process_.isFinished), true);
+                return cb.isNotNull(root.get(Process_.isPassed));
             }
         };
     }

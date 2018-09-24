@@ -24,7 +24,7 @@ $(".navPseudo").click(function (e) {
     if (isFirstStep) {
         $.ajax({
             type: "POST",
-            url: location.origin+_ctx+'process/' + processId + '/delete_unused_process',
+            url: location.origin+_ctx+'process/' + processId + '/deleteUnusedProcess',
             contentType: 'application/json; charset=utf-8',
             async: false
         });

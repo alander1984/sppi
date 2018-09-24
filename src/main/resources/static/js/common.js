@@ -24,7 +24,7 @@ function getNext(processId, questionId, answer) {
         success: function (response) {
             console.log(response);
             if (response.code === "SUCCESS" || response.code === "FAIL") {
-                window.location = _ctx+'process/result/' + response.code.toLowerCase();
+                window.location = _ctx+'process/' + processId + '/result/' + response.code.toLowerCase();
             } else {
                 window.location = _ctx+'process/' + processId + '/showquestion/'+response.id;
             }

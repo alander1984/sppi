@@ -37,14 +37,15 @@ public class Process {
     @JsonFormat(pattern = "dd.MM.yyyy")
     private Date dateStart;
 
+    @Column(name = "date_end")
+    @JsonFormat(pattern = "dd.MM.yyyy")
+    private Date dateEnd;
+
     @Column(name = "product_name")
     private String productName;
 
     @Column(name = "product_code")
     private String productCode;
-
-    @Column(name = "is_finished", nullable = false)
-    private Boolean isFinished = false;
 
     @Column(name = "is_passed")
     private Boolean isPassed;
@@ -81,6 +82,14 @@ public class Process {
         this.dateStart = dateStart;
     }
 
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
+    }
+
     public ProcessStep getLastProcessStep() {
         return FluentIterable.from(processSteps).last().or(new ProcessStep());
     }
@@ -91,14 +100,6 @@ public class Process {
 
     public void setProductName(String productName) {
         this.productName = productName;
-    }
-
-    public Boolean getFinished() {
-        return isFinished;
-    }
-
-    public void setFinished(Boolean finished) {
-        isFinished = finished;
     }
 
     public Boolean getPassed() {
@@ -126,15 +127,15 @@ public class Process {
                 Objects.equals(comment, process.comment) &&
                 Objects.equals(processSteps, process.processSteps) &&
                 Objects.equals(dateStart, process.dateStart) &&
+                Objects.equals(dateEnd, process.dateEnd) &&
                 Objects.equals(productName, process.productName) &&
                 Objects.equals(productCode, process.productCode) &&
-                Objects.equals(isFinished, process.isFinished) &&
                 Objects.equals(isPassed, process.isPassed);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, comment, processSteps, dateStart, productName, productCode, isFinished, isPassed);
+        return Objects.hash(id, comment, processSteps, dateStart, dateEnd, productName, productCode, isPassed);
     }
 
     @Override

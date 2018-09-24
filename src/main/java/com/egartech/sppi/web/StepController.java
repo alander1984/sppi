@@ -1,6 +1,7 @@
 package com.egartech.sppi.web;
 
 import com.egartech.sppi.configuration.CommonUtils;
+import com.egartech.sppi.configuration.ProcessUtils;
 import com.egartech.sppi.configuration.StepUtils;
 import com.egartech.sppi.model.Process;
 import com.egartech.sppi.model.ProcessStep;
@@ -8,9 +9,12 @@ import com.egartech.sppi.model.Question;
 import com.egartech.sppi.repo.ProcessRepository;
 import com.egartech.sppi.repo.ProcessStepRepository;
 import com.egartech.sppi.repo.QuestionRepository;
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
@@ -21,6 +25,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 import static com.egartech.sppi.specification.QuestionSpecification.byCode;
@@ -41,6 +50,9 @@ public class StepController {
 
     @Autowired
     ProcessStepRepository processStepRepository;
+
+    @Autowired
+    ProcessUtils processUtils;
 
     @RequestMapping(value="/{id}", method=RequestMethod.GET)
     public ModelAndView getStepPage(@PathVariable(value="id") Long id) {
@@ -86,8 +98,8 @@ public class StepController {
         processStepRepository.save(processStep);
         String nextQuestionCode = nextQuestion.getCode();
         if (nextQuestionCode.equals("SUCCESS") || nextQuestionCode.equals("FAIL")) {
-            process.setFinished(Boolean.TRUE);
             process.setPassed(nextQuestionCode.equals("SUCCESS") ? Boolean.TRUE : Boolean.FALSE);
+            process.setDateEnd(new Date());
             processRepository.save(process);
             return new ResponseEntity<>(nextQuestion, HttpStatus.OK);
         }
@@ -96,18 +108,38 @@ public class StepController {
         return new ResponseEntity<>(question, HttpStatus.OK);
     }
 
-    @RequestMapping(value="/result/{result}", method=RequestMethod.GET)
-    public ModelAndView showStep(@PathVariable(value="result") String result) {
+    @RequestMapping(value="{processId}/result/{result}", method=RequestMethod.GET)
+    public ModelAndView showStep(@PathVariable(value="result") String result,
+                                 @PathVariable(value="processId") Long processId) {
         ModelAndView modelAndView = new ModelAndView("result");
         modelAndView.setStatus(HttpStatus.OK);
         modelAndView.addObject("result", result);
+        modelAndView.addObject("processId", processId);
         return modelAndView;
     }
 
-    @RequestMapping(value="/{processId}/delete_unused_process", method=RequestMethod.POST)
+    @RequestMapping(value="/{processId}/deleteUnusedProcess", method=RequestMethod.POST)
     public ResponseEntity<String> deleteUnusedProcess(@PathVariable(value="processId") Long processId) {
         Process process = processRepository.findOne(processId);
         processRepository.delete(process);
         return new ResponseEntity<>("Deleted unused process during answer to the first question because of switching to another form", HttpStatus.OK);
+    }
+
+    @RequestMapping(value="{processId}/testReport", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<InputStreamResource> getTestReport(@PathVariable(value="processId") Long processId) {
+        File file;
+        InputStreamResource resource;
+        try {
+            file = processUtils.getTestReport(processId);
+            resource = new InputStreamResource(new FileInputStream(file));
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment;filename=" + file.getName())
+                .contentType(MediaType.parseMediaType(new Tika().detect(file.getName())))
+                .contentLength(file.length())
+                .body(resource);
     }
 }

@@ -28,7 +28,7 @@
             <td>
                 <div th:utext="${process.getLastProcessStep().getQuestion().getContent()}"></div>
             </td>
-            <td th:text="${process.getLastProcessStep().getAnswerText()}"></td>
+            <td th:utext="${process.getLastProcessStep().getAnswerText()}"></td>
             <td th:text="${process.getProductName()}"></td>
             <td>
                 <div th:if="${process.getPassed() == null}">
@@ -39,12 +39,12 @@
                 </div>
             </td>
             <td>
-                <div th:if="${process.getFinished().booleanValue()}">
+                <div th:if="${process.getPassed() != null}">
                     <button class="btn btn-dark" th:text="'Пройти заново'"
                             th:onclick="|passTestAgain('${process.getProductCode()}',
                             '${process.getProductName()}')|"></button>
                 </div>
-                <div th:unless="${process.getFinished().booleanValue()}">
+                <div th:unless="${process.getPassed() != null}">
                     <button class="btn btn-success" th:text="'Продолжить'"
                             th:onclick="|resumeTest('${process.getId()}',
                             '${process.getLastProcessStep().getQuestion().getId()}',

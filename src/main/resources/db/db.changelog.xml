@@ -21,4 +21,6 @@
         <include file="db/changelog/16_load_questions_for_legal_entity.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/17_ala_processStepAnswer.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/18_ala_question_id_auto.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/2109_1611_add_dateEnd_column_to_process.xml" relativeToChangelogFile="false"/>
+        <include file="db/changelog/2209_1938_drop_isFinished_column_from_process_table.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

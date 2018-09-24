@@ -19,6 +19,7 @@
     <script th:inline="javascript">
         /*<![CDATA[*/
         var result = [[${result}]];
+        var processId = [[${processId}]];
         /*]]>*/
     </script>
 
@@ -43,7 +44,7 @@
         </div>
         <div class="center-div">
             <div class="Row">
-                    <button class="answerBtn themeBtn"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel</button>
+                    <button id="downloadTestReportBtn" class="themeBtn"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel</button>
             </div>
         </div>
 
