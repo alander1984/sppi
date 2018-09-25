@@ -24,7 +24,7 @@ function downloadFiles(url/*, fileNameForDownLoad*/) {
                 document.body.appendChild(a);
                 a.click();
             }
-        };
+        }
     };
     request.send();
 }
