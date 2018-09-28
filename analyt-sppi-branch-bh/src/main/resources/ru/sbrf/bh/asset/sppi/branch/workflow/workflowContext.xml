@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:workflow="http://ufs.sbrf.ru/platform/workflow" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://ufs.sbrf.ru/platform/workflow http://ufs.sbrf.ru/platform/workflow/workflow-module.xsd">  
+    <!-- PROTECTED REGION ID(flow) ENABLED START -->  
+    <!-- PROTECTED REGION END -->  
+    <workflow:cache-data-storage id="ru.sbrf.bh.asset.sppi.branch.workflowData" cache="workflowCache"/>  
+    <workflow:spring-executor id="workflowExecutor"/>  
+    <workflow:config-url-registry id="ru.sbrf.bh.asset.sppi.branch.workflowRegistry" config="configService"/>  
+    <workflow:local-meta-storage id="ru.sbrf.bh.asset.sppi.branch.workflowMetaStorage"> 
+        <!-- Platform workflowfor process: Главный процесс -->  
+        <workflow:flow name="MainProcess" path="ru/sbrf/bh/asset/sppi/branch/workflow/MainProcess.xml"/> 
+    </workflow:local-meta-storage>  
+    <bean id="MainProcessHandlerBean" class="ru.sbrf.bh.asset.sppi.branch.orchestration.MainProcessHandler"/>  
+    <workflow:workflow-machine id="ru.sbrf.bh.asset.sppi.branch.workflowMachine" dataStorage="ru.sbrf.bh.asset.sppi.branch.workflowData" metaStorage="ru.sbrf.bh.asset.sppi.branch.workflowMetaStorage" handlerExecutor="workflowExecutor"/>  
+    <workflow:workflow-gate machine="ru.sbrf.bh.asset.sppi.branch.workflowMachine" urlRegistry="ru.sbrf.bh.asset.sppi.branch.workflowRegistry" errorResolver="errorResolver" hintPackageSupplier="ru.sbrf.bh.asset.sppi.branch.bs.HintBsService" servletUrl="/${workflowGateUrl}/MainProcess"/> 
+</beans>

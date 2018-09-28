@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:core="http://ufs.sbrf.ru/platform/core" xmlns:ctx="http://www.springframework.org/schema/context" xmlns:protocol="http://ufs.sbrf.ru/platform/protocol" xsi:schemaLocation="         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">  
+    <bean id="ru.sbrf.bh.asset.sppi.branch.bs.HintBsService" class="ru.sbrf.bh.asset.sppi.branch.bs.HintBsService"/>  
+    <!-- PROTECTED REGION ID(beans) ENABLED START -->  
+    <!-- PROTECTED REGION END --> 
+</beans>

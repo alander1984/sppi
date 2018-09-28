@@ -1,0 +1,10 @@
+[{
+  "request": {
+    "boCode": "MainProcess",
+    "boStepCode": "StartForm"
+  },
+  "response": {
+    "boStepCode": "StartForm",
+    "hints": []
+  }
+}]

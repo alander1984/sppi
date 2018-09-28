@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+        
+        <changeSet id="001" author="ykorzhev">
+        	<preConditions onFail="MARK_RAN">
+	            <and>
+	                <tableExists tableName="process_step"/>
+	                <not>
+	                    <columnExists columnName="full_name_verifier" tableName="process_step"/>
+	                </not>
+	            </and>
+        	</preConditions>
+	        <addColumn tableName="process_step">
+	            <column name="full_name_verifier" type="varchar(100)"  remarks="ФИО верификатора"/>
+	        </addColumn>
+        </changeSet>
+        
+        <changeSet id="002" author="ykorzhev">
+        	<preConditions onFail="MARK_RAN">
+	            <and>
+	                <tableExists tableName="process_step"/>
+	                <not>
+	                    <columnExists columnName="date_verification" tableName="process_step"/>
+	                </not>
+	            </and>
+        	</preConditions>
+	        <addColumn tableName="process_step">
+	            <column name="date_verification" type="datetime" remarks="Дата верификации"/>
+	        </addColumn>
+        </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Вопрос теста</title>
+    <meta name="ctx" th:content="@{/}" />
+    <title>Layout</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"/>
+    <script th:src="@{/webjars/bootstrap/4.1.1/js/bootstrap.min.js}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.css}"/>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome/css/font-awesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-toggle.min.css}" />
+    <script th:src="@{/js/bootstrap-toggle.min.js}"></script>
+</head>
+<body>
+<section layout:fragment="content">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var attributesList = [[${attributesList}]];
+        /*]]>*/
+    </script>
+    <button type="button" class="btn-default btn-circle close-test-btn navPseudo" style="position:absolute;right:10px;top:10px;cursor:pointer"><i class="fa fa-times" aria-hidden="true"></i></button>
+
+<div class="container">
+        <div class="center-div">
+            <h4>Задайте значения атрибутов для продукта:</h4>
+            <div th:each="attribute : ${attributesList}">
+                <div class="Row">
+                    <p th:text="${attribute}"></p><input type="text"/>
+                </div>
+            </div>
+            <button id="acceptAttributes"></button>
+        </div>
+
+        <hr/>
+
+    </div>
+<script th:src="@{/js/step.js}"></script>
+<script th:src="@{/js/common.js}"></script>
+</section>
+</body>
+</html>

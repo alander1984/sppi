@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ru.sbrf.efs.app</groupId>
+    <artifactId>analyt-sppi-branch-bh</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <platform.version>6.9.12</platform.version>
+        <bh.version>2.2.9</bh.version>
+        <uam.version>2.2.9</uam.version>
+        <release>2018-3</release> 
+    </properties>
+    
+    <distributionManagement> 
+        <snapshotRepository> 
+            <id>nexus-alpha-snapshots</id>  
+            <url>http://sbtnexus.ca.sbrf.ru:8081/nexus/content/repositories/efs_snapshot</url> 
+        </snapshotRepository>  
+        <repository> 
+            <id>nexus-alpha-release</id>  
+            <url>http://sbtnexus.ca.sbrf.ru:8081/nexus/content/repositories/efs_release</url> 
+        </repository> 
+    </distributionManagement>  
+    <!-- PROTECTED REGION ID(pom:root) ENABLED START -->  
+    <!-- PROTECTED REGION END -->  
+    <dependencies> 
+        <!-- PROTECTED REGION ID(pom:dependencies) ENABLED START -->  
+        <!-- PROTECTED REGION END -->  
+        <dependency> 
+            <groupId>ru.sbrf.ufs.platform</groupId>  
+            <artifactId>ufs-platform-provided</artifactId>  
+            <version>${platform.version}</version>  
+            <type>pom</type>  
+            <scope>provided</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>ru.sbrf.ufs.platform</groupId>  
+            <artifactId>ufs-platform-runtime</artifactId>  
+            <version>${platform.version}</version>  
+            <type>pom</type>  
+            <scope>provided</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>ru.sbrf.ufs.platform</groupId>  
+            <artifactId>ufs-platform-testing</artifactId>  
+            <version>${platform.version}</version>  
+            <type>pom</type>  
+            <scope>test</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>ru.sbrf.efs.model</groupId>  
+            <artifactId>business-hub-core</artifactId>  
+            <version>${bh.version}</version>  
+            <type>jar</type>  
+            <scope>provided</scope> 
+        </dependency>  
+        <dependency> 
+            <groupId>ru.sbrf.efs.model</groupId>  
+            <artifactId>business-hub</artifactId>  
+            <version>${uam.version}</version>  
+            <type>jar</type>  
+            <scope>provided</scope> 
+        </dependency> 
+    </dependencies>  
+    <build> 
+        <!-- PROTECTED REGION ID(pom:build) ENABLED START -->  
+        <!-- PROTECTED REGION END -->  
+        <plugins> 
+            <!-- PROTECTED REGION ID(pom:plugin) ENABLED START -->  
+            <!-- PROTECTED REGION END -->  
+            <plugin> 
+                <artifactId>maven-compiler-plugin</artifactId>  
+                <version>3.6.1</version>  
+                <configuration> 
+                    <source>1.7</source>  
+                    <target>1.7</target> 
+                </configuration> 
+            </plugin>  
+            <plugin> 
+                <artifactId>maven-source-plugin</artifactId>  
+                <version>3.0.1</version>  
+                <executions> 
+                    <execution> 
+                        <id>attach-sources</id>  
+                        <phase>prepare-package</phase>  
+                        <goals> 
+                            <goal>jar-no-fork</goal> 
+                        </goals> 
+                    </execution> 
+                </executions> 
+            </plugin>  
+            <plugin> 
+                <groupId>org.codehaus.mojo</groupId>  
+                <artifactId>build-helper-maven-plugin</artifactId>  
+                <version>1.7</version>  
+                <executions> 
+                    <execution> 
+                        <id>add-source</id>  
+                        <phase>generate-sources</phase>  
+                        <goals> 
+                            <goal>add-source</goal> 
+                        </goals>  
+                        <configuration> 
+                            <sources> 
+                                <source>src/main-generated/java</source> 
+                            </sources> 
+                        </configuration> 
+                    </execution> 
+                </executions> 
+            </plugin>  
+            <plugin> 
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-javadoc-plugin</artifactId>  
+                <version>3.0.0-M1</version>  
+                <configuration> 
+                    <show>private</show>  
+                    <nohelp>true</nohelp> 
+                </configuration>  
+                <executions> 
+                    <execution> 
+                        <id>attach-javadocs</id>  
+                        <phase>install</phase>  
+                        <goals> 
+                            <goal>jar</goal> 
+                        </goals> 
+                    </execution> 
+                </executions> 
+            </plugin>  
+            <plugin> 
+                <groupId>org.apache.maven.plugins</groupId>  
+                <artifactId>maven-site-plugin</artifactId>  
+                <version>3.7.1</version>  
+                <executions> 
+                    <execution> 
+                        <id>attach-descriptor</id>  
+                        <goals> 
+                            <goal>attach-descriptor</goal> 
+                        </goals> 
+                    </execution> 
+                </executions> 
+            </plugin> 
+        </plugins> 
+    </build>  
+    <profiles> 
+        <!-- PROTECTED REGION ID(pom:profiles) ENABLED START -->  
+        <!-- PROTECTED REGION END -->  
+        <profile> 
+            <id>ecj</id>  
+            <build> 
+                <plugins> 
+                    <plugin> 
+                        <artifactId>maven-compiler-plugin</artifactId>  
+                        <version>3.6.1</version>  
+                        <configuration> 
+                            <compilerId>eclipse</compilerId>  
+                            <source>1.7</source>  
+                            <target>1.7</target> 
+                        </configuration>  
+                        <dependencies> 
+                            <dependency> 
+                                <groupId>org.codehaus.plexus</groupId>  
+                                <artifactId>plexus-compiler-eclipse</artifactId>  
+                                <version>2.8.1</version> 
+                            </dependency> 
+                        </dependencies> 
+                    </plugin> 
+                </plugins>
+            </build> 
+        </profile> 
+    </profiles> 
+</project>

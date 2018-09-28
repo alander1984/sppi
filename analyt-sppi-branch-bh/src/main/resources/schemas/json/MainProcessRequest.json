@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "id": "urn:jsonschema:ru:sbrf:bh:asset:sppi:branch:orchestration:MainProcessRequest",
+  "anyOf": [{
+    "type": "object",
+    "id": "urn:jsonschema:ru:sbrf:bh:asset:sppi:branch:dto:pl:startform:ShowStartFormRequestDto",
+    "properties": {},
+    "additionalProperties": false
+  }],
+  "properties": {},
+  "additionalProperties": false
+}

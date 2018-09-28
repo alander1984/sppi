@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ctx="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">  
+    <!-- Adapter between parameters of operation &lt;b&gt;showStartForm&lt;/b&gt; and &lt;b&gt;ShowStartFormResponseDto&lt;/b&gt; -->  
+    <bean id="ru.sbrf.bh.asset.sppi.branch.adapter.pl.startform.ShowStartFormResponseAdapter" class="ru.sbrf.bh.asset.sppi.branch.adapter.pl.startform.ShowStartFormResponseAdapter"/>  
+    <!-- Adapter between parameters of operation &lt;b&gt;showStartForm&lt;/b&gt; and &lt;b&gt;ShowStartFormRequestDto&lt;/b&gt; -->  
+    <bean id="ru.sbrf.bh.asset.sppi.branch.adapter.pl.startform.ShowStartFormRequestAdapter" class="ru.sbrf.bh.asset.sppi.branch.adapter.pl.startform.ShowStartFormRequestAdapter"/>  
+    <!-- PROTECTED REGION ID(beans) ENABLED START -->  
+    <!-- PROTECTED REGION END --> 
+</beans>

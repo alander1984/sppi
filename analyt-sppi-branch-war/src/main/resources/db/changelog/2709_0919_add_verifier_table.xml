@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+        <changeSet id="001" author="ykorzhev">
+        	<createTable tableName="verifier" remarks="Справочник верификаторов">
+        		<column name="id" type="bigint">
+                	<constraints nullable="false"/>
+            	</column>
+            	<column name="full_name" type="varchar(100)">
+            		<constraints nullable="false"/>
+            	</column>
+            	<column name="post" type="varchar(100)">
+            		<constraints nullable="false"/>
+            	</column>
+        	</createTable>
+        	<addPrimaryKey columnNames="id" constraintName="verifier_pk" tableName="verifier"/>
+        	<createSequence sequenceName="verifier_sequence" startValue="1" incrementBy="1"/>
+        </changeSet>
+        
+        <changeSet id="002" author="ykorzhev">
+        	<addDefaultValue tableName="verifier" columnName="id" defaultValueSequenceNext="verifier_sequence"/>
+        </changeSet>
+        
+        <changeSet id="003" author="ykorzhev">
+        	<insert tableName="verifier">
+                <column name="full_name" value="Иванов Иван Иванович"></column>
+                <column name="post" value="Аналитик"></column>
+            </insert>
+            <insert tableName="verifier">
+                <column name="full_name" value="Шукшин Василий Макарович"></column>
+                <column name="post" value="Тестировщик"></column>
+            </insert>
+        </changeSet>
+</databaseChangeLog>

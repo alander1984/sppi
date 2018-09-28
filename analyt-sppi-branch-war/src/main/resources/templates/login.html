@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Вход в ФП SPPI-тестирования</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>
+</head>
+<body th:background="@{/images/login/background.jpg}">
+<div class="content_div">
+    <div class="container" style="display:table;width:450px">
+        <div class="card card-container center-block">
+            <img id="profile-img" class="profile-img-card" th:src="@{/images/login/login.png}" style="width:96px;height:96px"/>
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin" th:action="@{/login}" method="post">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="username" id="inputEmail" class="form-control" placeholder="логин" required="true" autofocus="true" name="username"/>
+                <input type="password" id="inputPassword" class="form-control" placeholder="пароль" required="true" name="password"/>
+                <!--<div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me">Р—Р°РїРѕРјРЅРёС‚СЊ РјРµРЅСЏ</input>
+                    </label>
+                </div>-->
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Вход</button>
+            </form>
+            <div th:switch="${error}">
+                <p th:case="1" style="color:red; top:135px; position:absolute; right:110px;">Ошибка входа</p>
+            </div>
+            <a th:href="@{/first-sign}">Установка пароля при первом входе</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

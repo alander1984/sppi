@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+
+        <changeSet id="ala_001" author="alander">
+            <preConditions onFail="MARK_RAN">
+                <tableExists tableName="sppi_users"/>
+            </preConditions>
+            <dropTable tableName="sppi_users"/>
+            <rollback>
+                <createTable tableName="sppi_users" remarks="Пользователи">
+                    <column name="id" type="bigint">
+                        <constraints nullable="false"/>
+                    </column>
+                    <column name="username" type="varchar(25)" remarks="Логин пользователя">
+                        <constraints nullable="false" unique="true"/>
+                    </column>
+                    <column name="passwd" type="varchar(25)" remarks="Пароль">
+                        <constraints nullable="false"/>
+                    </column>
+                </createTable>
+                <addPrimaryKey columnNames="id" constraintName="user_pk" tableName="sppi_users"/>
+            </rollback>
+        </changeSet>
+
+
+        <changeSet id="ala_01" author="alander">
+            <createTable tableName="sppi_users" remarks="Пользователи">
+                <column name="id" type="bigint">
+                    <constraints nullable="false"/>
+                </column>
+                <column name="username" type="varchar(25)" remarks="Логин пользователя">
+                    <constraints nullable="false" unique="true"/>
+                </column>
+                <column name="passwd" type="varchar(100)" remarks="Пароль">
+                    <constraints nullable="false"/>
+                </column>
+            </createTable>
+            <addPrimaryKey columnNames="id" constraintName="user_pk" tableName="sppi_users"/>
+
+	    	<addDefaultValue tableName="sppi_users" columnName="id" defaultValueSequenceNext="user_sequence"/>
+
+            <insert tableName="sppi_users">
+
+                <column name="username" value="user"></column>
+                <column name="passwd" value="5f4dcc3b5aa765d61d8327deb882cf99"></column>
+            </insert>
+        </changeSet>
+</databaseChangeLog>

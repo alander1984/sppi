@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Главный процесс -->
+<flow xmlns="http://ufs.sbrf.ru/platform/flow-definition" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://ufs.sbrf.ru/platform/flow-definition http://ufs.sbrf.ru/platform/flow-definition.xsd" start-state="StartForm" call-deep="30">  
+    <!-- PROTECTED REGION ID(flow) ENABLED START -->  
+    <!-- PROTECTED REGION END -->  
+    <!-- Статическая форма: &quot;StartForm&quot; -->  
+    <state name="StartForm" on-enter="MainProcessHandlerBean#startFormInit" title="StartForm"> 
+        <!-- PROTECTED REGION ID(state:StartForm) ENABLED START -->  
+        <!-- PROTECTED REGION END -->  
+        <event name="on-next-call" handler="MainProcessHandlerBean#startForm"/>  
+        <state-transition name="to-end" to="end"/> 
+    </state> 
+</flow>

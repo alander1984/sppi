@@ -1,0 +1,4 @@
+id;product_type_name;product_type_code;attributes
+1;Kreditovanie_YUL;credit_legal_entity;"{""CRM_ID"":""String""}"
+2;Kreditovanie_FL;credit_individual_person;"{""EKP_ID"":""String""}"
+3;Tsenniye_bumagi;securities;"{""ISIN"":""String""}"

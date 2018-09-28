@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+    <changeSet id="006" author="ykorzhev">
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="sppi_questions"/>
+                <not>
+                    <columnExists columnName="note" tableName="sppi_questions"/>
+                </not>
+            </and>
+        </preConditions>
+        <addColumn tableName="sppi_questions">
+            <column name="note" type="varchar(500)"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

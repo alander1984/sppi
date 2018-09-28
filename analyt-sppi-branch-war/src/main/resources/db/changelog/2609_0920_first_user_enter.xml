@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+    <changeSet id="ala_0926" author="alander">
+        <addColumn tableName="sppi_users">
+            <column name="activated"  type="boolean" remarks="Признак активной учетной записи"/>
+        </addColumn>
+        <addColumn tableName="sppi_users">
+            <column name="first_password" type="varchar(20)" remarks="Первичный пароль"/>
+        </addColumn>
+        <update tableName="sppi_users">
+            <column name="activated" value="true"/>
+        </update>
+    </changeSet>
+</databaseChangeLog>

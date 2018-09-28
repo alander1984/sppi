@@ -1,0 +1,26 @@
+spring:
+    devtools:
+        restart:
+            enabled: true
+        livereload:
+            enabled: true
+    thymeleaf:
+        cache: false
+    datasource:
+        url: jdbc:oracle:thin:@localhost:1521:XE
+        username: UFS_SPPI
+        password: UFS_SPPI
+        driver-class-name: oracle.jdbc.OracleDriver
+    jpa:
+      show-sql: true
+      hibernate:
+        ddl-auto: none
+    servlet:
+        multipart:
+            enabled: true
+            file-size-threshold: 2KB
+            max-file-size: 100MB
+            max-request-size: 100MB
+server:
+    servlet:
+        contextPath: /sppi

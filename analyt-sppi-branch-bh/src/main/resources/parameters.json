@@ -1,0 +1,312 @@
+{"parameters": [
+  {
+    "name": "healthcheck.offline",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": ["true"],
+    "type": "STRING"
+  },
+  {
+    "name": "logger.local.level",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": ["DEBUG"],
+    "type": "STRING"
+  },
+  {
+    "name": "logger.test.mode",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": [true],
+    "type": "BOOLEAN"
+  },
+  {
+    "name": "platform.logger.level",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": ["DEBUG"],
+    "type": "STRING"
+  },
+  {
+    "name": "platform.logger.writer",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": ["def"],
+    "type": "STRING"
+  },
+  {
+    "name": "platform.report.rest.client.base.url",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": ["http://sbt-ouriti-041.sigma.sbrf.ru:8890/ufs-report"],
+    "type": "STRING"
+  },
+  {
+    "name": "platform.report.rest.client.connection.timeout",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": [60000],
+    "type": "LONG"
+  },
+  {
+    "name": "platform.report.rest.client.timeout",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": [60000],
+    "type": "LONG"
+  },
+  {
+    "name": "platform.workflow.url.MainProcess",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": ["ru.sbrf.bh.asset.sppi.branch/app.bundle.js"],
+    "type": "STRING"
+  },
+  {
+    "name": "xsKey",
+    "path": [
+      {
+        "name": "VERSION",
+        "value": "false"
+      },
+      {
+        "name": "CHANNEL",
+        "value": "BANK_FIX_BRANCH"
+      },
+      {
+        "name": "SUBSYSTEM",
+        "value": "ufs_platform_archetype"
+      },
+      {
+        "name": "TERBANK",
+        "value": null
+      },
+      {
+        "name": "OSB",
+        "value": null
+      },
+      {
+        "name": "VSP",
+        "value": null
+      }
+    ],
+    "values": [],
+    "type": "STRING"
+  }
+]}

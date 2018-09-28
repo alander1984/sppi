@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+
+<changeSet id="001" author="a.fedorenko">
+        <createTable tableName="product_type" remarks="Продукты">
+            <column name="id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_type_name" type="varchar(255)" remarks="Имя продукта"/>
+            <column name="product_type_code" type="varchar(50)" remarks="Код продукта"/>
+            <column name="attributes" type="varchar(1000)" remarks="Атрибуты продукта"/>
+        </createTable>
+        <addPrimaryKey columnNames="id" constraintName="product_type_pk" tableName="product_type"/>
+        <createSequence sequenceName="product_type_sequence" startValue="1" incrementBy="1"/>
+    </changeSet>
+</databaseChangeLog>

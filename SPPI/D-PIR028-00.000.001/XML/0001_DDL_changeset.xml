@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+					xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+					http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+					http://www.liquibase.org/xml/ns/dbchangelog-ext
+                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+					logicalFilePath="path-independent">				   
+    <changeSet id="analyt_sppi_branch-01" author="dotsenko-an" runAlways="false" runOnChange="true" >
+        <comment>Создание таблиц приложения "ЕФС. Анализ и аналитика. SPPI Тестирование"</comment>
+        <sqlFile path="../SQL/DDL/0002_create_table_SPPI_PROCESS.sql" relativeToChangelogFile="true"  stripComments="true" splitStatements="true"
+                 endDelimiter="/" encoding="utf8"/>
+        <sqlFile path="../SQL/DDL/0003_create_table_SPPI_QUESTIONS.sql" relativeToChangelogFile="true"  stripComments="true" splitStatements="true"
+                 endDelimiter="/" encoding="utf8"/>
+        <sqlFile path="../SQL/DDL/0004_create_table_SPPI_PROCESS_STEPS.sql" relativeToChangelogFile="true"  stripComments="true" splitStatements="true"
+                 endDelimiter="/" encoding="utf8"/>
+        <sqlFile path="../SQL/DDL/0005_create_table_SPPI_PROCESS_STEP_PROCESS.sql" relativeToChangelogFile="true"  stripComments="true" splitStatements="true"
+                 endDelimiter="/" encoding="utf8"/>
+        <sqlFile path="../SQL/DDL/0006_create_table_SPPI_USERS.sql" relativeToChangelogFile="true"  stripComments="true" splitStatements="true"
+                 endDelimiter="/" encoding="utf8"/>
+
+    </changeSet>	
+</databaseChangeLog>

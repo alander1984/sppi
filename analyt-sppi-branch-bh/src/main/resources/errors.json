@@ -1,0 +1,38 @@
+[
+  {
+    "errorRequest": {
+      "errorCode": "ASBO_MAINPROCESS_STARTFORM_ERR",
+      "channelCode": "BANK_FIX_BRANCH",
+      "originSystemCode": "ufs_platform_archetype"
+    },
+    "errorResponse": {
+      "errorCode": "ASBO_MAINPROCESS_STARTFORM_ERR",
+      "errorMessage": "Ошибка возникающая на шаге Статическая форма: &quot;StartForm&quot;",
+      "errorTitle": "Ошибка возникающая на шаге Статическая форма: &quot;StartForm&quot;"
+    }
+  },
+  {
+    "errorRequest": {
+      "errorCode": "GET_ERROR",
+      "channelCode": "BANK_FIX_BRANCH",
+      "originSystemCode": "ufs_platform_archetype"
+    },
+    "errorResponse": {
+      "errorCode": "GET_ERROR",
+      "errorMessage": "При вызове метода получения подсказок get возникла ошибка.",
+      "errorTitle": "При вызове метода получения подсказок get возникла ошибка."
+    }
+  },
+  {
+    "errorRequest": {
+      "errorCode": "ASBB_COMMON_TOJSONSTRING_ERR",
+      "channelCode": "BANK_FIX_BRANCH",
+      "originSystemCode": "ufs_platform_archetype"
+    },
+    "errorResponse": {
+      "errorCode": "ASBB_COMMON_TOJSONSTRING_ERR",
+      "errorMessage": "Возникла ошибка при вызове операции toJsonString (Returns JSON string from object) сервиса CommonBsService (Bs-service for not qualified common operations.&lt;br&gt; Not yet qualified.).",
+      "errorTitle": "Возникла ошибка при вызове операции toJsonString (Returns JSON string from object) сервиса CommonBsService (Bs-service for not qualified common operations.&lt;br&gt; Not yet qualified.)."
+    }
+  }
+]

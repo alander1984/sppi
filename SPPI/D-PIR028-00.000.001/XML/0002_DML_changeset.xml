@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog 	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+					xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+					http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+					http://www.liquibase.org/xml/ns/dbchangelog-ext
+                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+					logicalFilePath="path-independent">				   
+    <changeSet id="analyt_sppi_branch-02" author="dotsenko-an" runAlways="false" runOnChange="true" >
+        <comment>Заполнение таблиц приложения "ЕФС. Анализ и аналитика. SPPI Тестирование"</comment>
+
+        <loadData encoding="UTF-8"
+                  file="D-PIR028-00.000.001/DATA/001-questions_for_legal_entity.csv"
+                  schemaName="UFS_SPPI"
+                  tableName="SPPI_QUESTIONS"
+                  separator="|" />
+
+        <loadData encoding="UTF-8"
+                  file="D-PIR028-00.000.001/DATA/002-Securities.csv"
+                  schemaName="UFS_SPPI"
+                  tableName="SPPI_QUESTIONS"
+                  separator="|" />
+
+        <loadData encoding="UTF-8"
+                  file="D-PIR028-00.000.001/DATA/003-Update.csv"
+                  schemaName="UFS_SPPI"
+                  tableName="SPPI_QUESTIONS"
+                  separator="|" />
+
+        <loadData encoding="UTF-8"
+                  file="D-PIR028-00.000.001/DATA/004-Loans(individual).csv"
+                  schemaName="UFS_SPPI"
+                  tableName="SPPI_QUESTIONS"
+                  separator="|" />
+
+        <loadData encoding="UTF-8"
+                  file="D-PIR028-00.000.001/DATA/005-Gray_zone.csv"
+                  schemaName="UFS_SPPI"
+                  tableName="SPPI_QUESTIONS"
+                  separator="|" />
+
+    </changeSet>
+</databaseChangeLog>

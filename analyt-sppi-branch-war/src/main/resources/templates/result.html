@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Результат прохождения теста</title>
+    <meta name="ctx" th:content="@{/}" />
+    <title>Layout</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"/>
+    <script th:src="@{/webjars/bootstrap/4.1.1/js/bootstrap.min.js}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.css}"/>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome/css/font-awesome.min.css}"/>
+</head>
+<body>
+<section layout:fragment="content">
+    <button type="button" class="btn-default btn-circle close-complete-test-btn navPseudo" style="position:absolute;right:10px;top:10px;cursor:pointer"><i class="fa fa-times" aria-hidden="true"></i></button>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        var result = [[${result}]];
+        var processId = [[${processId}]];
+        var uti = [[${uti}]];
+        var color = [[${color}]]
+        /*]]>*/
+    </script>
+
+    <div class="jumbotron">
+        <div class="container">
+            <div class="center-div">
+            <div class="Row">
+                <div th:switch="${result}" class="Column">
+                     <h3 th:case="'success'" th:text="'Результат SPPI теста ' + ${uti} + ': Пройден'"></h3>
+                     <h3 th:case="'fail'" th:text="'Результат SPPI теста ' + ${uti} + ': Не пройден'"></h3>
+                 </div>
+            </div></div>
+            <div class="center-div">
+            <div class="Row">
+                <div  class="Column" th:if="${color!=null}">
+                     <h3 th:text="'Цвет бумаги: ' +  ${color}"></h3>
+                 </div>
+            </div></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Example row of columns -->
+        <div class="center-div">
+            <div class="Row">
+                <h2>Скачать результаты теста</h2>
+            </div>
+        </div>
+        <div class="center-div">
+            <div class="Row">
+                    <button id="downloadTestReportBtn" class="themeBtn"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel</button>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+
+
+
+
+
+
+
+    <script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/result.js}"></script>
+</section>
+</body>
+</html>

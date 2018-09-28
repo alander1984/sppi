@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ctx="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">  
+    <!-- Bs-service for not qualified common operations.&lt;br&gt; Not yet qualified. -->  
+    <bean id="ru.sbrf.bh.asset.sppi.branch.bs.CommonBsService" class="ru.sbrf.bh.asset.sppi.branch.bs.CommonBsService"/>  
+    <!-- &lt;b&gt;CG&lt;/b&gt;-service class . Bridge for process: Главный процесс -->  
+    <bean id="ru.sbrf.bh.asset.sppi.branch.cg.MainProcessBridge" class="ru.sbrf.bh.asset.sppi.branch.cg.MainProcessBridge"/>  
+    <!-- PROTECTED REGION ID(beans) ENABLED START -->  
+    <!-- PROTECTED REGION END --> 
+</beans>

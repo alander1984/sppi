@@ -1,0 +1,93 @@
+import com.egartech.sppi.model.Process;
+
+rule "define color for first case if test failed"
+     when
+        $process:Process(
+        	productCode == "securities" &&
+        	(getQuestionAnswer("CB7.7.2")=="yes" ||
+        	getQuestionAnswer("CB19.7.2")=="yes" ||
+        	getQuestionAnswer("CB51.7.2")=="yes" ||
+        	getQuestionAnswer("CB57.7.2")=="yes") &&
+        	!getPassed()
+        	
+        );
+    then
+        $process.setColor("Gray");
+end
+
+
+
+rule "define color second case if test failed"
+	when
+		$process:Process(
+			productCode == "securities" &&
+           !(getQuestionAnswer("CB7.7.2")=="yes" ||
+        	getQuestionAnswer("CB19.7.2")=="yes" ||
+        	getQuestionAnswer("CB51.7.2")=="yes" ||
+        	getQuestionAnswer("CB57.7.2")=="yes") &&
+        	!getPassed() &&
+        	getQuestionAnswer("CB14.2")=="no"
+        );
+    then
+    	$process.setColor("Gray");
+end
+
+rule "define color third case if test failed"
+	when
+		$process:Process(
+			productCode == "securities" &&
+           !(getQuestionAnswer("CB7.7.2")=="yes" ||
+        	getQuestionAnswer("CB19.7.2")=="yes" ||
+        	getQuestionAnswer("CB51.7.2")=="yes" ||
+        	getQuestionAnswer("CB57.7.2")=="yes") &&
+        	!getPassed() &&
+        	!(getQuestionAnswer("CB14.2")=="yes")
+        );
+    then
+    	$process.setColor("Black");
+end
+
+rule "define color first case if test passed"
+	when
+		$process:Process(
+				productCode == "securities" &&
+				getPassed() && 
+				(((getQuestionAnswer("CB7.4")=="no" || getQuestionAnswer("CB7.5")=="no") && getQuestionAnswer("CB7.7.1")=="no") ||
+				((getQuestionAnswer("CB19.4")=="no" || getQuestionAnswer("CB19.5")=="no") && getQuestionAnswer("CB19.7.1")=="no") ||
+				((getQuestionAnswer("CB51.4")=="no" || getQuestionAnswer("CB51.5")=="no") && getQuestionAnswer("CB51.7.1")=="no") ||
+				((getQuestionAnswer("CB57.4")=="no" || getQuestionAnswer("CB57.5")=="no") && getQuestionAnswer("CB57.7.1")=="no"))
+		);
+	then
+		$process.setColor("Gray");
+end
+
+rule "define color second case if test passed"
+	when
+		$process:Process(
+					productCode == "securities" &&
+					getPassed() &&
+					!(((getQuestionAnswer("CB7.4")=="no" || getQuestionAnswer("CB7.5")=="no") && getQuestionAnswer("CB7.7.1")=="no") ||
+					((getQuestionAnswer("CB19.4")=="no" || getQuestionAnswer("CB19.5")=="no") && getQuestionAnswer("CB19.7.1")=="no") ||
+					((getQuestionAnswer("CB51.4")=="no" || getQuestionAnswer("CB51.5")=="no") && getQuestionAnswer("CB51.7.1")=="no") ||
+					((getQuestionAnswer("CB57.4")=="no" || getQuestionAnswer("CB57.5")=="no") && getQuestionAnswer("CB57.7.1")=="no")) && 
+					getQuestionAnswer("CB11")=="yes"
+		);
+	then 
+		$process.setColor("Gray");
+end
+
+rule "define color third case if test passed"
+	when
+		$process:Process(
+					productCode == "securities" &&
+					getPassed() &&
+					!(((getQuestionAnswer("CB7.4")=="no" || getQuestionAnswer("CB7.5")=="no") && getQuestionAnswer("CB7.7.1")=="no") ||
+					((getQuestionAnswer("CB19.4")=="no" || getQuestionAnswer("CB19.5")=="no") && getQuestionAnswer("CB19.7.1")=="no") ||
+					((getQuestionAnswer("CB51.4")=="no" || getQuestionAnswer("CB51.5")=="no") && getQuestionAnswer("CB51.7.1")=="no") ||
+					((getQuestionAnswer("CB57.4")=="no" || getQuestionAnswer("CB57.5")=="no") && getQuestionAnswer("CB57.7.1")=="no")) &&
+					!(getQuestionAnswer("CB11")=="yes")
+		);
+	then 
+		$process.setColor("White");
+end
+

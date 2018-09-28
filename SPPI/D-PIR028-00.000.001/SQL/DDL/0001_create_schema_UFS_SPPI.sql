@@ -1,0 +1,1 @@
+create user UFS_SPPI identified by UFS_SPPI default tablespace UFS_TS_TX_DATA quota unlimited on UFS_TS_TX_DATA quota unlimited on UFS_TS_TX_IDX

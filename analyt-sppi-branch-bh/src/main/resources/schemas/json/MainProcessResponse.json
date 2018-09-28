@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "id": "urn:jsonschema:ru:sbrf:bh:asset:sppi:branch:orchestration:MainProcessResponse",
+  "anyOf": [{
+    "type": "object",
+    "id": "urn:jsonschema:ru:sbrf:bh:asset:sppi:branch:dto:pl:startform:ShowStartFormResponseDto",
+    "properties": {
+      "success": {"type": "boolean"},
+      "body": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "pid": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "flow": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "state": {
+            "type": "string",
+            "maxLength": 255
+          },
+          "output": {
+            "type": "object",
+            "id": "urn:jsonschema:ru:sbrf:bh:asset:sppi:branch:dto:pl:startform:ShowStartFormResponseDto",
+            "properties": {},
+            "additionalProperties": false
+          },
+          "hints": {
+            "data": {
+              "boStepCode": {
+                "type": "string",
+                "maxLength": 255
+              },
+              "userLevel": {
+                "type": "string",
+                "maxLength": 255
+              },
+              "hints": {"type": "array"}
+            },
+            "level": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "userLevel": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "boStepCode": {
+              "type": "string",
+              "maxLength": 255
+            },
+            "hints": {"type": "array"}
+          },
+          "history": {
+            "type": "array",
+            "items": [{
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "flow": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "flowId": {"type": "number"},
+                "state": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "title": {
+                  "type": "string",
+                  "maxLength": 255
+                },
+                "status": {
+                  "type": "string",
+                  "maxLength": 255
+                }
+              },
+              "additionalProperties": false,
+              "required": [
+                "id",
+                "flow",
+                "flowId",
+                "state",
+                "title",
+                "status"
+              ]
+            }]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  }],
+  "properties": {
+    "body": {},
+    "success": {}
+  },
+  "additionalProperties": false
+}

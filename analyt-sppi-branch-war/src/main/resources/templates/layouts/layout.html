@@ -1,0 +1,62 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta name="ctx" th:content="@{/}" />
+    <title>Layout</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"/>
+    <script th:src="@{/webjars/bootstrap/4.1.1/js/bootstrap.min.js}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table.css}"/>
+    <script th:src="@{/js/popper.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/css/font-awesome/css/font-awesome.min.css}"/>
+</head>
+<body>
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="/images/login/login.png" width="30" height="30" alt=""/>
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+         <ul class="navbar-nav mr-auto" style="margin-right:10px"></ul>
+         <ul class="navbar-nav pull-right" style="margin-right:10px">
+            <div class="form-inline">
+                <input id="numberVoucher" class="form-control mr-sm-12" type="text" placeholder="Поиск" />
+                <button  class="abtn abtn-menu btn" type="button">Найти</button>
+            </div>
+         </ul>
+        <ul class="navbar-nav pull-right">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/logout}">Выход</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<div id="alertBox" class="alert alert-info alert-dismissible fade globalalertbox" role="alert">
+    <div id="alertBoxMessage"></div>
+</div>
+
+<table style="width:100%">
+    <tr>
+        <td width="250px" max-width="250px" style="vertical-align:top">
+            <ul class="list-group">
+                <li class="list-group-item action-item active index-tab">Пройти новый тест</li>
+                <li class="list-group-item action-item complete-processes">Завершенные</li>
+                <li class="list-group-item action-item paused-processes">Отложеные</li>
+                <!-- <li class="list-group-item action-item">Требующие доработки</li>-->
+            </ul>
+        </td>
+        <td>
+            <div layout:fragment="content" class="content_div">A placeholder for real content.</div>
+        </td>
+    </tr>
+</table>
+
+<script th:src="@{/js/common.js}"></script>
+
+</body>
+</html>

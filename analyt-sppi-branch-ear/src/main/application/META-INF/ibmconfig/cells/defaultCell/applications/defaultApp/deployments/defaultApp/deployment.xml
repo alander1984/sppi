@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<appdeployment:Deployment xmlns:appdeployment="http://www.ibm.com/websphere/appserver/schemas/5.0/appdeployment.xmi" xmlns:xmi="http://www.omg.org/XMI" xmi:version="2.0" xmi:id="Deployment_1347529484613">  
+    <deployedObject xmi:type="appdeployment:ApplicationDeployment" xmi:id="ApplicationDeployment_1347544766353" startingWeight="99" warClassLoaderPolicy="SINGLE">
+        <modules xmi:type="appdeployment:WebModuleDeployment" xmi:id="WebModuleDeployment_1347543866613" startingWeight="1" uri="analyt-sppi-branch-war.war" classloaderMode="PARENT_LAST"/>
+        <classloader xmi:id="Classloader_1347543866613" mode="PARENT_LAST"/> 
+    </deployedObject> 
+</appdeployment:Deployment>

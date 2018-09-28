@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+    <changeSet id="007" author="afedorenko">
+        <validCheckSum>8:4f220bbc9311dc6b2b2ff770c7d2b795</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="sppi_questions"/>
+        </preConditions>
+        <delete tableName="sppi_questions"/>
+        <loadData encoding="UTF-8"
+                  file="db/data/questions_for_real_test2.csv"
+                  separator="|"
+                  tableName="sppi_questions">
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
