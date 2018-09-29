@@ -79,11 +79,11 @@
 			<version>${thirdparty.oracle.version}</version>
 			<!--<scope>provided</scope>-->
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>com.oracle</groupId>
 			<artifactId>orai18n</artifactId>
 			<version>${thirdparty.oracle.version}</version>
-		</dependency>
+		</dependency>-->
 
 		<!--		<dependency>
                     <groupId>org.springframework.boot</groupId>
@@ -226,7 +226,7 @@
 		</plugins>
 	</build>
 
-	<repositories>
+	<!--<repositories>
 		<repository>
 			<url>http://sbtnexus.ca.sbrf.ru:8081/nexus/content/repositories/thirdparty/</url>
 			<id>thirdparty</id>
@@ -251,7 +251,7 @@
 			<id>nexus-central</id>
 		</pluginRepository>
 
-	</pluginRepositories>
+	</pluginRepositories>-->
 	<profiles>
 		<profile>
 			<id>localrun</id>

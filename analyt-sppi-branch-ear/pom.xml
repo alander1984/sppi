@@ -19,7 +19,7 @@
         <wlp.version>8.5.5.8</wlp.version>
         <mavenDependencyPlugin.version>2.10</mavenDependencyPlugin.version>
     </properties>
-    <distributionManagement> 
+    <!--<distributionManagement>
         <snapshotRepository> 
             <id>nexus-alpha-snapshots</id>  
             <url>http://sbtnexus.ca.sbrf.ru:8081/nexus/content/repositories/efs_snapshot/</url> 
@@ -35,7 +35,7 @@
 			<id>nexus-central</id>
 		</pluginRepository>
 
-	</pluginRepositories>
+	</pluginRepositories>-->
     <build> 
         <plugins> 
             <plugin> 

@@ -7,13 +7,13 @@
     <artifactId>analyt_sppi_branch</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-	<pluginRepositories>
+	<!--<pluginRepositories>
 		<pluginRepository>
 			<url>http://sbtnexus.ca.sbrf.ru:8081/nexus/content/repositories/central/</url>
 			<id>nexus-central</id>
 		</pluginRepository>
 
-	</pluginRepositories>
+	</pluginRepositories>-->
 
     <name>Aggregation POM: war ear</name>
     <properties>
