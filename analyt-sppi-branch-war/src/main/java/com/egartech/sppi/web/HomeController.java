@@ -2,6 +2,7 @@ package com.egartech.sppi.web;
 
 import com.egartech.sppi.configuration.StepUtils;
 import com.egartech.sppi.model.Process;
+import com.egartech.sppi.model.ProcessAttributesDTO;
 import com.egartech.sppi.model.Step;
 import com.egartech.sppi.repo.ProcessRepository;
 import com.egartech.sppi.repo.ProductTypeRepository;
@@ -16,11 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.websocket.server.PathParam;
@@ -104,11 +101,11 @@ public class HomeController {
        return modelAndView;
    }
    
-   @RequestMapping(value = "/productAttributes/{productCode}", method = RequestMethod.GET)
-   public ModelAndView getProductAttributes(@PathVariable(value = "productCode") String productCode)
+   @RequestMapping(value = "/productAttributes/{quizTreeCode}", method = RequestMethod.GET)
+   public ModelAndView getProductAttributes(@PathVariable(value = "quizTreeCode") String quizTreeCode)
    throws IOException {
        ModelAndView modelAndView = new ModelAndView("productAttributes");
-       String attributesJson = productTypeRepository.findByProductTypeCode(productCode).getAttributes();
+       String attributesJson = productTypeRepository.findByQuizTreeCode(quizTreeCode).getAttributes();
        ObjectMapper mapper = new ObjectMapper();
        Map<String, String> attributes;
        attributes = mapper.readValue(attributesJson,
@@ -117,4 +114,18 @@ public class HomeController {
        modelAndView.addObject("attributesList", attributesList);
        return modelAndView;
    }
+    @RequestMapping(value = "/saveAttributes"/*/{quizTreeCode}*/, method = RequestMethod.POST)
+    public ModelAndView saveAttributes(@ModelAttribute ProcessAttributesDTO processAttributesDTO)
+            throws IOException {
+        /*ModelAndView modelAndView = new ModelAndView("productAttributes");
+        String attributesJson = productTypeRepository.findByQuizTreeCode(quizTreeCode).getAttributes();
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> attributes;
+        attributes = mapper.readValue(attributesJson,
+                new TypeReference<Map<String, String>>() {});
+        List<String> attributesList = new ArrayList<>(attributes.keySet());
+        modelAndView.addObject("attributesList", attributesList)*/;
+        return null;
+    }
+
 }

@@ -19,11 +19,11 @@ public class ProductType {
     @Column(name = "product_type_name")
     private String productTypeName;
 
-    @Column(name = "product_type_code")
-    private String productTypeCode;
-
     @Column(name = "attributes")
     private String attributes;
+
+	@Column(name = "quiz_tree_code")
+    private String quizTreeCode;
 
 	public Long getId() {
 		return id;
@@ -41,14 +41,6 @@ public class ProductType {
 		this.productTypeName = productTypeName;
 	}
 
-	public String getProductTypeCode() {
-		return productTypeCode;
-	}
-
-	public void setProductTypeCode(String productTypeCode) {
-		this.productTypeCode = productTypeCode;
-	}
-
 	public String getAttributes() {
 		return attributes;
 	}
@@ -56,6 +48,12 @@ public class ProductType {
 	public void setAttributes(String attributes) {
 		this.attributes = attributes;
 	}
-    
-    
+
+	public String getQuizTreeCode() {
+		return quizTreeCode;
+	}
+
+	public void setQuizTreeCode(String quizTreeCode) {
+		this.quizTreeCode = quizTreeCode;
+	}
 }

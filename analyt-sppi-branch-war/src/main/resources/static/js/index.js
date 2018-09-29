@@ -3,8 +3,8 @@ $(".start-btn").click(function (e) {
     e.preventDefault();
     var productCode = $(this).data("product");
     var productName = $(this).data("product-name");
-    //fillAttributes(productCode);
-    startProcess(productCode, productName);
+    fillAttributes(productCode);
+    // startProcess(productCode, productName);
 });
 
 $("#my_processes_button").click(function (e) {

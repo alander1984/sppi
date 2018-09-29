@@ -7,29 +7,14 @@
 <body>
 <section layout:fragment="content">
 
-
     <div class="box">
         <div class="container">
             <div class="row">
-
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="box-part text-center">
-                        <i class="fa fa-users fa-3x" aria-hidden="true"></i>
-                        <div class="title">
-                            <h4>Кредитование юридических лиц</h4>
-                        </div>
-                        <div class="text">
-                            <span>Проведение теста по кредитованию юридических лиц</span>
-                        </div>
-                        <button data-product="credit_legal_entity" data-product-name="Кредитование юридических лиц" class="btn btn-info start-btn">Начать</button>
-                    </div>
-                </div>
-
                 <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
                     <div class="box-part text-center">
                         <i class="fa fa-line-chart fa-3x" aria-hidden="true"></i>
                         <div class="title">
-                            <h4>Ценные бумаги</h4>
+                            <h4>Приобретенная долговая ценная бумага</h4>
                         </div>
                         <div class="text">
                             <span>Проведение теста по ценным бумагам</span>
@@ -37,41 +22,16 @@
                         <button data-product="securities" data-product-name="Ценные бумаги" class="btn btn-info start-btn">Начать</button>
                     </div>
                 </div>
-				<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="box-part text-center">
-                        <i class="fa fa-line-chart fa-3x" aria-hidden="true"></i>
-                        <div class="title">
-                            <h4>Модификация договора</h4>
-                        </div>
-                        <div class="text">
-                            <span>Проведение теста по модификаации договора</span>
-                        </div>
-                        <button data-product="update" data-product-name="Модификация договора" class="btn btn-info start-btn">Начать</button>
-                    </div>
-                </div>
-
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-                    <div class="box-part text-center">
-                        <i class="fa fa-users fa-3x" aria-hidden="true"></i>
-                        <div class="title">
-                            <h4>Кредитование физических  лиц</h4>
-                        </div>
-                        <div class="text">
-                            <span>Проведение теста по кредитованию физических лиц</span>
-                        </div>
-                        <button data-product="credit_individual_person" data-product-name="Кредитование физических лиц" class="btn btn-info start-btn">Начать</button>
-                    </div>
-                </div>
                 <div class="col-lg-4 col-md-4 col-sm4 col-xs-12">
                     <div class="box-part text-center">
                         <i class="fa fa-university fa-3x"></i>
                         <div class="title">
-                            <h4>Ценные бумаги "серой  зоны№"</h4>
+                            <h4>Приобретенная долговая ценная бумага "серой" зоны</h4>
                         </div>
                         <div class="text">
-                            <span>Проведение теста по ценным бумагам серой зоны</span>
+                            <span>Проведение теста по ценным бумагам "серой" зоны</span>
                         </div>
                         <button data-product="gray_zone" data-product-name="Ценные бумаги серой зоны№" class="btn btn-info start-btn">Начать</button>
                     </div>
@@ -79,28 +39,6 @@
             </div>
         </div>
     </div>
-
-
-
-<!--    <div class="row">
-        <div class="col-sm-4">
-            <h3>Выберите продукт:</h3>
-            <select id="product_type" class="form-control">
-                <option value="credit_legal_entity">Кредитование юридических лиц</option>
-                <option value="central_bank">ЦБ</option>
-            </select>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-sm-4">
-            <h4>Запуск теста для продукта</h4>
-        </div>
-        <div class="col-sm-1">
-            <button id="start_button" class="btn btn-primary">Старт</button>
-        </div>
-    </div>
-    <br/>-->
 
 <script th:src="@{/js/index.js}"></script>
 </section>

@@ -57,13 +57,13 @@ public class ProcessUtils {
             CellStyle cellStyle = workbook.createCellStyle();
             CreationHelper creationHelper = workbook.getCreationHelper();
             cellStyle.setDataFormat(creationHelper.createDataFormat().getFormat("yyyy-dd-MM"));
-            Cell cell2 = headerRow.createCell(1);
+            Cell cell2 = headerRow.createCell(2);
             cell2.setCellValue(process.getDateEnd());
             cell2.setCellStyle(cellStyle);
         }
         sheet.autoSizeColumn(1);
         
-        Cell cell3 = headerRow.createCell(2);
+        Cell cell3 = headerRow.createCell(3);
         cell3.setCellValue(process.getPassed() == null ? TEST_PAUSED : process.getPassed() ? TEST_PASSED : TEST_NOT_PASSED);
 
         for (int i = 0; i < process.getProcessSteps().size(); i++) {
