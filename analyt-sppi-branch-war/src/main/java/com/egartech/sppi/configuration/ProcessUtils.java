@@ -66,6 +66,11 @@ public class ProcessUtils {
         Cell cell3 = headerRow.createCell(3);
         cell3.setCellValue(process.getPassed() == null ? TEST_PAUSED : process.getPassed() ? TEST_PASSED : TEST_NOT_PASSED);
 
+        if (process.getColor() != null && !process.getColor().isEmpty()) {
+            Cell cell4 = headerRow.createCell(4);
+            cell4.setCellValue("Цвет бумаги: " + process.getColor());
+        }
+
         for (int i = 0; i < process.getProcessSteps().size(); i++) {
             Row row = sheet.createRow(i + 2);
             Cell cellQuestion = row.createCell(0);
