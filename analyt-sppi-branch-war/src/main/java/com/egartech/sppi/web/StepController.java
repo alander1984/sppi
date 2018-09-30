@@ -120,6 +120,7 @@ public class StepController {
             process.setPassed(nextQuestionCode.equals("SUCCESS") ? Boolean.TRUE : Boolean.FALSE);
             process.setDateEnd(new Date());
             process.setUti(processUtils.getUTI(process.getPassed(), process.getDateEnd()));
+            processStepRepository.save(processStep);
             processRepository.save(process);
             return new ResponseEntity<>(nextQuestion, HttpStatus.OK);
         }
