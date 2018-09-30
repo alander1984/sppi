@@ -2,6 +2,7 @@ $(".start-btn").click(function (e) {
     $(this).data("product");
     e.preventDefault();
     var productTypeId = $(this).data("product");
+    $("#start-btn").data("product-type",productTypeId);
     fillAttributes(productTypeId);
     //startProcess(productTypeId);
 });
@@ -31,6 +32,25 @@ function fillAttributes(productId) {
 }
 
 function startProcessWithParams() {
+    attributesValues =[];
+    $(".attribute-field").each(function() {
+        attributesValues.push({name:$(this).data('field'),type:$(this).data('type'),value:$(this).val()})
+    })
+    console.log(attributesValues);
+        $.ajax({
+            type: "POST",
+            url: _ctx+'start_process/'+$("#start-btn").data("product-type"),
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify(attributesValues),
+            success: function (response) {
+                console.log("resp="+response);
+                window.location = _ctx+'process/' + response.processId + '/showquestion/'+response.current.id;
+            },
+            error: function (error) {
+                alert("Не найден первый вопрос!")
+            }
+        });
+
 }
 
 function fillModalWithAttributes(productId) {
@@ -44,11 +64,10 @@ function fillModalWithAttributes(productId) {
                     $('<div class="form-group row field">'+
                         '<label for="attr-index+'+index+'" class="col-6 col-form-label">'+attribute.name+'</label>'+
                         '<div class="col-6">'+
-                          '<input class=" form-control attribute-field" data-field="'+attribute.name+'" type="text" data-field="'+attribute.name+'" id="attr-index'+index+'"/>'+
+                          '<input class="form-control attribute-field" data-type="'+attribute.type+'" type="text" data-field="'+attribute.name+'" id="attr-index'+index+'"/>'+
                         '</div>'+
                       '</div>')
                 );
-                console.log(attribute.name);
             })
         },
         error: function (error) {

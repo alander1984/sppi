@@ -36,10 +36,12 @@ public class StepUtils {
 
     public Step getFirstStep(String productCode, Process process) {
         Product product = new Product(productCode);
-        KieSession kieSession = kieContainer.newKieSession();
-        kieSession.insert(product);
-        kieSession.fireAllRules();
+        StatelessKieSession kieSession = kieContainer.newStatelessKieSession();
+        kieSession.execute(product);
+        //kieSession.fireAllRules();
+        System.out.println();
         Question firstQuestion = questionRepository.findOne(byCode(product.getFirstQuestionCode()));
+        System.out.println("################"+product.getProductCode()+"---"+product.getFirstQuestionCode());
 
         return new Step(firstQuestion, process.getId());
     }
