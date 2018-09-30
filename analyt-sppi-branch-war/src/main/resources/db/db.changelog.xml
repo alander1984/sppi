@@ -48,6 +48,6 @@
 		<include file="db/changelog/2909_2110_change_attributes_column_size_in_process_table.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/3009_1055_refactor_product_type_table.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/3009_1420_pausedquestion_column.xml" relativeToChangelogFile="false"/>
-
+        <include file="db/changelog/3009_1531_fill_product_type_by_new_data.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

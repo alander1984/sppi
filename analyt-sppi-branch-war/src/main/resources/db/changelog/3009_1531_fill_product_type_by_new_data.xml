@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+    <changeSet author="001" id="a.fedorenko">
+        <delete tableName="sppi_product_type">
+        </delete>
+    </changeSet>
+    <changeSet id="002" author="a.fedorenko">
+        <loadData encoding="UTF-8"
+                  file="db/data/product_types_full2.csv"
+                  separator=";"
+                  tableName="sppi_product_type">
+        </loadData>
+    </changeSet>
+</databaseChangeLog>
