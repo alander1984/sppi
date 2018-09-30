@@ -54,6 +54,7 @@ public class ProcessController {
         process.setDateStart(new Date());
         ProductType productType = productTypeRepository.findOne(productTypeId);
         process.setProductCode(productType.getQuizTreeCode());
+        process.setProductName(productType.getName());
         process.setAttributes(attributesValues);
         processRepository.save(process);
         Step firstStep = stepUtils.getFirstStep(productType.getQuizTreeCode(), process);
