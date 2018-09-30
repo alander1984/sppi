@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+    <changeSet id="ala_3009" author="alander">
+        <renameTable oldTableName="product_type" newTableName="sppi_product_type"/>
+        <renameColumn tableName="sppi_product_type" oldColumnName="product_type_name" newColumnName="name"/>
+        <addColumn tableName="sppi_product_type">
+            <column name="description" type="varchar(150)"></column>
+        </addColumn>
+        <addColumn tableName="sppi_product_type">
+            <column name="code" type="varchar(10)"></column>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

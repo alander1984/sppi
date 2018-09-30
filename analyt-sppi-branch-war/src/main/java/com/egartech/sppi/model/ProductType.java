@@ -5,7 +5,7 @@ import java.util.*;
 
 
 @Entity
-@Table(name="product_type")
+@Table(name="sppi_product_type")
 public class ProductType {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_type_seq")
@@ -16,8 +16,11 @@ public class ProductType {
     )
     private Long id;
 
-    @Column(name = "product_type_name")
-    private String productTypeName;
+    @Column(name = "name")
+    private String name;
+
+    @Column(name="description")
+	private String description;
 
     @Column(name = "attributes")
     private String attributes;
@@ -31,14 +34,6 @@ public class ProductType {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getProductTypeName() {
-		return productTypeName;
-	}
-
-	public void setProductTypeName(String productTypeName) {
-		this.productTypeName = productTypeName;
 	}
 
 	public String getAttributes() {
@@ -55,5 +50,21 @@ public class ProductType {
 
 	public void setQuizTreeCode(String quizTreeCode) {
 		this.quizTreeCode = quizTreeCode;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

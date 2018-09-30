@@ -1,10 +1,9 @@
 $(".start-btn").click(function (e) {
     $(this).data("product");
     e.preventDefault();
-    var productCode = $(this).data("product");
-    var productName = $(this).data("product-name");
-    fillAttributes(productCode);
-    // startProcess(productCode, productName);
+    var productTypeId = $(this).data("product");
+    fillAttributes(productTypeId);
+    //startProcess(productTypeId);
 });
 
 $("#my_processes_button").click(function (e) {
@@ -25,6 +24,36 @@ $("#question_dictionary_button").click(function (e) {
 });
 
 
-function fillAttributes(productCode) {
-    window.location = _ctx+'productAttributes/' + productCode;
+function fillAttributes(productId) {
+
+    fillModalWithAttributes(productId);
+    $("#showProcessParams").modal("show");
+}
+
+function startProcessWithParams() {
+}
+
+function fillModalWithAttributes(productId) {
+  $("#modalBodyForm").empty();
+    $.ajax({
+        type: "GET",
+        url: _ctx+'productType/'+productId+"/attributes",
+        success: function (attributes) {
+            $.each(attributes,function(index,attribute){
+                $("#modalBodyForm").append(
+                    $('<div class="form-group row field">'+
+                        '<label for="attr-index+'+index+'" class="col-6 col-form-label">'+attribute.name+'</label>'+
+                        '<div class="col-6">'+
+                          '<input class=" form-control attribute-field" data-field="'+attribute.name+'" type="text" data-field="'+attribute.name+'" id="attr-index'+index+'"/>'+
+                        '</div>'+
+                      '</div>')
+                );
+                console.log(attribute.name);
+            })
+        },
+        error: function (error) {
+            alert("Ошибка!")
+        }
+    });
+
 }

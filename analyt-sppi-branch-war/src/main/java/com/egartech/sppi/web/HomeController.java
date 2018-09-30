@@ -3,6 +3,7 @@ package com.egartech.sppi.web;
 import com.egartech.sppi.configuration.StepUtils;
 import com.egartech.sppi.model.Process;
 import com.egartech.sppi.model.ProcessAttributesDTO;
+import com.egartech.sppi.model.ProductType;
 import com.egartech.sppi.model.Step;
 import com.egartech.sppi.repo.ProcessRepository;
 import com.egartech.sppi.repo.ProductTypeRepository;
@@ -49,6 +50,8 @@ public class HomeController {
     @RequestMapping(value="/", method = RequestMethod.GET)
     public ModelAndView getHomeView() {
         ModelAndView modelAndView = new ModelAndView("index");
+        List<ProductType> productTypes= productTypeRepository.findAll();
+        modelAndView.addObject("product_types",productTypes);
         return modelAndView;
     }
 

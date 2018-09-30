@@ -35,18 +35,14 @@ function getNext(processId, questionId, getNextQuestionData) {
     });
 }
 
-function startProcess(productCode, productName) {
-    var product = {
-        productCode: productCode,
-        productName: productName
-    };
+function startProcess(productTypeId) {
     $.ajax({
         type: "POST",
         url: _ctx+'start_process',
         contentType: 'application/json; charset=utf-8',
-        data: JSON.stringify(product),
+        data: JSON.stringify(productTypeId),
         success: function (response) {
-            window.location = _ctx+'process/' + response.processId + '/showquestion/' + response.current.id;
+            window.location = _ctx+'process/' + response.processId + '/editeditAttributes';
         },
         error: function (error) {
             alert("Не найден первый вопрос!")
