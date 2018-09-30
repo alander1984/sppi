@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    $("#attributeContent").empty();
     $.ajax({
         type: "GET",
         url: _ctx+'question/' + questionid,
@@ -16,6 +17,29 @@ $(document).ready(function () {
             //showAlert("Задача не запущена: " + error)
         }
     });
+    $.ajax({
+        type: "GET",
+        url: _ctx+'process/' + processId+'/attributes',
+        contentType: "application/json; charset=utf-8",
+        success: function (attributes) {
+
+             $.each(attributes,function(index,attribute){
+                            $("#attributeContent").append(
+                                $('<div class="form-group row field">'+
+                                    '<label for="attr-index+'+index+'" class="col-6 col-form-label">'+attribute.name+'</label>'+
+                                    '<div class="col-6">'+
+                                      '<label class="form-control attribute-field" data-type="'+attribute.type+'" type="text" data-field="'+attribute.name+'" id="attr-index'+index+'">'+attribute.value+'</label>'+
+                                    '</div>'+
+                                  '</div>')
+                            );
+                        })
+           // showAlert("Задача запущена");
+        },
+        error: function (error) {
+            //showAlert("Задача не запущена: " + error)
+        }
+    });
+
 });
 
 $(".answerBtn").on("click",function() {

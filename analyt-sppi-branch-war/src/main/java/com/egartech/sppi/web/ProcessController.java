@@ -3,9 +3,11 @@ package com.egartech.sppi.web;
 import com.egartech.sppi.configuration.StepUtils;
 import com.egartech.sppi.model.Process;
 import com.egartech.sppi.model.ProductType;
+import com.egartech.sppi.model.ProductTypeAttribute;
 import com.egartech.sppi.model.Step;
 import com.egartech.sppi.repo.ProcessRepository;
 import com.egartech.sppi.repo.ProductTypeRepository;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,6 +37,15 @@ public class ProcessController {
     public ModelAndView showEditAttributesForm() {
         ModelAndView editAttributes = new ModelAndView();
         return null;
+    }
+
+    @RequestMapping(value="/process/{id}/attributes", method = RequestMethod.GET)
+    public ResponseEntity<ProductTypeAttribute[]> getProcessAttributes(@PathVariable("id") Long id) {
+        Process process = processRepository.findOne(id);
+        String attributeString = process.getAttributes();
+        Gson gson = new Gson();
+        ProductTypeAttribute[] result = gson.fromJson(attributeString,ProductTypeAttribute[].class);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value="/start_process/{productTypeId}", method = RequestMethod.POST)
