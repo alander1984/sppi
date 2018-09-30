@@ -1,4 +1,6 @@
 import com.egartech.sppi.model.Process;
+import com.egartech.sppi.model.Color;
+
 
 rule "define color for first case if test failed"
      when
@@ -12,9 +14,8 @@ rule "define color for first case if test failed"
         	
         );
     then
-        $process.setColor("Gray");
+        $process.setColor(Color.GRAY);
 end
-
 
 
 rule "define color second case if test failed"
@@ -29,7 +30,7 @@ rule "define color second case if test failed"
         	getQuestionAnswer("CB14.2")=="no"
         );
     then
-    	$process.setColor("Gray");
+    	$process.setColor(Color.GRAY);
 end
 
 rule "define color third case if test failed"
@@ -41,10 +42,10 @@ rule "define color third case if test failed"
         	getQuestionAnswer("CB51.7.2")=="yes" ||
         	getQuestionAnswer("CB57.7.2")=="yes") &&
         	!getPassed() &&
-        	!(getQuestionAnswer("CB14.2")=="yes")
+        	!(getQuestionAnswer("CB14.2")=="no")
         );
     then
-    	$process.setColor("Black");
+    	$process.setColor(Color.BLACK);
 end
 
 rule "define color first case if test passed"
@@ -58,7 +59,7 @@ rule "define color first case if test passed"
 				((getQuestionAnswer("CB57.4")=="no" || getQuestionAnswer("CB57.5")=="no") && getQuestionAnswer("CB57.7.1")=="no"))
 		);
 	then
-		$process.setColor("Gray");
+		$process.setColor(Color.GRAY);
 end
 
 rule "define color second case if test passed"
@@ -73,7 +74,7 @@ rule "define color second case if test passed"
 					getQuestionAnswer("CB11")=="yes"
 		);
 	then 
-		$process.setColor("Gray");
+		$process.setColor(Color.GRAY);
 end
 
 rule "define color third case if test passed"
@@ -88,6 +89,15 @@ rule "define color third case if test passed"
 					!(getQuestionAnswer("CB11")=="yes")
 		);
 	then 
-		$process.setColor("White");
+		$process.setColor(Color.WHITE);
+end
+
+rule "define color for securities of gray zone"
+    when
+        $process:Process(
+            productCode == "gray_zone"
+        );
+    then
+        $process.setColor(Color.GRAY);
 end
 

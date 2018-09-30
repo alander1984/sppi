@@ -137,12 +137,12 @@ public class StepController {
         Process process = processRepository.findOne(processId);
         process.setColor(processUtils.getProcessColorRuleResult(process));
         if (process.getColor()!=null) {
-        	modelAndView.addObject("color",process.getColor());	
+        	modelAndView.addObject("color",process.getColor().getCode());
         }
         modelAndView.addObject("result", result);
         modelAndView.addObject("processId", processId);
         modelAndView.addObject("uti", process.getUti());
-        modelAndView.addObject("color", process.getColor());
+        //modelAndView.addObject("color", process.getColor().getCode());
         modelAndView.setStatus(HttpStatus.OK);
         return modelAndView;
     }

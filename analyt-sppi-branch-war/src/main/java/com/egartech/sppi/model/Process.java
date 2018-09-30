@@ -56,7 +56,8 @@ public class Process {
     private Boolean isPassed;
 
     @Column(name = "color")
-    private String color;
+    @Enumerated(EnumType.STRING)
+    private Color color;
 
     @Column(name = "uti")
     private String uti;
@@ -188,17 +189,17 @@ public class Process {
                 "id=" + id +
                 ", dateStart=" + dateStart +
                 ", productName='" + productName + '\'' +
-                ", color='" + color + '\'' +
+                ", color='" + color.getCode() + '\'' +
                 '}';
     }
 
 
 
-	public String getColor() {
+	public Color getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
+	public void setColor(Color color) {
 		this.color = color;
 	}
 

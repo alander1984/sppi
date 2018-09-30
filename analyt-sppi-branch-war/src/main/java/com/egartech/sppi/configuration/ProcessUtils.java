@@ -1,5 +1,6 @@
 package com.egartech.sppi.configuration;
 
+import com.egartech.sppi.model.Color;
 import com.egartech.sppi.model.Process;
 import com.egartech.sppi.model.Step;
 import com.egartech.sppi.repo.ProcessRepository;
@@ -66,9 +67,10 @@ public class ProcessUtils {
         Cell cell3 = headerRow.createCell(3);
         cell3.setCellValue(process.getPassed() == null ? TEST_PAUSED : process.getPassed() ? TEST_PASSED : TEST_NOT_PASSED);
 
-        if (process.getColor() != null && !process.getColor().isEmpty()) {
-            Cell cell4 = headerRow.createCell(4);
-            cell4.setCellValue("Цвет бумаги: " + process.getColor());
+       // if (process.getColor() != null && !process.getColor().isEmpty()) {
+         if (process.getColor() != null) {
+        Cell cell4 = headerRow.createCell(4);
+            cell4.setCellValue("Цвет бумаги: " + process.getColor().getCode());
         }
 
         for (int i = 0; i < process.getProcessSteps().size(); i++) {
@@ -175,7 +177,7 @@ public class ProcessUtils {
         return sum;
     }
     
-    public String getProcessColorRuleResult(Process process) {
+    public Color getProcessColorRuleResult(Process process) {
          StatelessKieSession kieSession = kieContainer.newStatelessKieSession();
          kieSession.execute(process);
          System.out.println(process);

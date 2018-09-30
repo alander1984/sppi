@@ -2306,7 +2306,7 @@ rule "Step CB64 - NO"
 
 rule "Step CB65 - YES"
           when
-                $step:Step(current.code=="CB64"&&answer=="yes");
+                $step:Step(current.code=="CB65"&&answer=="yes");
           then
                 $step.setTestFailed();
                 end

@@ -33,7 +33,7 @@
             <td th:utext="${process.getLastProcessStep().getAnswerText()}"  th:if="${status != 'complete'}"></td>
             <td th:text="${process.getProductName()}"></td>
             <td th:if="${status == 'complete'}" th:text="${process.getUti()}"></td>
-            <td th:if="${status == 'complete'}" th:text="${process.getColor()}"></td>
+            <td th:if="${status == 'complete'}" th:text="${process.getColor().getCode()}"></td>
             <td>
                 <div th:if="${process.getPassed() == null}">
                     <p th:text="'Приостановлен'"></p>
