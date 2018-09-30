@@ -61,6 +61,10 @@ public class Process {
     @Column(name = "uti")
     private String uti;
 
+    @ManyToOne()
+    @JoinColumn(name = "paused_question_id")
+    private Question pausedQuestion;
+
     public String getQuestionAnswer(String code) {
     	Iterator<ProcessStep> steps = this.processSteps.iterator();
     	boolean found = false;
@@ -149,7 +153,15 @@ public class Process {
 		this.uti = uti;
 	}
 
-	@Override
+    public Question getPausedQuestion() {
+        return pausedQuestion;
+    }
+
+    public void setPausedQuestion(Question pausedQuestion) {
+        this.pausedQuestion = pausedQuestion;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

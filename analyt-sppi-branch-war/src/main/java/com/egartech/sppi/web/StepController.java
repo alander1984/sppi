@@ -115,7 +115,6 @@ public class StepController {
         	processStep.setFullNameVerifier(fullNameVerifier);
         	processStep.setDateOfVerification(new Date());
         }
-        processStepRepository.save(processStep);
         String nextQuestionCode = nextQuestion.getCode();
         if (nextQuestionCode.equals("SUCCESS") || nextQuestionCode.equals("FAIL")) {
             process.setPassed(nextQuestionCode.equals("SUCCESS") ? Boolean.TRUE : Boolean.FALSE);
@@ -125,7 +124,8 @@ public class StepController {
             return new ResponseEntity<>(nextQuestion, HttpStatus.OK);
         }
         Question question = questionRepository.findOne(byCode(nextQuestionCode));
-
+        process.setPausedQuestion(question);
+        processStepRepository.save(processStep);
         return new ResponseEntity<>(question, HttpStatus.OK);
     }
 

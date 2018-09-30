@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+    <changeSet id="ala_3009_1" author="alander">
+        <addColumn tableName="sppi_processes">
+            <column name="paused_question_id" type="bigint"></column>
+        </addColumn>
+        <addForeignKeyConstraint baseTableName="sppi_processes" baseColumnNames="paused_question_id"
+                                 constraintName="sppp_paused_question_id_fk"
+                                 referencedTableName="sppi_questions"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+</databaseChangeLog>

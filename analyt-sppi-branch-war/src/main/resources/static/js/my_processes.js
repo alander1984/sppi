@@ -1,9 +1,16 @@
-function resumeTest(processId, questionId, answer) {
-    getNext(processId, questionId, answer);
-}
-
-function passTestAgain(productCode, productName) {
-    startProcess(productCode, productName)
+function resumeTest(processId) {
+    $.ajax({
+         type: "GET",
+            url: _ctx+'process/' + processId+'/getpaused',
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+            console.log(response);
+                window.location = _ctx+'process/' + processId + '/showquestion/'+response;
+            },
+            error: function (error) {
+                //showAlert("Задача не запущена: " + error)
+            }
+        });
 }
 
 $(document).ready(function () {

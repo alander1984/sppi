@@ -21,7 +21,7 @@
             <th th:if="${status == 'complete'}" scope="col">УИТ</th>
             <th th:if="${status == 'complete'}" scope="col">Цвет бумаги</th>
             <th scope="col">Статус</th>
-            <th scope="col">Действие</th>
+            <th scope="col" th:if="${status != 'complete'}">Действие</th>
         </tr>
         </thead>
         <tbody th:if="${not #lists.isEmpty(processList)}">
@@ -42,7 +42,7 @@
                     <p th:text="${process.getPassed().booleanValue() == true ? 'Пройден' : 'Не пройден'}"></p>
                 </div>
             </td>
-            <td>
+            <td th:if="${status != 'complete'}">
                 <div th:if="${process.getPassed() != null}">
                     <button class="btn btn-dark" th:text="'Пройти заново'"
                             th:onclick="|passTestAgain('${process.getProductCode()}',
@@ -50,9 +50,7 @@
                 </div>
                 <div th:unless="${process.getPassed() != null}">
                     <button class="btn btn-success" th:text="'Продолжить'"
-                            th:onclick="|resumeTest('${process.getId()}',
-                            '${process.getLastProcessStep().getQuestion().getId()}',
-                            '${process.getLastProcessStep().getAnswer()}')|"></button>
+                            th:onclick="|resumeTest('${process.getId()}')|"></button>
                 </div>
             </td>
         </tr>

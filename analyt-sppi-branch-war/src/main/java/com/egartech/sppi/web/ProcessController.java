@@ -48,4 +48,10 @@ public class ProcessController {
         Step firstStep = stepUtils.getFirstStep(productType.getQuizTreeCode(), process);
         return new ResponseEntity<>(firstStep, HttpStatus.OK);
     }
+
+    @RequestMapping(value="/process/{id}/getpaused", method = RequestMethod.GET)
+    public ResponseEntity<Long> getPausedQuestion(@PathVariable("id") Long id) {
+        Process process = processRepository.findOne(id);
+        return new ResponseEntity<Long>(process.getPausedQuestion().getId(),HttpStatus.OK);
+    }
 }
