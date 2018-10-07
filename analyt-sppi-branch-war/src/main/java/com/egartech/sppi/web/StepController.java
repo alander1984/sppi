@@ -2,38 +2,25 @@ package com.egartech.sppi.web;
 
 import com.egartech.sppi.configuration.CommonUtils;
 import com.egartech.sppi.configuration.ProcessUtils;
-import org.apache.tika.Tika;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Date;
 import com.egartech.sppi.configuration.StepUtils;
+import com.egartech.sppi.model.*;
 import com.egartech.sppi.model.Process;
-import com.egartech.sppi.model.ProcessStep;
-import com.egartech.sppi.model.Question;
 import com.egartech.sppi.repo.ProcessRepository;
 import com.egartech.sppi.repo.ProcessStepRepository;
 import com.egartech.sppi.repo.QuestionRepository;
+import com.egartech.sppi.repo.VerifierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import com.egartech.sppi.repo.VerifierRepository;
-import com.egartech.sppi.model.Verifier;
-import com.egartech.sppi.model.GetNextQuestionDataDTO;
-import org.springframework.http.RequestEntity;
 
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -155,21 +142,14 @@ public class StepController {
     }
     
     @RequestMapping(value="{processId}/testReport", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    public ResponseEntity<InputStreamResource> getTestReport(@PathVariable(value="processId") Long processId) {
-        File file;
-        InputStreamResource resource;
+    public ResponseEntity<byte[]> getTestReport(@PathVariable(value="processId") Long processId) {
         try {
-            file = processUtils.getTestReport(processId);
-            resource = new InputStreamResource(new FileInputStream(file));
+            byte[] testReportBytes = processUtils.getTestReport(processId);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION)
+                    .body(testReportBytes);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION,
-                        "attachment;filename=" + file.getName())
-                .contentType(MediaType.parseMediaType(new Tika().detect(file.getName())))
-                .contentLength(file.length())
-                .body(resource);
     }
-
 }

@@ -2,7 +2,6 @@ package com.egartech.sppi.configuration;
 
 import com.egartech.sppi.model.Color;
 import com.egartech.sppi.model.Process;
-import com.egartech.sppi.model.Step;
 import com.egartech.sppi.repo.ProcessRepository;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -14,15 +13,9 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRED, transactionManager = "transactionManager")
@@ -44,7 +37,7 @@ public class ProcessUtils {
     private static final int DIGITS_COUNT_OF_UNIQUE_NUMBER = 4;
     private static final Set<Integer> ONE_DIGIT_NUMBERS = new HashSet<>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9));
 
-    public File getTestReport(Long processId) throws IOException {
+    public byte[] getTestReport(Long processId) throws IOException {
         Process process = processRepository.findOne(processId);
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet();
@@ -86,14 +79,11 @@ public class ProcessUtils {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         workbook.write(bos);
         workbook.close();
-        
-        File file = new File ("testReport-" + process.getUti() + ".xlsx");
-        FileOutputStream fos = new FileOutputStream(file);
-        bos.writeTo(fos);
+
+        byte[] testReportBytes = bos.toByteArray();
         bos.close();
-        fos.close();
-        
-        return file;
+
+        return testReportBytes;
     }
 
     private String cleanMarkup(String text) {
