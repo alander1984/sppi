@@ -69,31 +69,27 @@
         <div id="attributeContent"/>
     </div>
 
-
-
-
-
-
-    <!--<div class="row">
-        <div class="col-sm-1">
-            <h3>Вопрос:</h3>
+    <div class="modal fade" id="showResultDialog" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" >Все ответы были корректны?</h5>
+                </div>
+                <div class="modal-body" id="resultDialogBody">
+                    <h5>Вы закончили SPPI-тест по ФИ. Подтвердите, пожалуйста, корректность Ваших ответов.</h5>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button id="resultDialogAcceptBtn" type="button" class="btn btn-success">Да, подтверждаю</button>
+                    <span class="d-inline-block" tabindex="0" data-toggle="tooltip"
+                          title="При ответе &quot;Нет&quot; результаты теста будут аннулированы и не будут сохранены">
+                        <button id="resultDialogCancelBtn" type="button" class="btn btn-warning"
+                                data-dismiss="modal">Нет</button>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-7">
-            <h4>
-                <div id="question"></div>
-                <blockquote id="question_note">Примечание:</blockquote>
-            </h4>
-        </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div th:each="answer,ind : ${answers}" class="col-sm-2">
-            <button th:attr="data-tag=${answer.getKey()}" th:text="${answer.getValue()}"
-                    class="answerBtn btn" th:classappend="${answerBtnStyles[ind.index]}"></button>
-        </div>
-    </div>-->
+
 <script th:src="@{/js/step.js}"></script>
 <script th:src="@{/js/common.js}"></script>
 </section>

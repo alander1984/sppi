@@ -189,7 +189,6 @@ public class Process {
                 "id=" + id +
                 ", dateStart=" + dateStart +
                 ", productName='" + productName + '\'' +
-                ", color='" + color.getCode() + '\'' +
                 '}';
     }
 

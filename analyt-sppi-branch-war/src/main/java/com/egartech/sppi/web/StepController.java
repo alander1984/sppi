@@ -137,8 +137,11 @@ public class StepController {
     @RequestMapping(value="/{processId}/deleteUnusedProcess", method=RequestMethod.POST)
     public ResponseEntity<String> deleteUnusedProcess(@PathVariable(value="processId") Long processId) {
         Process process = processRepository.findOne(processId);
+        if (!process.getProcessSteps().isEmpty()) {
+            processStepRepository.delete(process.getProcessSteps());
+        }
         processRepository.delete(process);
-        return new ResponseEntity<>("Deleted unused process during answer to the first question because of switching to another form", HttpStatus.OK);
+        return new ResponseEntity<>("Deleted unused process", HttpStatus.OK);
     }
     
     @RequestMapping(value="{processId}/testReport", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)

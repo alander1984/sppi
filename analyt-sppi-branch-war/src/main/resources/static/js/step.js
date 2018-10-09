@@ -1,3 +1,5 @@
+var testResultCode;
+
 $(document).ready(function () {
     $("#attributeContent").empty();
     $.ajax({
@@ -66,7 +68,7 @@ $(".navPseudo").click(function (e) {
 
 $(".close-test-btn").on("click",function(e) {
     window.location = location.origin+_ctx+"my_processes?status=paused";
-})
+});
 
 
 $(function() {
@@ -77,7 +79,31 @@ $(function() {
 			$("#question_note").hide();
 		}
 	})
-})
+});
 
+function resultDialog(resultCode) {
+    testResultCode = resultCode;
+    $("#showResultDialog").modal({backdrop: "static", keyboard: true, show: true});
+}
 
+$("#resultDialogCancelBtn").on("click", function (e) {
+    alert("Результаты теста аннулированы и не сохранены!");
+    $.ajax({
+        type: "POST",
+        url: location.origin + _ctx + 'process/' + processId + '/deleteUnusedProcess',
+        contentType: 'application/json; charset=utf-8',
+        async: false,
+        success: function () {
+            window.location = location.origin + _ctx;
+        }
+    });
+});
+
+$("#resultDialogAcceptBtn").on("click",function(e) {
+    window.location = _ctx+'process/' + processId +'/result/' + testResultCode.toLowerCase();
+});
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+});
 
