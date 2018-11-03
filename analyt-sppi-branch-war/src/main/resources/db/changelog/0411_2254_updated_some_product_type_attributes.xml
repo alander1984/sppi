@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+    <changeSet author="001" id="a.fedorenko">
+        <sql dbms="h2, oracle">
+            update SPPI_PRODUCT_TYPE set attributes = replace (attributes, 'Потраншевое прохождение', 'Потраншевое прохождение (частичная выдача)') where code in ('YUL_IP_IND', 'PPT_YUL');
+            update SPPI_PRODUCT_TYPE set attributes = replace (attributes, 'ID_Транша', 'ID_Транша (частичная выдача)') where code in ('YUL_IP_IND', 'PPT_YUL');
+        </sql>
+    </changeSet>
+</databaseChangeLog>

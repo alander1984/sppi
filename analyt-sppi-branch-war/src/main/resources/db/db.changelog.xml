@@ -42,7 +42,6 @@
         <include file="db/changelog/2609_1744_add_attributes_to_process_and_product_type.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/2709_1600_add_some_attributes.xml" relativeToChangelogFile="false"/>
 		 <include file="db/changelog/2809_1101_load_new_questions_for_legal_entity.xml" relativeToChangelogFile="false"/>
-
 		<include file="db/changelog/2809_1539_add_quizTreeCode_column_to_productType.xml" relativeToChangelogFile="false"/>
 		<include file="db/changelog/2909_1545_fill_product_type_dictionary.xml" relativeToChangelogFile="false"/>
 		<include file="db/changelog/2909_2110_change_attributes_column_size_in_process_table.xml" relativeToChangelogFile="false"/>
@@ -51,5 +50,7 @@
         <include file="db/changelog/3009_1531_fill_product_type_by_new_data.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/3009_1759_fix_29_question_content.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/3009_1958_fix_56_question_content.xml" relativeToChangelogFile="false"/>
+
+        <include file="db/changelog/0411_2254_updated_some_product_type_attributes.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
