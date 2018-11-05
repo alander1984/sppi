@@ -125,7 +125,7 @@ public class ProcessUtils {
     private int[] getUniqueNumberDuringDay(Date dateEnd) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(dateEnd);
-        int processCount = processRepository.findProcessCountForCurrentDay(calendar.get(Calendar.DAY_OF_MONTH));
+        int processCount = processRepository.findProcessCountForCurrentDay(calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.MONTH) + 1, calendar.get(Calendar.YEAR));
         StringBuilder reversedProcessCountStr = new StringBuilder(String.valueOf(processCount)).reverse();
         int digitsNumberOfProcessCount = reversedProcessCountStr.length();
         int necessaryNumberOfZeros = digitsNumberOfProcessCount == DIGITS_COUNT_OF_UNIQUE_NUMBER ? 0 : DIGITS_COUNT_OF_UNIQUE_NUMBER - digitsNumberOfProcessCount;
