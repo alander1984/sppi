@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_1" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="91d25016-97f0-4637-b39c-99c4ea693e6d">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="EFS-sample-Output"/>
+	<property name="net.sf.jasperreports.export.xls.ignore.cell.border" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.cell.hidden" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.detect.cell.type" value="false"/>
+	<property name="net.sf.jasperreports.export.xls.remove.empty.space.between.columns" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.show.gridlines" value="true"/>
+	<property name="net.sf.jasperreports.export.xls.white.page.background" value="false"/>
+	<queryString language="JSON">
+		<![CDATA[]]>
+	</queryString>
+	<field name="productName" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="productName"/>
+		<fieldDescription><![CDATA[productName]]></fieldDescription>
+	</field>
+	<field name="uti" class="java.lang.Long">
+		<property name="net.sf.jasperreports.json.field.expression" value="uti"/>
+		<fieldDescription><![CDATA[uti]]></fieldDescription>
+	</field>
+	<field name="dateEnd" class="java.sql.Date">
+		<property name="net.sf.jasperreports.json.field.expression" value="dateEnd"/>
+		<fieldDescription><![CDATA[dateEnd]]></fieldDescription>
+	</field>
+	<field name="isPassed" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="isPassed"/>
+		<fieldDescription><![CDATA[isPassed]]></fieldDescription>
+	</field>
+	<field name="color" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="color"/>
+		<fieldDescription><![CDATA[color]]></fieldDescription>
+	</field>
+	<field name="processSteps" class="java.lang.String">
+		<property name="net.sf.jasperreports.json.field.expression" value="processSteps"/>
+		<fieldDescription><![CDATA[processSteps]]></fieldDescription>
+	</field>
+	<field name="SHIPPEDATE" class="java.sql.Timestamp"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout"/>
+			<textField>
+				<reportElement x="-20" y="-20" width="100" height="30" uuid="94cd6514-d42d-4d29-8138-55d1f40a0d2e">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="db7af6fc-cab4-4ad7-988f-86ec79df8199"/>
+				</reportElement>
+				<textFieldExpression><![CDATA["Отчёт по тесту: " + $F{productName}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="80" y="-20" width="100" height="30" uuid="74985de1-f0e7-40d5-86e6-32ee92ec478c"/>
+				<textFieldExpression><![CDATA["УИТ: " + $F{uti}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="180" y="-20" width="100" height="30" uuid="59a8bbd1-5cb4-4056-aaf8-74584ddf43fa"/>
+				<textFieldExpression><![CDATA[$F{dateEnd}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="-20" width="100" height="30" uuid="c68e5b05-6148-4380-97e4-cdc29e686828"/>
+				<textFieldExpression><![CDATA[$F{color}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="-20" width="100" height="30" uuid="4c6f522f-c611-4393-8fc9-a0562a203782"/>
+				<textFieldExpression><![CDATA[$F{isPassed}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-20" y="30" width="100" height="30" uuid="999c352c-312c-439e-bd08-e7c8eae09c0e"/>
+				<text><![CDATA[Вопрос]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="30" width="100" height="30" uuid="9b973fd4-fa9f-4481-bf86-d44590e666d4"/>
+				<text><![CDATA[Ответ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="180" y="30" width="100" height="30" uuid="5e43429b-34b0-4ec0-bf8f-d8312846f4be"/>
+				<text><![CDATA[Верификатор]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="61" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="144" splitType="Stretch">
+			<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.spreadsheet.SpreadsheetLayout"/>
+		</band>
+	</detail>
+</jasperReport>
