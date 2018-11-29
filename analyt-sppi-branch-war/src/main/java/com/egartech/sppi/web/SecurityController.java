@@ -1,19 +1,17 @@
 package com.egartech.sppi.web;
 
+import com.egartech.sppi.model.NewPassDTO;
+import com.egartech.sppi.model.SelfRegistrationDTO;
+import com.egartech.sppi.model.User;
+import com.egartech.sppi.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import com.egartech.sppi.model.NewPassDTO;
-import com.egartech.sppi.model.User;
-import com.egartech.sppi.repo.UserRepository;
 
 @Controller
 public class SecurityController {
@@ -44,5 +42,20 @@ public class SecurityController {
 		}
 			
 	}
-	
+
+	@RequestMapping(value = "commit-self-registration", method = RequestMethod.POST)
+	public ResponseEntity<?> commitSelfRegistration(RequestEntity<SelfRegistrationDTO> registrationData) {
+
+	    if (userRepository.findByUsername(registrationData.getBody().getUsername()).size() != 0) {
+	        return new ResponseEntity<>(HttpStatus.MULTIPLE_CHOICES);
+        } else {
+            User newUser = new User(registrationData.getBody().getUsername(),
+                    registrationData.getBody().getUserFIO(),
+                    registrationData.getBody().getUserPersonnelNum(),
+                    passwordEncoder.encode(registrationData.getBody().getPassword()));
+
+            userRepository.save(newUser);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+	}
 }

@@ -1,6 +1,7 @@
 package com.egartech.sppi.web;
 
 import com.egartech.sppi.configuration.StepUtils;
+import com.egartech.sppi.configuration.UserUtils;
 import com.egartech.sppi.model.Process;
 import com.egartech.sppi.model.ProcessAttributesDTO;
 import com.egartech.sppi.model.ProductType;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +48,9 @@ public class HomeController {
     
     @Autowired
     ProductTypeRepository productTypeRepository;
+
+    @Autowired
+    UserUtils userUtils;
     
     @RequestMapping(value="/", method = RequestMethod.GET)
     public ModelAndView getHomeView() {
@@ -103,6 +108,24 @@ public class HomeController {
 	   ModelAndView modelAndView = new ModelAndView("first_sign");
        return modelAndView;
    }
+
+   @RequestMapping(value="/self-registration", method= RequestMethod.GET)
+   public ModelAndView getSelfRegistrationView() {
+       ModelAndView modelAndView = new ModelAndView("self_registration");
+       return modelAndView;
+   }
+
+    @RequestMapping(value="/selfRegisteredUsers", method=RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+    public ResponseEntity<byte[]> getSelfRegisteredUsers() {
+        try {
+            byte[] testReportBytes = userUtils.getSelfRegisteredUsers();
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=selfRegisteredUsers.xls")
+                    .body(testReportBytes);
+        } catch (IOException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
    
    @RequestMapping(value = "/productAttributes/{quizTreeCode}", method = RequestMethod.GET)
    public ModelAndView getProductAttributes(@PathVariable(value = "quizTreeCode") String quizTreeCode)

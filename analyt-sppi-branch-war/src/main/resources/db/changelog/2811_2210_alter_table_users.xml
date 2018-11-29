@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
+    <changeSet id="001" author="a.fedorenko">
+        <addColumn tableName="sppi_users">
+            <column name="user_fio"  type="varchar(60)" remarks="ФИО пользователя"/>
+        </addColumn>
+        <addColumn tableName="sppi_users">
+            <column name="user_personnel_num" type="varchar(25)" remarks="Табельный номер пользователя"/>
+        </addColumn>
+        <addColumn tableName="sppi_users">
+            <column name="is_self_registered" type="boolean" defaultValueBoolean="false" remarks="Признак саморегистраци пользвателя"/>
+        </addColumn>
+    </changeSet>
+</databaseChangeLog>

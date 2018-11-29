@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="ctx" th:content="@{/}" />
+    <title>Авторизация</title>
+    <link th:href="@{/css/main.css}" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/4.1.1/css/bootstrap.min.css}"/>
+    <script th:src="@{/webjars/jquery/3.3.1-1/jquery.min.js}"/>
+</head>
+<body th:background="@{/images/login/background.jpg}">
+<div class="content_div">
+    <div class="container" style="display:table;width:450px">
+        <div class="card card-container center-block">
+            <img id="profile-img" class="profile-img-card" th:src="@{/images/login/login.png}" style="width:96px;height:96px"/>
+            <p id="profile-name" class="profile-name-card"></p>
+            <!-- <form class="form-signin">-->
+            <span id="reauth-email" class="reauth-email"></span>
+            <h1>Самостоятельная регистрация учётной записи пользователя</h1>
+            <input type="username" id="inputUsername" class="form-control" placeholder="Имя пользователя" required="true" autofocus="true" name="username"/>
+            <input type="text" id="inputUserFIO" class="form-control" placeholder="ФИО" required="true" autofocus="true" name="userFIO"/>
+            <input type="text" id="inputUserPersonnelNum" class="form-control" placeholder="Табельный номер" required="true" autofocus="true" name="userPersonnelNum"/>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Пароль" required="true" name="password"/>
+            <!-- <input type="password" id="inputNewPassword2" class="form-control" placeholder="Подтверждение нового пароля" required="true" name="newPassword2"/>-->
+
+            <!--<div id="remember" class="checkbox">
+                <label>
+                    <input type="checkbox" value="remember-me">Запомнить меня</input>
+                </label>
+            </div>-->
+            <button class="btn btn-lg btn-primary btn-block btn-signin">Зарегистрировать пользователя</button>
+            <!-- </form>-->
+            <div th:switch="${error}">
+                <p th:case="1" style="color:red; top:135px; position:absolute; right:110px;">Ошибка регистрации</p>
+            </div>
+            <a th:href="@{/login}">Перейти к стандартному входу</a><!-- Убрать? -->
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/common.js}"></script>
+<script th:src="@{/js/self_registration.js}"></script>
+</body>
+</html>

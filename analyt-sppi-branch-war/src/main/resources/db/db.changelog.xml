@@ -50,7 +50,8 @@
         <include file="db/changelog/3009_1531_fill_product_type_by_new_data.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/3009_1759_fix_29_question_content.xml" relativeToChangelogFile="false"/>
         <include file="db/changelog/3009_1958_fix_56_question_content.xml" relativeToChangelogFile="false"/>
-
         <include file="db/changelog/0411_2254_updated_some_product_type_attributes.xml" relativeToChangelogFile="false"/>
+
+        <include file="db/changelog/2811_2210_alter_table_users.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>
