@@ -103,11 +103,11 @@ public class HomeController {
         return modelAndView;
    }
    
-   @RequestMapping(value="/first-sign", method= RequestMethod.GET)
+/*   @RequestMapping(value="/first-sign", method= RequestMethod.GET)
    public ModelAndView getFirstSignView() {
 	   ModelAndView modelAndView = new ModelAndView("first_sign");
        return modelAndView;
-   }
+   }*/
 
    @RequestMapping(value="/self-registration", method= RequestMethod.GET)
    public ModelAndView getSelfRegistrationView() {
