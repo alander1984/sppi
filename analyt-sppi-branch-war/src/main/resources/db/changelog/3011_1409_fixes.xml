@@ -4,6 +4,6 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog /xsd/dbchangelog-3.6.xsd">
     <changeSet author="001" id="a.fedorenko">
-            <sqlFile path="/db/data/updates.sql" relativeToChangelogFile="true"  stripComments="true" splitStatements="true" encoding="utf8"/>
+            <sqlFile path="/db/data/updates.sql"  stripComments="true" splitStatements="true" encoding="utf8"/>
     </changeSet>
 </databaseChangeLog>
